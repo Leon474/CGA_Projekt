@@ -207,7 +207,7 @@ public class Scene {
         /*if (window.getKeyState(GLFW_KEY_S)){
             lightcycle.translateLocal(new Vector3f(0.0f,0.0f,translationMultiplier * dt));
         }*/
-        if (window. getKeyState(GLFW_KEY_D)){
+        if (window.getKeyState(GLFW_KEY_D)){
             lightcycle.translateLocal(new Vector3f(translationMultiplier * dt, 0.0f,0.0f));
         }
         if (window.getKeyState(GLFW_KEY_A)){
@@ -228,6 +228,12 @@ public class Scene {
     }
 
     public void characterMovement() {
+        if (window.getKeyState(GLFW_KEY_D)) {
+            lightcycle.rotateLocal(0, (float) Math.toRadians(-250.0f), 0);
+        }
+        if (window.getKeyState(GLFW_KEY_A)) {
+            lightcycle.rotateLocal(0, (float) Math.toRadians(250.0f), 0);
+        }
     }
 
     public void changeCamera() {
@@ -239,10 +245,10 @@ public class Scene {
             cam.rotateLocal(0, (float)Math.toRadians(10.0f), 0);
         }
         else if (window.getKeyState(GLFW_KEY_C)){
-            // TODO: CAM LEFT FROM BIKE
+            // TODO: FIRST PERSON
             cam = new TronCam();
             cam.setParent(lightcycle);
-            cam.translateLocal(new Vector3f(-2.0f,2.0f,4.0f)); // z ist die entfernung zum object --> test von mir
+            cam.translateLocal(new Vector3f(0.0f,2.0f,0.2f)); // z ist die entfernung zum object --> test von mir
             cam.rotateLocal(0, (float)Math.toRadians(10.0f), 0);
         }
         else if (window.getKeyState(GLFW_KEY_X)) {

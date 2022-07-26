@@ -79,7 +79,7 @@ public class Scene {
             Texture2D diff = new Texture2D("assets/textures/ground_diff.png",true);
             Texture2D emit = new Texture2D("assets/textures/ground_emit.png",true);
             Texture2D spec = new Texture2D("assets/textures/ground_spec.png",true);
-            Vector2f tcMultiplier = new Vector2f(64.0f,64.0f);
+            Vector2f tcMultiplier = new Vector2f(60.0f,60.0f);
 
             diff.setTexParams(GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
             emit.setTexParams(GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
@@ -160,6 +160,8 @@ public class Scene {
             glEnable(GL_DEPTH_TEST);
             glDepthFunc(GL_LESS);
 
+            //characterMovement();
+
             return true;
         } catch (Exception ex) {
             System.err.println("Scene initialization failed:\n" + ex.getMessage() + "\n");
@@ -210,14 +212,15 @@ public class Scene {
         /*if (window.getKeyState(GLFW_KEY_W)) {
             lightcycle.translateLocal(new Vector3f(0.0f,0.0f,-translationMultiplier * dt));
         }*/
+
         /*if (window.getKeyState(GLFW_KEY_S)){
             lightcycle.translateLocal(new Vector3f(0.0f,0.0f,translationMultiplier * dt));
         }*/
         if (window.getKeyState(GLFW_KEY_D)){
-            lightcycle.translateLocal(new Vector3f(translationMultiplier * dt, 0.0f,0.0f));
+            //lightcycle.translateLocal(new Vector3f(translationMultiplier * dt, 0.0f,0.0f));
         }
         if (window.getKeyState(GLFW_KEY_A)){
-            lightcycle.translateLocal(new Vector3f(-translationMultiplier * dt, 0.0f,0.0f));
+            //lightcycle.translateLocal(new Vector3f(-translationMultiplier * dt, 0.0f,0.0f));
         }
 
         /*if (window.getKeyState(GLFW_KEY_D)){
@@ -228,28 +231,28 @@ public class Scene {
         }*/
 
         // TODO: CHARACTER MOVEMENT
-        characterMovement();
+        //characterMovement();
         // TODO: CAMERA CHANGE
         changeCamera();
     }
 
     public void characterMovement() {
         if (window.getKeyState(GLFW_KEY_D)) {
-            lightcycle.rotateLocal(0, (float) Math.toRadians(-250.0f), 0);
+            //lightcycle.rotateLocal(0, (float) Math.toRadians(-250.0f), 0);
+            lightcycle.translateLocal(new Vector3f(50, 0.0f,0.0f));
         }
+        if (window.getKeyState(GLFW_KEY_D) == false)
+            //lightcycle.rotateLocal(0, 2500, 0);
+
         if (window.getKeyState(GLFW_KEY_A)) {
-            lightcycle.rotateLocal(0, (float) Math.toRadians(250.0f), 0);
+            //lightcycle.rotateLocal(0, (float) Math.toRadians(2500.0f), 0);
+            lightcycle.translateLocal(new Vector3f(-50, 0.0f,0.0f));
         }
+
     }
 
     public void changeCamera() {
-        /*if (window.getKeyState(GLFW_KEY_V)){
-            // TODO: CAM RIGHT FROM BIKE (ORIGINAL)
-            cam = new TronCam();
-            cam.setParent(lightcycle);
-            cam.translateLocal(new Vector3f(2.0f,2.0f,4.0f));   // original!
-            cam.rotateLocal(0, (float)Math.toRadians(10.0f), 0);
-        }*/
+
          if (window.getKeyState(GLFW_KEY_C)){
             // TODO: FIRST PERSON
             cam = new TronCam();
@@ -264,9 +267,21 @@ public class Scene {
             cam.translateLocal(new Vector3f(0.0f, 7.0f, 0.0f));   // original!
             //cam.translateLocal(new Vector3f(2.0f,5.0f,10.0f)); // z ist die entfernung zum object --> test von mir
             cam.rotateLocal(-90, (float) Math.toRadians(0), 0);
+
+            bigWallOBJ.scaleLocal(new Vector3f(0.1f));
+        }
+
+    }
+    public void onKey(int key, int scancode, int action, int mode) {
+        if (window.getKeyState(GLFW_KEY_D)) {
+            lightcycle.translateLocal(new Vector3f(10, 0.0f,0.0f));
+            //lightcycle.rotateLocal(0, (float) Math.toRadians(-90.0f), 0);
+        }
+        if (window.getKeyState(GLFW_KEY_A)) {
+            lightcycle.translateLocal(new Vector3f(-10, 0.0f,0.0f));
+            //lightcycle.rotateLocal(0, (float) Math.toRadians(90.0f), 0);
         }
     }
-    public void onKey(int key, int scancode, int action, int mode) {}
     public void onMouseMove(double xpos, double ypos) {
         float rotationMultiplier = 0.00005f;
         float translationMultiplier = 0.000005f;

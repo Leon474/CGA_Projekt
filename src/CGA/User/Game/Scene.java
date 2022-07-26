@@ -199,25 +199,27 @@ public class Scene {
         float rotationMultiplier = 90.0f;
         float translationMultiplier = 5.0f;
 
-        if (window.getKeyState(GLFW_KEY_W)) {
+        lightcycle.translateLocal(new Vector3f(0.0f,0.0f,-translationMultiplier * dt));
+
+        /*if (window.getKeyState(GLFW_KEY_W)) {
             lightcycle.translateLocal(new Vector3f(0.0f,0.0f,-translationMultiplier * dt));
-        }
-        if (window.getKeyState(GLFW_KEY_S)){
+        }*/
+        /*if (window.getKeyState(GLFW_KEY_S)){
             lightcycle.translateLocal(new Vector3f(0.0f,0.0f,translationMultiplier * dt));
-        }
-        if (window. getKeyState(GLFW_KEY_E)){
+        }*/
+        if (window. getKeyState(GLFW_KEY_D)){
             lightcycle.translateLocal(new Vector3f(translationMultiplier * dt, 0.0f,0.0f));
         }
-        if (window.getKeyState(GLFW_KEY_Q)){
+        if (window.getKeyState(GLFW_KEY_A)){
             lightcycle.translateLocal(new Vector3f(-translationMultiplier * dt, 0.0f,0.0f));
         }
 
-        if (window.getKeyState(GLFW_KEY_D)){
+        /*if (window.getKeyState(GLFW_KEY_D)){
             lightcycle.rotateLocal(0.0f,-rotationMultiplier *dt,0.0f);
         }
         if (window.getKeyState(GLFW_KEY_A)){
             lightcycle.rotateLocal(0.0f,rotationMultiplier *dt,0.0f);
-        }
+        }*/
 
         // TODO: CHARACTER MOVEMENT
         characterMovement();

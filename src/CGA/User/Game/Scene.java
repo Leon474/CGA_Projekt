@@ -136,10 +136,16 @@ public class Scene {
             //spotLight_Test.translateLocal(new Vector3f(0f,1.0f,-2.0f));
 
             // TODO: CAMERA
-            cam = new TronCam();
+            /*cam = new TronCam();
             cam.setParent(lightcycle);
             cam.translateLocal(new Vector3f(2.0f,2.0f,4.0f));   // original!
             //cam.translateLocal(new Vector3f(2.0f,5.0f,10.0f)); // z ist die entfernung zum object --> test von mir
+            cam.rotateLocal(0, (float)Math.toRadians(10.0f), 0);*/
+
+            // TODO: CAMERA (FIRST PERSON)
+            cam = new TronCam();
+            cam.setParent(lightcycle);
+            cam.translateLocal(new Vector3f(0.0f,2.0f,0.2f)); // z ist die entfernung zum object --> test von mir
             cam.rotateLocal(0, (float)Math.toRadians(10.0f), 0);
 
             // m4Boden.identity().rotateX((float) Math.toRadians(90)).scaleLocal(0.03f);
@@ -237,14 +243,14 @@ public class Scene {
     }
 
     public void changeCamera() {
-        if (window.getKeyState(GLFW_KEY_V)){
+        /*if (window.getKeyState(GLFW_KEY_V)){
             // TODO: CAM RIGHT FROM BIKE (ORIGINAL)
             cam = new TronCam();
             cam.setParent(lightcycle);
             cam.translateLocal(new Vector3f(2.0f,2.0f,4.0f));   // original!
             cam.rotateLocal(0, (float)Math.toRadians(10.0f), 0);
-        }
-        else if (window.getKeyState(GLFW_KEY_C)){
+        }*/
+         if (window.getKeyState(GLFW_KEY_C)){
             // TODO: FIRST PERSON
             cam = new TronCam();
             cam.setParent(lightcycle);

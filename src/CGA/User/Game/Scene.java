@@ -20,7 +20,6 @@ import org.joml.Vector3f;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL20.glDeleteShader;
 
 /**
  * Created by Fabian on 16.09.2017.
@@ -40,7 +39,7 @@ public class Scene {
     private ModelLoader loader;
 
     // objects:
-    private Renderable lightcycle;
+    private Renderable bicycle;
     private Renderable cubeOBJ;
     private Renderable bigWallOBJ;
     private Renderable stallOBJ;
@@ -94,9 +93,9 @@ public class Scene {
 
 
             // TODO: TRON BIKE / OBJECTS IN WORLD
-            lightcycle = new Renderable();
-            lightcycle = loader.loadModel("assets/Light Cycle/Light Cycle/HQ_Movie cycle.obj",(float) Math.toRadians(-90.0f),(float) Math.toRadians(90.0f),0);  //original
-            lightcycle.scaleLocal(new Vector3f(0.8f)); // original       // --> size of the object
+            bicycle = new Renderable();
+            bicycle = loader.loadModel("assets/Light Cycle/Light Cycle/HQ_Movie cycle.obj",(float) Math.toRadians(-90.0f),(float) Math.toRadians(90.0f),0);  //original
+            bicycle.scaleLocal(new Vector3f(0.8f)); // original       // --> size of the object
 
             computer = new Renderable();
             computer = loader.loadModel("assets/Light Cycle/free-datsun-280z/source/Datsun_280Z/Datsun_280Z.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(90.0f),0);
@@ -120,13 +119,13 @@ public class Scene {
             cubeColor.translateGlobal(new Vector3f(0,1,-3));
 
             // TODO: COLORFUL LIGHT (Unterbodenbeleuchtung)
-            pointLight = new PointLight(lightcycle.getPosition(), new Vector3f(1.0f,1.0f,1.0f),1.0f,0.5f,0.1f);
-            pointLight.setParent(lightcycle);
+            pointLight = new PointLight(bicycle.getPosition(), new Vector3f(1.0f,1.0f,1.0f),1.0f,0.5f,0.1f);
+            pointLight.setParent(bicycle);
             //pointLight.translateLocal(new Vector3f(0f,1f,0f));
 
             // TODO: SPOTLIGHT (Scheinwerfer)
-            spotLight = new SpotLight(lightcycle.getPosition(), new Vector3f(1f,1f,1.0f), 0.5f,0.05f, 0.01f, 50f, 70f);
-            spotLight.setParent(lightcycle);
+            spotLight = new SpotLight(bicycle.getPosition(), new Vector3f(1f,1f,1.0f), 0.5f,0.05f, 0.01f, 50f, 70f);
+            spotLight.setParent(bicycle);
             spotLight.translateLocal(new Vector3f(0f,1.0f,-2.0f));
 
             //sun = new SpotLight(new Vector3f(0,10,0), new Vector3f(1f,1f,1.0f), 0.5f,0.05f, 0.01f, 50f, 70f);
@@ -135,21 +134,17 @@ public class Scene {
             //spotLight_Test = new SpotLight(lightcycle.getPosition(), new Vector3f(1f,1f,1.0f), 0.5f,0.05f, 0.01f, 50f, 70f);
             //spotLight_Test.translateLocal(new Vector3f(0f,1.0f,-2.0f));
 
-            // TODO: CAMERA
-            /*cam = new TronCam();
-            cam.setParent(lightcycle);
-            cam.translateLocal(new Vector3f(2.0f,2.0f,4.0f));   // original!
-            //cam.translateLocal(new Vector3f(2.0f,5.0f,10.0f)); // z ist die entfernung zum object --> test von mir
-            cam.rotateLocal(0, (float)Math.toRadians(10.0f), 0);*/
 
             // TODO: CAMERA (FIRST PERSON)
             cam = new TronCam();
-            cam.setParent(lightcycle);
+            cam.setParent(bicycle);
             cam.translateLocal(new Vector3f(0.0f,2.0f,0.2f)); // z ist die entfernung zum object --> test von mir
             cam.rotateLocal(0, (float)Math.toRadians(10.0f), 0);
 
             // m4Boden.identity().rotateX((float) Math.toRadians(90)).scaleLocal(0.03f);
             // m4Boden.identity().rotate((float) Math.toRadians(90), new Vector3f(1.0f, 0, 0)).scaleLocal(0.03f);
+
+
 
             // TODO: BACKGROUNDCOLOR -->  r, g, b
             glClearColor(0.0f, 0.0f, 0.0f, 0.0f);  //--> original (schwarz)
@@ -161,6 +156,7 @@ public class Scene {
             glDepthFunc(GL_LESS);
 
             //characterMovement();
+            collisionDetection();
 
             return true;
         } catch (Exception ex) {
@@ -189,7 +185,7 @@ public class Scene {
         bodenRend.render(simpleShader);
 
         simpleShader.setUniform("Farbe", new Vector3f((float)Math.sin(t),(float)Math.cos(t),0.5f));
-        lightcycle.render(simpleShader);
+        bicycle.render(simpleShader);
 
         cubeOBJ.render(simpleShader);
         bigWallOBJ.render(simpleShader);
@@ -207,7 +203,7 @@ public class Scene {
         float rotationMultiplier = 90.0f;
         float translationMultiplier = 5.0f;
 
-        lightcycle.translateLocal(new Vector3f(0.0f,0.0f,-translationMultiplier * dt));
+        bicycle.translateLocal(new Vector3f(0.0f,0.0f,-translationMultiplier * dt));
 
         /*if (window.getKeyState(GLFW_KEY_W)) {
             lightcycle.translateLocal(new Vector3f(0.0f,0.0f,-translationMultiplier * dt));
@@ -234,19 +230,47 @@ public class Scene {
         //characterMovement();
         // TODO: CAMERA CHANGE
         changeCamera();
+        collisionDetection();
     }
 
     public void characterMovement() {
-        if (window.getKeyState(GLFW_KEY_D)) {
+        /*if (window.getKeyState(GLFW_KEY_D)) {
             //lightcycle.rotateLocal(0, (float) Math.toRadians(-250.0f), 0);
-            lightcycle.translateLocal(new Vector3f(50, 0.0f,0.0f));
+            bicycle.translateLocal(new Vector3f(50, 0.0f,0.0f));
         }
         if (window.getKeyState(GLFW_KEY_D) == false)
             //lightcycle.rotateLocal(0, 2500, 0);
 
         if (window.getKeyState(GLFW_KEY_A)) {
-            //lightcycle.rotateLocal(0, (float) Math.toRadians(2500.0f), 0);
-            lightcycle.translateLocal(new Vector3f(-50, 0.0f,0.0f));
+            //lightcycle.rotateLocal(0, (float) Math.toRadians(250.0f), 0);
+            bicycle.translateLocal(new Vector3f(-50, 0.0f,0.0f));
+        }*/
+
+        Vector3f leftBorder = new Vector3f(-10, bicycle.getWorldPosition().y, bicycle.getWorldPosition().z);
+        Vector3f rightBorder = new Vector3f(10, bicycle.getWorldPosition().y, bicycle.getWorldPosition().z);
+
+        if (window.getKeyState(GLFW_KEY_A)) {
+            //bicycle.translateLocal(new Vector3f(-10, 0.0f,0.0f));
+            bicycle.translateGlobal(new Vector3f(-10, 0.0f,0.0f));
+            bicycle.rotateLocal(0, 45.0f, 0);
+        }
+        if (bicycle.getWorldPosition().x == leftBorder.x){
+            //bicycle.translateLocal(new Vector3f(0, 0.0f,0.0f));
+            System.out.println("left border");
+            bicycle.rotateLocal(0, -45.0f, 0);
+        }
+
+        System.out.println("checkXAxis: "+leftBorder);
+
+
+        if (window.getKeyState(GLFW_KEY_D)) {
+            bicycle.translateGlobal(new Vector3f(10, 0.0f,0.0f));
+        } /*else if (window.getKeyState(GLFW_KEY_A) == false) {
+            bicycle.rotateLocal(0, -45.0f, 0);
+        }*/
+        if (bicycle.getWorldPosition().x == rightBorder.x){
+            //bicycle.translateLocal(new Vector3f(0, 0.0f,0.0f));
+            System.out.println("right border");
         }
 
     }
@@ -256,31 +280,59 @@ public class Scene {
          if (window.getKeyState(GLFW_KEY_C)){
             // TODO: FIRST PERSON
             cam = new TronCam();
-            cam.setParent(lightcycle);
+            cam.setParent(bicycle);
             cam.translateLocal(new Vector3f(0.0f,2.0f,0.2f)); // z ist die entfernung zum object --> test von mir
             cam.rotateLocal(0, (float)Math.toRadians(10.0f), 0);
         }
         else if (window.getKeyState(GLFW_KEY_X)) {
             // TODO: BirdeyeView
             cam = new TronCam();
-            cam.setParent(lightcycle);
+            cam.setParent(bicycle);
             cam.translateLocal(new Vector3f(0.0f, 7.0f, 0.0f));   // original!
             //cam.translateLocal(new Vector3f(2.0f,5.0f,10.0f)); // z ist die entfernung zum object --> test von mir
             cam.rotateLocal(-90, (float) Math.toRadians(0), 0);
 
-            bigWallOBJ.scaleLocal(new Vector3f(0.1f));
+            //bigWallOBJ.scaleLocal(new Vector3f(0.1f));
         }
 
     }
     public void onKey(int key, int scancode, int action, int mode) {
-        if (window.getKeyState(GLFW_KEY_D)) {
-            lightcycle.translateLocal(new Vector3f(10, 0.0f,0.0f));
-            //lightcycle.rotateLocal(0, (float) Math.toRadians(-90.0f), 0);
-        }
+
+       /* Vector3f leftBorder = new Vector3f(-10, bicycle.getWorldPosition().y, bicycle.getWorldPosition().z);
+        Vector3f rightBorder = new Vector3f(10, bicycle.getWorldPosition().y, bicycle.getWorldPosition().z);
+
         if (window.getKeyState(GLFW_KEY_A)) {
-            lightcycle.translateLocal(new Vector3f(-10, 0.0f,0.0f));
-            //lightcycle.rotateLocal(0, (float) Math.toRadians(90.0f), 0);
+            //bicycle.translateLocal(new Vector3f(-10, 0.0f,0.0f));
+            bicycle.translateGlobal(new Vector3f(-10, 0.0f,0.0f));
+            bicycle.rotateLocal(0, 45.0f, 0);
         }
+            if (bicycle.getWorldPosition().x == leftBorder.x){
+                //bicycle.translateLocal(new Vector3f(0, 0.0f,0.0f));
+                System.out.println("left border");
+                bicycle.rotateLocal(0, -45.0f, 0);
+            }
+
+        System.out.println("checkXAxis: "+leftBorder);
+
+
+        if (window.getKeyState(GLFW_KEY_D)) {
+            bicycle.translateGlobal(new Vector3f(10, 0.0f,0.0f));
+        } /*else if (window.getKeyState(GLFW_KEY_A) == false) {
+            bicycle.rotateLocal(0, -45.0f, 0);
+        }*/
+           /* if (bicycle.getWorldPosition().x == rightBorder.x){
+                //bicycle.translateLocal(new Vector3f(0, 0.0f,0.0f));
+                System.out.println("right border");
+            }*/
+            characterMovement();
+    }
+
+    public void collisionDetection(){
+        if (bicycle.getWorldXAxis() == bigWallOBJ.getWorldXAxis()){
+            System.out.println("COLLISION!!!");
+        }
+        //System.out.println(bigWallOBJ.getPosition());
+        //System.out.println("x achse: "+bigWallOBJ.getXAxis());
     }
     public void onMouseMove(double xpos, double ypos) {
         float rotationMultiplier = 0.00005f;

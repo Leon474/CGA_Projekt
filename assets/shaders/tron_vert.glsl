@@ -28,7 +28,6 @@ vec3 test;
 
 void main(){
 
-
     mat4 modelView = viewMat * model_matrix;
     vec4 pos = projMat* modelView * vec4(position, 1.0f);
     vec4 norm = inverse(transpose(modelView)) * vec4(normale, 1.0f);

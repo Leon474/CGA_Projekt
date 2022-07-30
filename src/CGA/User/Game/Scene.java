@@ -203,74 +203,75 @@ public class Scene {
         float rotationMultiplier = 90.0f;
         float translationMultiplier = 5.0f;
 
-        bicycle.translateLocal(new Vector3f(0.0f,0.0f,-translationMultiplier * dt));
+        // TODO: BIKE ACCELERATION
+        bicycle.translateLocal(new Vector3f(0.0f,0.0f,(-translationMultiplier/3) * dt));
 
-        /*if (window.getKeyState(GLFW_KEY_W)) {
-            lightcycle.translateLocal(new Vector3f(0.0f,0.0f,-translationMultiplier * dt));
-        }*/
-
-        /*if (window.getKeyState(GLFW_KEY_S)){
-            lightcycle.translateLocal(new Vector3f(0.0f,0.0f,translationMultiplier * dt));
-        }*/
-        if (window.getKeyState(GLFW_KEY_D)){
-            //lightcycle.translateLocal(new Vector3f(translationMultiplier * dt, 0.0f,0.0f));
-        }
-        if (window.getKeyState(GLFW_KEY_A)){
-            //lightcycle.translateLocal(new Vector3f(-translationMultiplier * dt, 0.0f,0.0f));
-        }
-
-        /*if (window.getKeyState(GLFW_KEY_D)){
-            lightcycle.rotateLocal(0.0f,-rotationMultiplier *dt,0.0f);
-        }
-        if (window.getKeyState(GLFW_KEY_A)){
-            lightcycle.rotateLocal(0.0f,rotationMultiplier *dt,0.0f);
-        }*/
-
-        // TODO: CHARACTER MOVEMENT
-        //characterMovement();
         // TODO: CAMERA CHANGE
         changeCamera();
+
+        // TODO: COLLISION DETECTION
         collisionDetection();
     }
 
     public void characterMovement() {
-        /*if (window.getKeyState(GLFW_KEY_D)) {
-            //lightcycle.rotateLocal(0, (float) Math.toRadians(-250.0f), 0);
-            bicycle.translateLocal(new Vector3f(50, 0.0f,0.0f));
+
+        boolean keyA = false;
+        boolean keyD = false;
+
+        Vector3f leftBorder = new Vector3f(-5, bicycle.getWorldPosition().y, bicycle.getWorldPosition().z);
+        Vector3f rightBorder = new Vector3f(5, bicycle.getWorldPosition().y, bicycle.getWorldPosition().z);
+        Vector3f center = new Vector3f(0, bicycle.getWorldPosition().y, bicycle.getWorldPosition().z);
+
+        // TODO: CENTER CHECK
+        if (bicycle.getWorldPosition().x == center.x) {
+            keyA = true;
+            keyD = true;
+            System.out.println("-- center!"+ keyA+", "+ keyD);
         }
-        if (window.getKeyState(GLFW_KEY_D) == false)
-            //lightcycle.rotateLocal(0, 2500, 0);
 
-        if (window.getKeyState(GLFW_KEY_A)) {
-            //lightcycle.rotateLocal(0, (float) Math.toRadians(250.0f), 0);
-            bicycle.translateLocal(new Vector3f(-50, 0.0f,0.0f));
-        }*/
-
-        Vector3f leftBorder = new Vector3f(-10, bicycle.getWorldPosition().y, bicycle.getWorldPosition().z);
-        Vector3f rightBorder = new Vector3f(10, bicycle.getWorldPosition().y, bicycle.getWorldPosition().z);
-
-        if (window.getKeyState(GLFW_KEY_A)) {
-            //bicycle.translateLocal(new Vector3f(-10, 0.0f,0.0f));
-            bicycle.translateGlobal(new Vector3f(-10, 0.0f,0.0f));
-            bicycle.rotateLocal(0, 45.0f, 0);
-        }
+        // TODO: BORDER CHECK
+        // LEFT BORDER:
         if (bicycle.getWorldPosition().x == leftBorder.x){
-            //bicycle.translateLocal(new Vector3f(0, 0.0f,0.0f));
-            System.out.println("left border");
-            bicycle.rotateLocal(0, -45.0f, 0);
+            // if bicycle is on left border
+            System.out.println("-- left border");
+            keyA = false;
+            keyD = true;
+
+            System.out.println("keyA: "+keyA);
+            System.out.println("keyD: "+keyD);
+        }
+        // RIGHT BORDER:
+        if (bicycle.getWorldPosition().x == rightBorder.x){
+            // if bicycle is on right border
+            System.out.println("-- right border");
+            keyA = true;
+            keyD = false;
+
+            System.out.println("keyD: "+keyD);
+            System.out.println("keyA: "+keyA);
         }
 
-        System.out.println("checkXAxis: "+leftBorder);
+        // TODO: CHARACTER MOVEMENT
+        // CHARACTER MOVES LEFT AND RIGHT
+        if (window.getKeyState(GLFW_KEY_A) && keyA == true) {
+            bicycle.translateGlobal(new Vector3f(-5, 0.0f,0.0f));
+            System.out.println(keyA+", "+keyD);
+            //bicycle.rotateLocal(0, 45.0f, 0);
+        }
+        if (window.getKeyState(GLFW_KEY_D) && keyD == true) {
+            bicycle.translateGlobal(new Vector3f(5, 0.0f,0.0f));
+            System.out.println(keyA+", "+keyD);
+            //bicycle.rotateLocal(0, -45.0f, 0);
+        }
 
-
-        if (window.getKeyState(GLFW_KEY_D)) {
-            bicycle.translateGlobal(new Vector3f(10, 0.0f,0.0f));
-        } /*else if (window.getKeyState(GLFW_KEY_A) == false) {
-            bicycle.rotateLocal(0, -45.0f, 0);
-        }*/
-        if (bicycle.getWorldPosition().x == rightBorder.x){
-            //bicycle.translateLocal(new Vector3f(0, 0.0f,0.0f));
-            System.out.println("right border");
+        // CHARACTER IS NOT ABLE TO MOVE OVER BORDER
+        if (window.getKeyState(GLFW_KEY_A) && keyA == false) {
+            bicycle.translateGlobal(new Vector3f(0.0f, 0.0f, 0.0f));
+            keyD = true;
+        }
+        if (window.getKeyState(GLFW_KEY_D) && keyD == false) {
+            bicycle.translateGlobal(new Vector3f(0.0f, 0.0f,0.0f));
+            keyA = true;
         }
 
     }
@@ -297,33 +298,6 @@ public class Scene {
 
     }
     public void onKey(int key, int scancode, int action, int mode) {
-
-       /* Vector3f leftBorder = new Vector3f(-10, bicycle.getWorldPosition().y, bicycle.getWorldPosition().z);
-        Vector3f rightBorder = new Vector3f(10, bicycle.getWorldPosition().y, bicycle.getWorldPosition().z);
-
-        if (window.getKeyState(GLFW_KEY_A)) {
-            //bicycle.translateLocal(new Vector3f(-10, 0.0f,0.0f));
-            bicycle.translateGlobal(new Vector3f(-10, 0.0f,0.0f));
-            bicycle.rotateLocal(0, 45.0f, 0);
-        }
-            if (bicycle.getWorldPosition().x == leftBorder.x){
-                //bicycle.translateLocal(new Vector3f(0, 0.0f,0.0f));
-                System.out.println("left border");
-                bicycle.rotateLocal(0, -45.0f, 0);
-            }
-
-        System.out.println("checkXAxis: "+leftBorder);
-
-
-        if (window.getKeyState(GLFW_KEY_D)) {
-            bicycle.translateGlobal(new Vector3f(10, 0.0f,0.0f));
-        } /*else if (window.getKeyState(GLFW_KEY_A) == false) {
-            bicycle.rotateLocal(0, -45.0f, 0);
-        }*/
-           /* if (bicycle.getWorldPosition().x == rightBorder.x){
-                //bicycle.translateLocal(new Vector3f(0, 0.0f,0.0f));
-                System.out.println("right border");
-            }*/
             characterMovement();
     }
 

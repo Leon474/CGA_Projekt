@@ -40,11 +40,13 @@ public class Scene {
 
     // objects:
     private Renderable bicycle;
+    private Renderable pinkCar;
     private Renderable cubeOBJ;
     private Renderable bigWallOBJ;
     private Renderable stallOBJ;
     private Renderable cubeColor;
-    private Renderable carObject;
+    private Renderable gasstation;
+    private Renderable trashcans;
 
 
     // light:
@@ -90,7 +92,7 @@ public class Scene {
             OBJLoader.OBJMesh bObjMesh = bRes.objects.get(0).meshes.get(0);
             bodenMesh = new Mesh(bObjMesh.getVertexData(), bObjMesh.getIndexData(), vertexAttributes, boden);
             bodenRend = new Renderable();
-            //bodenRend.scaleLocal(new Vector3f(3,4,4));
+            //bodenRend.scaleLocal(new Vector3f(3,4,4));  // größe des Bodens kann hier angepasst werden
             bodenRend.meshes.add(bodenMesh);
 
 
@@ -103,29 +105,31 @@ public class Scene {
 
 
             // TODO: MULTIPLE TEST OBJECTS
-            carObject = new Renderable();
-            carObject = loader.loadModel("assets/Light Cycle/free-datsun-280z/source/Datsun_280Z/Datsun_280Z.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(0.0f),0);
-            carObject.scaleLocal(new Vector3f(1.7f)); // original       // --> size of the object
-            carObject.translateGlobal((new Vector3f(0,0,12)));     // --> position of the object
+            pinkCar = new Renderable();
+            pinkCar = loader.loadModel("assets/Objects/PinkCar/pinkCarr.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-55.0f),0);
+            pinkCar.scaleLocal(new Vector3f(1.7f));
+            pinkCar.translateGlobal(new Vector3f(-3.5f,0,12));
+
+            trashcans = new Renderable();
+            trashcans = loader.loadModel("assets/Objects/Trashcan/neustadt_an_der_aisch_mulltonnen/trashcan.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-45.0f),0);
+            trashcans.scaleLocal(new Vector3f(1.3f));
+            trashcans.translateGlobal(new Vector3f(5,0,17));
 
             bigWallOBJ = loader.loadModel("assets/Light Cycle/grosseMauer/grosseMauer.obj", (float) Math.toRadians(0.0f),(float) Math.toRadians(90.0f),0);   //test von mir mit einem stall
             bigWallOBJ.scaleLocal(new Vector3f(0.3f));
             bigWallOBJ.translateGlobal(new Vector3f(-4,0,3));
 
             cubeOBJ = loader.loadModel("assets/Light Cycle/mauerCube/mauerCube.obj", (float) Math.toRadians(0.0f),(float) Math.toRadians(90.0f),0);   //test von mir mit einer mauer
-            //cubeOBJ.scaleLocal(new Vector3f(0.8f));                   // --> size of object
-            cubeOBJ.scaleLocal(new Vector3f(3f));                   // --> size of object
+            cubeOBJ.scaleLocal(new Vector3f(3f));
             cubeOBJ.translateGlobal(new Vector3f(0,0,0));
 
-            cubeColor = loader.loadModel("assets/Light Cycle/multipleCubeColor2.obj", (float) Math.toRadians(0.0),(float) Math.toRadians(90.0f),0);   //test von mir mit einem stall
-            cubeColor.scaleLocal(new Vector3f(0.8f));
-            cubeColor.translateGlobal(new Vector3f(5,0,-5));
+            stallOBJ = loader.loadModel("assets/Light Cycle/stall2/stallNEU2.obj", (float) Math.toRadians(0.0),(float) Math.toRadians(90.0f),0);   //test von mir mit einem stall
+            stallOBJ.scaleLocal(new Vector3f(0.5f));
+            stallOBJ.translateGlobal(new Vector3f(4.5f,0,-12));
 
-            //stallOBJ = loader.loadModel("assets/Light Cycle/stall/stall.obj", (float) Math.toRadians(0.0),(float) Math.toRadians(90.0f),0);   //test von mir mit einem stall
-            stallOBJ = loader.loadModel("assets/Light Cycle/stall2/stallNEU.obj", (float) Math.toRadians(0.0),(float) Math.toRadians(0.0f),0);   //test von mir mit einem stall
-            //stallOBJ.meshes.size();
-            stallOBJ.scaleLocal(new Vector3f(0.8f));
-            stallOBJ.translateGlobal(new Vector3f(0,0,-12));
+            gasstation = loader.loadModel("assets/Light Cycle/tankstelleNEU/energy_station_street_assets_vol._03/tankstelle.obj", (float) Math.toRadians(0.0),(float) Math.toRadians(90.0f),0);   //test von mir mit einem stall
+            gasstation.scaleLocal(new Vector3f(1.0f));
+            gasstation.translateGlobal(new Vector3f(-4.5f,0,-12));
 
 
             // TODO: LIGHT -->
@@ -160,7 +164,7 @@ public class Scene {
             collisionDetection();
 
             // TODO: BACKGROUNDCOLOR -->  r, g, b
-            glClearColor(0.0f, 0.55f, 0.70f, 0.0f);  //--> original (schwarz)
+            glClearColor(0.3f, 0.6f, 0.70f, 0.0f);  //--> original (schwarz)
 
             glDisable(GL_CULL_FACE);
             glFrontFace(GL_CCW);
@@ -200,11 +204,13 @@ public class Scene {
         simpleShader.setUniform("Farbe", new Vector3f((float)Math.sin(t),(float)Math.cos(t),0.5f));
         bicycle.render(simpleShader);
 
+        // objects:
         cubeOBJ.render(simpleShader);
         bigWallOBJ.render(simpleShader);
         stallOBJ.render(simpleShader);
-        cubeColor.render(simpleShader);
-        carObject.render(simpleShader);
+        pinkCar.render(simpleShader);
+        gasstation.render(simpleShader);
+        trashcans.render(simpleShader);
 
         simpleShader.cleanup();
         //  simpleMesh.render();

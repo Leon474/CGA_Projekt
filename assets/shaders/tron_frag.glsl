@@ -42,6 +42,8 @@ uniform float ZweiKq;
 
 uniform vec3 Farbe;
 
+const float levels = 3.0;
+
 void main(){
 
     float d = sqrt(pow(vertexData.LightDir.x,2)+pow(vertexData.LightDir.y,2)+pow(vertexData.LightDir.z,2));

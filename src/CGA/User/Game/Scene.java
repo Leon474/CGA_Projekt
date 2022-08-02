@@ -193,7 +193,7 @@ public class Scene {
         //kugelRend.render(simpleShader);
         //simpleShader.setUniform("model_matrix", m4Boden, false);
 
-        pointLight.setLightColor(new Vector3f((float)Math.sin(t),(float)Math.cos(t),0.5f));
+        pointLight.setLightColor(new Vector3f((float)Math.sin(t), (float)Math.cos(t), 0.5f));
         pointLight.bind(simpleShader,"Eins");
         spotLight.bind(simpleShader,"Zwei", cam.calculateViewMatrix());
         //sun.bind(simpleShader,"Zwei", cam.calculateViewMatrix());
@@ -201,7 +201,7 @@ public class Scene {
         simpleShader.setUniform("Farbe", new Vector3f(0f,1f,0f));
         bodenRend.render(simpleShader);
 
-        simpleShader.setUniform("Farbe", new Vector3f((float)Math.sin(t),(float)Math.cos(t),0.5f));
+        simpleShader.setUniform("Farbe", new Vector3f((float)Math.sin(t), (float)Math.cos(t), 0.5f));
         bicycle.render(simpleShader);
 
         // objects:

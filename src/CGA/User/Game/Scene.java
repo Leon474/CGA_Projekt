@@ -40,6 +40,7 @@ public class Scene {
     private ModelLoader loader;
 
     // objects:
+    private Renderable city;
     private Renderable bicycle;
     private Renderable pinkCar;
     private Renderable cubeOBJ;
@@ -99,12 +100,19 @@ public class Scene {
             bodenRend.meshes.add(bodenMesh);
 
 
-            // TODO: TRON BIKE / OBJECTS IN WORLD
+            // TODO: BICYCLE / PLAYER
             bicycle = new Renderable();
             //bicycle = loader.loadModel("assets/Light Cycle/Light Cycle/HQ_Movie cycle.obj",(float) Math.toRadians(-90.0f),(float) Math.toRadians(90.0f),0);  //original
             bicycle = loader.loadModel("assets/Light Cycle/Light Cycle/HQ_Movie cycle.obj",(float) Math.toRadians(-90.0f),(float) Math.toRadians(90.0f),0);
             bicycle.scaleLocal(new Vector3f(0.8f)); // original       // --> size of the object
             bicycle.translateGlobal((new Vector3f(0,0,23)));     // --> starting position for the bike
+
+
+            // TODO: CITY
+            city = new Renderable();
+            city = loader.loadModel("assets/Objects/City/city.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-90.0f),0);
+            city.scaleLocal(new Vector3f(0.1f));
+            city.translateGlobal((new Vector3f(-28.2f,0,-31)));
 
 
             // TODO: MULTIPLE TEST OBJECTS
@@ -202,17 +210,19 @@ public class Scene {
         //sun.bind(simpleShader,"Zwei", cam.calculateViewMatrix());
 
         simpleShader.setUniform("Farbe", new Vector3f(0f,1f,0f));
-        bodenRend.render(simpleShader);
+        //bodenRend.render(simpleShader);
 
         simpleShader.setUniform("Farbe", new Vector3f((float)Math.sin(t), (float)Math.cos(t), 0.5f));
+
         bicycle.render(simpleShader);
+        city.render(simpleShader);
 
         // objects:
-        cubeOBJ.render(simpleShader);
+        /*cubeOBJ.render(simpleShader);
         bigWallOBJ.render(simpleShader);
         stallOBJ.render(simpleShader);
         pinkCar.render(simpleShader);
-        gasstation.render(simpleShader);
+        gasstation.render(simpleShader);*/
         trashcans.render(simpleShader);
 
         simpleShader.cleanup();
@@ -269,8 +279,8 @@ public class Scene {
         boolean keyA = true;
         boolean keyD = true;
 
-        Vector3f leftBorder = new Vector3f(-5, bicycle.getWorldPosition().y, bicycle.getWorldPosition().z);
-        Vector3f rightBorder = new Vector3f(5, bicycle.getWorldPosition().y, bicycle.getWorldPosition().z);
+        Vector3f leftBorder = new Vector3f(-3, bicycle.getWorldPosition().y, bicycle.getWorldPosition().z);
+        Vector3f rightBorder = new Vector3f(3, bicycle.getWorldPosition().y, bicycle.getWorldPosition().z);
         Vector3f center = new Vector3f(0, bicycle.getWorldPosition().y, bicycle.getWorldPosition().z);
 
         // TODO: CENTER CHECK
@@ -286,29 +296,27 @@ public class Scene {
             // if bicycle is on left border
             System.out.println("-- left border");
             keyA = false;
-
-            System.out.println("keyA: "+keyA);
-            System.out.println("keyD: "+keyD);
+            /*System.out.println("keyA: "+keyA);
+            System.out.println("keyD: "+keyD);*/
         }
         // RIGHT BORDER:
         if (bicycle.getWorldPosition().x == rightBorder.x) {
             // if bicycle is on right border
             System.out.println("-- right border");
             keyD = false;
-
-            System.out.println("keyD: "+keyD);
-            System.out.println("keyA: "+keyA);
+            /*System.out.println("keyD: "+keyD);
+            System.out.println("keyA: "+keyA);*/
         }
 
         // TODO: CHARACTER MOVEMENT
         // CHARACTER MOVES LEFT AND RIGHT
         if (window.getKeyState(GLFW_KEY_A) && keyA == true) {
-            bicycle.translateGlobal(new Vector3f(-5, 0.0f,0.0f));
+            bicycle.translateGlobal(new Vector3f(-3, 0.0f,0.0f));
             System.out.println(keyA+", "+keyD);
             //bicycle.rotateLocal(0, 45.0f, 0);
         }
         if (window.getKeyState(GLFW_KEY_D) && keyD == true) {
-            bicycle.translateGlobal(new Vector3f(5, 0.0f,0.0f));
+            bicycle.translateGlobal(new Vector3f(3, 0.0f,0.0f));
             System.out.println(keyA+", "+keyD);
             //bicycle.rotateLocal(0, -45.0f, 0);
         }
@@ -364,7 +372,7 @@ public class Scene {
             // TODO: BirdeyeView
             cam = new TronCam();
             cam.setParent(bicycle);
-            cam.translateLocal(new Vector3f(0.0f, 7.0f, 0.0f));   // original!
+            cam.translateLocal(new Vector3f(0.0f, 10.0f, 0.0f));   // original!
             //cam.translateLocal(new Vector3f(2.0f,5.0f,10.0f)); // z ist die entfernung zum object --> test von mir
             cam.rotateLocal(-90, 0, 0);
 

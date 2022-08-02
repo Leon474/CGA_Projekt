@@ -71,6 +71,8 @@ public class Scene {
 
 
             // TODO: GROUND
+            // mit dem boden vllt die straße bauen???
+            // ansonsten fehlt dieser teil komplett?!?!? --> ist das schlecht?
             int stride = 8 * 4;
             VertexAttribute[] vertexAttributes = new VertexAttribute[3];
 
@@ -100,13 +102,13 @@ public class Scene {
             bodenRend.meshes.add(bodenMesh);
 
 
+
             // TODO: BICYCLE / PLAYER
             bicycle = new Renderable();
             //bicycle = loader.loadModel("assets/Light Cycle/Light Cycle/HQ_Movie cycle.obj",(float) Math.toRadians(-90.0f),(float) Math.toRadians(90.0f),0);  //original
             bicycle = loader.loadModel("assets/Objects/Bicycle/bicycle.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(180.0f),0);
-            bicycle.scaleLocal(new Vector3f(0.7f)); // original       // --> size of the object
-            bicycle.translateGlobal((new Vector3f(0,0,23)));     // --> starting position for the bike
-
+            bicycle.scaleLocal(new Vector3f(0.7f));                    // --> size of the object
+            bicycle.translateGlobal((new Vector3f(3,0,23)));     // --> starting position for the bike
 
             // TODO: CITY
             city = new Renderable();
@@ -114,8 +116,7 @@ public class Scene {
             city.scaleLocal(new Vector3f(0.1f));
             city.translateGlobal((new Vector3f(-28.2f,0,-31)));
 
-
-            // TODO: MULTIPLE TEST OBJECTS
+            // TODO: OBSTACLES
             pinkCar = new Renderable();
             pinkCar = loader.loadModel("assets/Objects/PinkCar/pinkCarr.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-70.0f),0);
             pinkCar.scaleLocal(new Vector3f(1.7f));
@@ -144,7 +145,6 @@ public class Scene {
 
 
             // TODO: LIGHT -->
-
             // TODO: COLORFUL LIGHT (Unterbodenbeleuchtung)
             pointLight = new PointLight(bicycle.getPosition(), new Vector3f(1.0f,1.0f,1.0f),1.0f,0.5f,0.1f);
             pointLight.setParent(bicycle);
@@ -161,15 +161,12 @@ public class Scene {
             //spotLight_Test = new SpotLight(lightcycle.getPosition(), new Vector3f(1f,1f,1.0f), 0.5f,0.05f, 0.01f, 50f, 70f);
             //spotLight_Test.translateLocal(new Vector3f(0f,1.0f,-2.0f));
 
-
             // TODO: CAMERA (FIRST PERSON) --> DEFAULT
             cam = new TronCam();
             cam.setParent(bicycle);
             cam.translateLocal(new Vector3f(0,2.3f,-0.2f)); // z ist die entfernung zum object --> test von mir
             //cam.rotateLocal(0, (float)Math.toRadians(10.0f), 0);
             cam.rotateLocal(-15, 0, 0);
-
-
 
             // m4Boden.identity().rotateX((float) Math.toRadians(90)).scaleLocal(0.03f);
             // m4Boden.identity().rotate((float) Math.toRadians(90), new Vector3f(1.0f, 0, 0)).scaleLocal(0.03f);
@@ -185,9 +182,6 @@ public class Scene {
             glCullFace(GL_BACK);
             glEnable(GL_DEPTH_TEST);
             glDepthFunc(GL_LESS);
-
-            //characterMovement();
-            collisionDetection();
 
             return true;
         } catch (Exception ex) {
@@ -220,7 +214,7 @@ public class Scene {
         bicycle.render(simpleShader);
         city.render(simpleShader);
 
-        // objects:
+        // obstacles:
         /*cubeOBJ.render(simpleShader);
         bigWallOBJ.render(simpleShader);
         stallOBJ.render(simpleShader);
@@ -266,8 +260,6 @@ public class Scene {
 
         // TODO: BIKE RESET
         //resetBike();
-
-
     }
 
     /*public void resetBike() {
@@ -276,6 +268,10 @@ public class Scene {
 
         }
     }*/
+
+        public void characterWorkingMovement() {
+            // hin und her wackeln vom fahrradfahrer während er fährt
+        }
 
         public void characterMovement() {
 
@@ -297,16 +293,19 @@ public class Scene {
         // LEFT BORDER:
         if (bicycle.getWorldPosition().x == leftBorder.x) {
             // if bicycle is on left border
-            System.out.println("-- left border");
+            //System.out.println("-- left border");
             keyA = false;
             /*System.out.println("keyA: "+keyA);
             System.out.println("keyD: "+keyD);*/
+            //bicycle.rotateLocal(0,-45,0);
+
         }
         // RIGHT BORDER:
         if (bicycle.getWorldPosition().x == rightBorder.x) {
             // if bicycle is on right border
-            System.out.println("-- right border");
+            //System.out.println("-- right border");
             keyD = false;
+            //bicycle.rotateLocal(0,45,0);
             /*System.out.println("keyD: "+keyD);
             System.out.println("keyA: "+keyA);*/
         }
@@ -315,7 +314,7 @@ public class Scene {
         // CHARACTER MOVES LEFT AND RIGHT
         if (window.getKeyState(GLFW_KEY_A) && keyA == true) {
             bicycle.translateGlobal(new Vector3f(-3, 0.0f,0.0f));
-            System.out.println(keyA+", "+keyD);
+            //System.out.println(keyA+", "+keyD);
             //bicycle.rotateLocal(0, 45.0f, 0);
         }
         if (window.getKeyState(GLFW_KEY_D) && keyD == true) {
@@ -336,8 +335,8 @@ public class Scene {
             keyA = true;
         }
 
-            System.out.println(leftBorder.x);
-            System.out.println(bicycle.getWorldPosition().x);
+            //System.out.println(leftBorder.x);
+            //System.out.println(bicycle.getWorldPosition().x);
 
             // nur ein TEST
             /*if (window.getKeyState(GLFW_KEY_A)) {

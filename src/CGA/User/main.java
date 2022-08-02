@@ -10,7 +10,7 @@ import org.joml.Vector3f;
 public class main {
     public static void main(String[] args) {
         //Window
-        Game game = new Game(1289, 720, false, false, "Testgame", 3, 3);
+        Game game = new Game(1289, 720, false, false, "Rush Hour", 3, 3);
         game.run();
 
         /*

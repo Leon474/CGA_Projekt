@@ -26,6 +26,7 @@ import static org.lwjgl.opengl.GL11.*;
  */
 public class Scene {
     private ShaderProgram simpleShader;
+    private ShaderProgram sunShader;
     private Mesh kugelMesh;
     private Mesh bodenMesh;
     private Renderable bodenRend;
@@ -65,6 +66,8 @@ public class Scene {
             // TODO: Load StaticShader
             //simpleShader = new ShaderProgram("assets/shaders/simple_vert.glsl", "assets/shaders/simple_frag.glsl");
             simpleShader = new ShaderProgram("assets/shaders/tron_vert.glsl", "assets/shaders/tron_frag.glsl");
+            sunShader = new ShaderProgram("assets/shaders/tron_vert.glsl", "assets/shaders/tron_frag.glsl");
+
 
             // TODO: GROUND
             int stride = 8 * 4;
@@ -234,6 +237,8 @@ public class Scene {
             bicycle.translateLocal(new Vector3f(0.0f,0.0f,(-translationMultiplier/1.0f) * dt));
         }
 
+        //System.out.println("tankstelle: ("+gasstation.getXAxis().x +", "+ gasstation.getYAxis().y+", " + gasstation.getZAxis().z+")");
+
         // TODO: CAMERA CHANGE
         changeCamera();
 
@@ -242,12 +247,14 @@ public class Scene {
             bicycle.translateLocal(new Vector3f(0.0f,0.0f,(-translationMultiplier/3) * dt));
         }*/
 
-        //System.out.println("position: "+bicycle.getWorldPosition());
+        //System.out.println("position: "+bicycle.getWorldPosition().x);
         //System.out.println("position: "+bicycle.getWorldPosition().z);
         //System.out.println("Collisionsobjekt: "+collisionObject.z);
 
         // TODO: BIKE RESET
         //resetBike();
+
+
     }
 
     /*public void resetBike() {
@@ -259,19 +266,19 @@ public class Scene {
 
         public void characterMovement() {
 
-        boolean keyA = false;
-        boolean keyD = false;
+        boolean keyA = true;
+        boolean keyD = true;
 
         Vector3f leftBorder = new Vector3f(-5, bicycle.getWorldPosition().y, bicycle.getWorldPosition().z);
         Vector3f rightBorder = new Vector3f(5, bicycle.getWorldPosition().y, bicycle.getWorldPosition().z);
         Vector3f center = new Vector3f(0, bicycle.getWorldPosition().y, bicycle.getWorldPosition().z);
 
         // TODO: CENTER CHECK
-        if (bicycle.getWorldPosition().x == center.x) {
-            keyA = true;
-            keyD = true;
+        /*if (bicycle.getWorldPosition().x == center.x) {
+            //keyA = true;
+            //keyD = true;
             System.out.println("-- center!"+ keyA+", "+ keyD);
-        }
+        }*/
 
         // TODO: BORDER CHECK
         // LEFT BORDER:
@@ -279,7 +286,6 @@ public class Scene {
             // if bicycle is on left border
             System.out.println("-- left border");
             keyA = false;
-            keyD = true;
 
             System.out.println("keyA: "+keyA);
             System.out.println("keyD: "+keyD);
@@ -288,7 +294,6 @@ public class Scene {
         if (bicycle.getWorldPosition().x == rightBorder.x) {
             // if bicycle is on right border
             System.out.println("-- right border");
-            keyA = true;
             keyD = false;
 
             System.out.println("keyD: "+keyD);
@@ -319,6 +324,31 @@ public class Scene {
             //bicycle.rotateLocal(0, 0.0f, 0);
             keyA = true;
         }
+
+            System.out.println(leftBorder.x);
+            System.out.println(bicycle.getWorldPosition().x);
+
+            // nur ein TEST
+            /*if (window.getKeyState(GLFW_KEY_A)) {
+                bicycle.rotateLocal(0,45,0);
+            }
+            if (window.getKeyState(GLFW_KEY_D)) {
+                bicycle.rotateLocal(0,-45,0);
+            }
+
+
+
+            if (bicycle.getWorldPosition().x == leftBorder.x){
+                System.out.println("ich rotiere!!!");
+                //bicycle.rotateLocal(0,-45,0);
+            }
+            if (bicycle.getWorldPosition().x == rightBorder.x){
+                bicycle.rotateLocal(0,45,0);
+                System.out.println("ich rotiere!!!");
+            }*/
+
+
+
     }
 
     public void changeCamera() {

@@ -9,6 +9,7 @@ import CGA.User.DataStructures.Geometry.Renderable;
 import CGA.User.DataStructures.Geometry.VertexAttribute;
 import CGA.User.DataStructures.Light.PointLight;
 import CGA.User.DataStructures.Light.SpotLight;
+import CGA.User.DataStructures.Light.Sunlight;
 import CGA.User.DataStructures.ShaderProgram;
 import CGA.Framework.OBJLoader;
 import CGA.User.DataStructures.Texture2D;
@@ -54,7 +55,7 @@ public class Scene {
     // light:
     private PointLight pointLight;
     private SpotLight spotLight;
-    private SpotLight sun;
+    private Sunlight sunLight;
 
     public Scene(GameWindow window) {
         this.window = window;
@@ -105,14 +106,14 @@ public class Scene {
 
             // TODO: BICYCLE / PLAYER
             bicycle = new Renderable();
-            //bicycle = loader.loadModel("assets/Light Cycle/Light Cycle/HQ_Movie cycle.obj",(float) Math.toRadians(-90.0f),(float) Math.toRadians(90.0f),0);  //original
-            bicycle = loader.loadModel("assets/Objects/Bicycle/bicycle.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(180.0f),0);
+            bicycle = loader.loadModel("assets/Light Cycle/Light Cycle/HQ_Movie cycle.obj",(float) Math.toRadians(-90.0f),(float) Math.toRadians(90.0f),0);  //original
+            //bicycle = loader.loadModel("assets/Objects/Bicycle/bicycle.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(180.0f),0);
             bicycle.scaleLocal(new Vector3f(0.7f));                    // --> size of the object
             bicycle.translateGlobal((new Vector3f(3,0,23)));     // --> starting position for the bike
 
             // TODO: CITY
             city = new Renderable();
-            city = loader.loadModel("assets/Objects/City/city.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-90.0f),0);
+            city = loader.loadModel("assets/Objects/City/city/city.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-90.0f),0);
             city.scaleLocal(new Vector3f(0.1f));
             city.translateGlobal((new Vector3f(-28.2f,0,-31)));
 
@@ -219,8 +220,8 @@ public class Scene {
         bigWallOBJ.render(simpleShader);
         stallOBJ.render(simpleShader);
         gasstation.render(simpleShader);*/
-        pinkCar.render(simpleShader);
-        trashcans.render(simpleShader);
+        //pinkCar.render(simpleShader);
+        //trashcans.render(simpleShader);
 
         simpleShader.cleanup();
         //  simpleMesh.render();

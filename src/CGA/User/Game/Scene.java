@@ -105,19 +105,19 @@ public class Scene {
 
             // TODO: BICYCLE / PLAYER
             bicycle = new Renderable();
-            bicycle = loader.loadModel("assets/Light Cycle/Light Cycle/HQ_Movie cycle.obj",(float) Math.toRadians(-90.0f),(float) Math.toRadians(90.0f),0);  //original
-            //bicycle = loader.loadModel("assets/Objects/Bicycle/bicycle.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(180.0f),0);
+            //bicycle = loader.loadModel("assets/Light Cycle/Light Cycle/HQ_Movie cycle.obj",(float) Math.toRadians(-90.0f),(float) Math.toRadians(90.0f),0);  //original
+            bicycle = loader.loadModel("assets/Objects/Bicycle/bicycle.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(180.0f),0);
             bicycle.scaleLocal(new Vector3f(0.7f));                    // --> size of the object
             bicycle.translateGlobal((new Vector3f(3,0,23)));     // --> starting position for the bike
 
             // TODO: CITY
             city = new Renderable();
-            city = loader.loadModel("assets/Objects/City/city/city.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-90.0f),0);
+            city = loader.loadModel("assets/Objects/City/city.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-90.0f),0);
             city.scaleLocal(new Vector3f(0.1f));
             city.translateGlobal((new Vector3f(-28.2f,0,-31)));
 
             // TODO: OBSTACLES
-            /*pinkCar = new Renderable();
+            pinkCar = new Renderable();
             pinkCar = loader.loadModel("assets/Objects/PinkCar/pinkCarr.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-70.0f),0);
             pinkCar.scaleLocal(new Vector3f(1.7f));
             pinkCar.translateGlobal(new Vector3f(-2.5f,0,2));
@@ -142,7 +142,7 @@ public class Scene {
             gasstation = loader.loadModel("assets/Light Cycle/tankstelleNEU/energy_station_street_assets_vol._03/tankstelle.obj", (float) Math.toRadians(0.0),(float) Math.toRadians(90.0f),0);   //test von mir mit einem stall
             gasstation.scaleLocal(new Vector3f(1.0f));
             gasstation.translateGlobal(new Vector3f(-4.5f,0,-12));
-*/
+
 
             // TODO: LIGHT -->
             // TODO: COLORFUL LIGHT (Unterbodenbeleuchtung)
@@ -219,8 +219,8 @@ public class Scene {
         bigWallOBJ.render(simpleShader);
         stallOBJ.render(simpleShader);
         gasstation.render(simpleShader);*/
-        /*pinkCar.render(simpleShader);
-        trashcans.render(simpleShader);*/
+        pinkCar.render(simpleShader);
+        trashcans.render(simpleShader);
 
         simpleShader.cleanup();
         //  simpleMesh.render();

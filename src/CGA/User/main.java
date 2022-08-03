@@ -13,9 +13,13 @@ public class main {
         Game game = new Game(1289, 720, false, false, "Rush Hour", 3, 3);
         game.run();
 
-        // test
 
-        // mac book
+        /*
+            main pc
+            ich mache hier etwas
+
+        */
+
 
 
 
@@ -33,13 +37,6 @@ public class main {
         double cosAlpha;
         double RADcosAlpha;
         double Alpha;
-
-
-
-
-
-
-
 
 
 
@@ -226,8 +223,5 @@ public class main {
 
         }*/
     }
-
-
-
 
 }

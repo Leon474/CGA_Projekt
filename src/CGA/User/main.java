@@ -13,6 +13,11 @@ public class main {
         Game game = new Game(1289, 720, false, false, "Rush Hour", 3, 3);
         game.run();
 
+        // test
+
+
+
+
         /*
         Vector3f a = new Vector3f();
 

@@ -16,29 +16,6 @@ public class main {
 
 
 
-
-
-
-        /*
-
-        NEU
-         */
-
-
-        /*
-            test
-            alt
-        */
-
-
-
-        /*
-        mac
-        ich mach auch was
-        alt
-         */
-
-
         /*
         Vector3f a = new Vector3f();
 

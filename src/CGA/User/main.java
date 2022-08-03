@@ -12,14 +12,26 @@ public class main {
         //Window
         Game game = new Game(1289, 720, false, false, "Rush Hour", 3, 3);
         game.run();
-        /*
-            main pc
-            ich mache hier etwas
 
+
+
+
+
+
+
+
+
+
+        /*
+test
         */
 
 
 
+        /*
+        mac
+        ich mach auch was
+         */
 
 
         /*
@@ -35,6 +47,13 @@ public class main {
         double cosAlpha;
         double RADcosAlpha;
         double Alpha;
+
+
+
+
+
+
+
 
 
 
@@ -221,5 +240,8 @@ public class main {
 
         }*/
     }
+
+
+
 
 }

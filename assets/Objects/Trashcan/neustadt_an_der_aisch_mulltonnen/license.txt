@@ -1,0 +1,11 @@
+Model Information:
+* title:	Neustadt an der Aisch Mülltonnen
+* source:	https://sketchfab.com/3d-models/neustadt-an-der-aisch-mulltonnen-cd7c8a496cfd4e15af6f6e24fac51cc7
+* author:	Maskenpark1510 (https://sketchfab.com/maskenpark1510)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Neustadt an der Aisch Mülltonnen" (https://sketchfab.com/3d-models/neustadt-an-der-aisch-mulltonnen-cd7c8a496cfd4e15af6f6e24fac51cc7) by Maskenpark1510 (https://sketchfab.com/maskenpark1510) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

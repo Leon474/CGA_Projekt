@@ -9,6 +9,7 @@ import CGA.User.DataStructures.Geometry.Renderable;
 import CGA.User.DataStructures.Geometry.VertexAttribute;
 import CGA.User.DataStructures.Light.PointLight;
 import CGA.User.DataStructures.Light.SpotLight;
+import CGA.User.DataStructures.Light.Sunlight;
 import CGA.User.DataStructures.ShaderProgram;
 import CGA.Framework.OBJLoader;
 import CGA.User.DataStructures.Texture2D;
@@ -54,7 +55,7 @@ public class Scene {
     // light:
     private PointLight pointLight;
     private SpotLight spotLight;
-    private SpotLight sun;
+    private Sunlight sunLight;
 
     public Scene(GameWindow window) {
         this.window = window;
@@ -67,7 +68,7 @@ public class Scene {
             // TODO: Load StaticShader
             //simpleShader = new ShaderProgram("assets/shaders/simple_vert.glsl", "assets/shaders/simple_frag.glsl");
             simpleShader = new ShaderProgram("assets/shaders/tron_vert.glsl", "assets/shaders/tron_frag.glsl");
-            sunShader = new ShaderProgram("assets/shaders/tron_vert.glsl", "assets/shaders/tron_frag.glsl");
+            sunShader = new ShaderProgram("assets/shaders/sunShader/sun_vert.glsl", "assets/shaders/sunShader/sun_frag.glsl");
 
 
             // TODO: GROUND
@@ -204,7 +205,7 @@ public class Scene {
         pointLight.setLightColor(new Vector3f((float)Math.sin(t), (float)Math.cos(t), 0.5f));
         pointLight.bind(simpleShader,"Eins");
         spotLight.bind(simpleShader,"Zwei", cam.calculateViewMatrix());
-        //sun.bind(simpleShader,"Zwei", cam.calculateViewMatrix());
+        //sunLight.bind(simpleShader,"Zwei", cam.calculateViewMatrix());
 
         simpleShader.setUniform("Farbe", new Vector3f(0f,1f,0f));
         //bodenRend.render(simpleShader);

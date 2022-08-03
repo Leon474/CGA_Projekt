@@ -106,8 +106,8 @@ public class Scene {
 
             // TODO: BICYCLE / PLAYER
             bicycle = new Renderable();
-            bicycle = loader.loadModel("assets/Light Cycle/Light Cycle/HQ_Movie cycle.obj",(float) Math.toRadians(-90.0f),(float) Math.toRadians(90.0f),0);  //original
-            //bicycle = loader.loadModel("assets/Objects/Bicycle/bicycle.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(180.0f),0);
+            //bicycle = loader.loadModel("assets/Light Cycle/Light Cycle/HQ_Movie cycle.obj",(float) Math.toRadians(-90.0f),(float) Math.toRadians(90.0f),0);  //original
+            bicycle = loader.loadModel("assets/Objects/Bicycle/bicycle/bicyclee.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(180.0f),0);
             bicycle.scaleLocal(new Vector3f(0.7f));                    // --> size of the object
             bicycle.translateGlobal((new Vector3f(3,0,23)));     // --> starting position for the bike
 

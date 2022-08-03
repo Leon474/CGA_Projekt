@@ -50,6 +50,7 @@ public class Scene {
     private Renderable cubeColor;
     private Renderable gasstation;
     private Renderable trashcans;
+    private Renderable americanTrashcan;
 
 
     // light:
@@ -102,7 +103,6 @@ public class Scene {
             //bodenRend.scaleLocal(new Vector3f(3,4,4));  // größe des Bodens kann hier angepasst werden
             bodenRend.meshes.add(bodenMesh);
 
-        // test
 
             // TODO: BICYCLE / PLAYER
             bicycle = new Renderable();
@@ -127,6 +127,11 @@ public class Scene {
             trashcans = loader.loadModel("assets/Objects/Trashcan/neustadt_an_der_aisch_mulltonnen/trashcan.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-45.0f),0);
             trashcans.scaleLocal(new Vector3f(1.28f));
             trashcans.translateGlobal(new Vector3f(3,0,13));
+
+            americanTrashcan = new Renderable();
+            americanTrashcan = loader.loadModel("assets/Objects/Trashcan/american_trashcan/americanTrashcan.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-45.0f),0);
+            americanTrashcan.scaleLocal(new Vector3f(1.28f));
+            americanTrashcan.translateGlobal(new Vector3f(2.5f,0.69f,13));
 
             bigWallOBJ = loader.loadModel("assets/Light Cycle/grosseMauer/grosseMauer.obj", (float) Math.toRadians(0.0f),(float) Math.toRadians(90.0f),0);   //test von mir mit einem stall
             bigWallOBJ.scaleLocal(new Vector3f(0.3f));
@@ -222,8 +227,10 @@ public class Scene {
         gasstation.render(simpleShader);*/
         //pinkCar.render(simpleShader);
         //trashcans.render(simpleShader);
+        americanTrashcan.render(simpleShader);
 
         simpleShader.cleanup();
+
         //  simpleMesh.render();
         //  mesh.render();
         //  rend.render();

@@ -1,0 +1,11 @@
+Model Information:
+* title:	American_TrashCan
+* source:	https://sketchfab.com/3d-models/american-trashcan-770745e3edcd42ad8e247ad4a2140201
+* author:	Cyril Limoges Athiel (https://sketchfab.com/athiel)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "American_TrashCan" (https://sketchfab.com/3d-models/american-trashcan-770745e3edcd42ad8e247ad4a2140201) by Cyril Limoges Athiel (https://sketchfab.com/athiel) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

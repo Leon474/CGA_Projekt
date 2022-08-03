@@ -102,7 +102,7 @@ public class Scene {
             //bodenRend.scaleLocal(new Vector3f(3,4,4));  // größe des Bodens kann hier angepasst werden
             bodenRend.meshes.add(bodenMesh);
 
-
+        // test
 
             // TODO: BICYCLE / PLAYER
             bicycle = new Renderable();

@@ -129,7 +129,7 @@ public class Scene {
             trashcans.translateGlobal(new Vector3f(3,0,13));
 
             americanTrashcan = new Renderable();
-            americanTrashcan = loader.loadModel("assets/Objects/Trashcan/american_trashcan/americanTrashcan.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-45.0f),0);
+            americanTrashcan = loader.loadModel("assets/Objects/Trashcan/american_trashcan/american_Trashcan.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-45.0f),0);
             americanTrashcan.scaleLocal(new Vector3f(1.28f));
             americanTrashcan.translateGlobal(new Vector3f(2.5f,0.69f,13));
 

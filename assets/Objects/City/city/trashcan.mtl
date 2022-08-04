@@ -1,0 +1,25 @@
+# Blender MTL File: 'None'
+# Material Count: 2
+
+newmtl Greybin
+Ns 319.999524
+Ka 1.000000 1.000000 1.000000
+Kd 0.022247 0.022247 0.022247
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump E:\\Th_Koeln\\Fächer\\CGA\\Praktikum\\TESTEN\\CGA19_Framework Alternate - KopieNEU\\CGA19_Framework Alternate - KopieNEU - Kopie\\assets\\Objects\\Trashcan\\neustadt_an_der_aisch_mulltonnen\\Material_Rubbish_Bin_normal.png
+
+newmtl Material_Rubbish_Bin
+Ns 319.999524
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump E:\\Th_Koeln\\Fächer\\CGA\\Praktikum\\TESTEN\\CGA19_Framework Alternate - KopieNEU\\CGA19_Framework Alternate - KopieNEU - Kopie\\assets\\Objects\\Trashcan\\neustadt_an_der_aisch_mulltonnen\\Material_Rubbish_Bin_normal.png
+map_Kd E:\\Th_Koeln\\Fächer\\CGA\\Praktikum\\TESTEN\\CGA19_Framework Alternate - KopieNEU\\CGA19_Framework Alternate - KopieNEU - Kopie\\assets\\Objects\\Trashcan\\neustadt_an_der_aisch_mulltonnen\\Material_Rubbish_Bin_baseColor.png

@@ -1,7 +1,7 @@
 # Blender MTL File: 'None'
-# Material Count: 6
+# Material Count: 7
 
-newmtl cartelli.004
+newmtl cartelli.002
 Ns 32.000008
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
@@ -12,7 +12,7 @@ d 1.000000
 illum 2
 map_Kd cartelli_baseColor.png
 
-newmtl materiale_base.004
+newmtl materiale_base.002
 Ns 32.000008
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
@@ -23,7 +23,7 @@ d 1.000000
 illum 2
 map_Kd materiale_base_baseColor.png
 
-newmtl mattoni.004
+newmtl mattoni.002
 Ns 32.000008
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
@@ -34,7 +34,7 @@ d 1.000000
 illum 2
 map_Kd mattoni_baseColor.jpeg
 
-newmtl onlytexture.009
+newmtl onlytexture.002
 Ns 32.000008
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
@@ -44,7 +44,7 @@ Ni 1.450000
 d 1.000000
 illum 2
 
-newmtl texture.005
+newmtl onlytexture.005
 Ns 32.000008
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
@@ -54,7 +54,7 @@ Ni 1.450000
 d 1.000000
 illum 2
 
-newmtl vetro.004
+newmtl texture.002
 Ns 32.000008
 Ka 1.000000 1.000000 1.000000
 Kd 0.800000 0.800000 0.800000
@@ -63,4 +63,14 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.450000
 d 1.000000
 illum 2
-map_Kd C:\\Users\\Leon\\Downloads\\city\\textures\\materiale_base_baseColor.png
+
+newmtl vetro.002
+Ns 32.000008
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd materiale_base_baseColor.png

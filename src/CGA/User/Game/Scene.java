@@ -68,7 +68,7 @@ public class Scene {
             // TODO: Load StaticShader
             //simpleShader = new ShaderProgram("assets/shaders/simple_vert.glsl", "assets/shaders/simple_frag.glsl");
             simpleShader = new ShaderProgram("assets/shaders/tron_vert.glsl", "assets/shaders/tron_frag.glsl");
-            sunShader = new ShaderProgram("assets/shaders/tron_vert.glsl", "assets/shaders/tron_frag.glsl");
+            sunShader = new ShaderProgram("assets/shaders/sunShader/sun_vert.glsl", "assets/shaders/sunShader/sun_frag.glsl");
 
 
             // TODO: GROUND
@@ -131,14 +131,6 @@ public class Scene {
             americanTrashcan = loader.loadModel("assets/Objects/Trashcan/american_trashcan/americanTrashcan.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-45.0f),0);
             americanTrashcan.scaleLocal(new Vector3f(1.28f));
             americanTrashcan.translateGlobal(new Vector3f(2.5f,0.69f,13));
-
-            /*bigWallOBJ = loader.loadModel("assets/Light Cycle/grosseMauer/grosseMauer.obj", (float) Math.toRadians(0.0f),(float) Math.toRadians(90.0f),0);   //test von mir mit einem stall
-            bigWallOBJ.scaleLocal(new Vector3f(0.3f));
-            bigWallOBJ.translateGlobal(new Vector3f(-4,0,3));*/
-
-            /*cubeOBJ = loader.loadModel("assets/Light Cycle/mauerCube/mauerCube.obj", (float) Math.toRadians(0.0f),(float) Math.toRadians(90.0f),0);   //test von mir mit einer mauer
-            cubeOBJ.scaleLocal(new Vector3f(3f));
-            cubeOBJ.translateGlobal(new Vector3f(0,0,0));*/
 
             stallOBJ = loader.loadModel("assets/Light Cycle/stall2/stallNEU2.obj", (float) Math.toRadians(0.0),(float) Math.toRadians(90.0f),0);   //test von mir mit einem stall
             stallOBJ.scaleLocal(new Vector3f(0.5f));

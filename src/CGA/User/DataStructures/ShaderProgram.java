@@ -1,5 +1,6 @@
 package CGA.User.DataStructures;
 
+import CGA.User.DataStructures.Light.DirectionalLight;
 import org.joml.*;
 import org.lwjgl.BufferUtils;
 
@@ -186,6 +187,8 @@ public class ShaderProgram {
         return false;
     }
 
+
+
     public boolean setUniform(String name, Vector3f position) {
         if (programID == 0)
             return false;
@@ -198,5 +201,22 @@ public class ShaderProgram {
 
         return false;
     }
+
+
+
+    // FOR SUNLIGHT!
+    //QUELLE: (bei 1:55 min) https://www.youtube.com/watch?v=9rV8lsaXF9c
+    /*public boolean setUniform(String name, DirectionalLight directionalLight) {
+        if (programID == 0)
+            return false;
+        int loc = glGetUniformLocation(programID, name);
+        if (loc != -1) {
+            setUniform(name+ ".color",directionalLight.getColor());
+            setUniform(name+ ".direction",directionalLight.getDirection());
+            setUniform(name+ ".intensity",directionalLight.getIntensity());
+            return true;
+        }
+        return false;
+    }*/
 
 }

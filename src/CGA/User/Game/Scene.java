@@ -7,15 +7,17 @@ import CGA.User.DataStructures.Geometry.Material;
 import CGA.User.DataStructures.Geometry.Mesh;
 import CGA.User.DataStructures.Geometry.Renderable;
 import CGA.User.DataStructures.Geometry.VertexAttribute;
+import CGA.User.DataStructures.Light.DirectionalLight;
 import CGA.User.DataStructures.Light.PointLight;
 import CGA.User.DataStructures.Light.SpotLight;
-import CGA.User.DataStructures.Light.Sunlight;
 import CGA.User.DataStructures.ShaderProgram;
 import CGA.Framework.OBJLoader;
 import CGA.User.DataStructures.Texture2D;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
+import org.joml.Vector4f;
+import org.lwjgl.system.CallbackI;
 //import org.apache.commons.io.FileUtils;
 
 
@@ -26,17 +28,20 @@ import static org.lwjgl.opengl.GL11.*;
  * Created by Fabian on 16.09.2017.
  */
 public class Scene {
-    private ShaderProgram simpleShader;
-    private ShaderProgram sunShader;
-    private Mesh kugelMesh;
-    private Mesh bodenMesh;
-    private Renderable bodenRend;
+
+    /*private Mesh kugelMesh;
     private Renderable kugelRend;
     private Matrix4f m4Boden = new Matrix4f().identity();
-    private Matrix4f m4Kugel = new Matrix4f().identity();
+    private Matrix4f m4Kugel = new Matrix4f().identity();*/
+
+    private ShaderProgram simpleShader;
+    private ShaderProgram sunShader;
+    private ShaderProgram skyboxShader;
+    private Mesh bodenMesh;
+    private Renderable bodenRend;
     private GameWindow window;
     private TronCam cam;
-    private TronCam newCam;
+    //private TronCam newCam;
 
     private ModelLoader loader;
 
@@ -51,11 +56,13 @@ public class Scene {
     private Renderable trashcans;
     private Renderable americanTrashcan;
 
-
     // light:
     private PointLight pointLight;
     private SpotLight spotLight;
-    private Sunlight sunLight;
+    private DirectionalLight sunlight;
+
+    //
+    private boolean triggerPoint = false;
 
     public Scene(GameWindow window) {
         this.window = window;
@@ -65,11 +72,11 @@ public class Scene {
     public boolean init() {
         try {
 
-            // TODO: Load StaticShader
+            // TODO: LOAD SHADER
             //simpleShader = new ShaderProgram("assets/shaders/simple_vert.glsl", "assets/shaders/simple_frag.glsl");
             simpleShader = new ShaderProgram("assets/shaders/tron_vert.glsl", "assets/shaders/tron_frag.glsl");
-            sunShader = new ShaderProgram("assets/shaders/sunShader/sun_vert.glsl", "assets/shaders/sunShader/sun_frag.glsl");
-
+            //sunShader = new ShaderProgram("assets/shaders/sunShader/sun_vert.glsl", "assets/shaders/sunShader/sun_frag.glsl");
+            skyboxShader = new ShaderProgram("assets/shaders/skyboxShader/skybox_vert.glsl", "assets/shaders/skyboxShader/skybox_frag.glsl");
 
             // TODO: GROUND
             // mit dem boden vllt die straße bauen???
@@ -83,7 +90,7 @@ public class Scene {
 
             //OBJLoader.OBJResult bRes = OBJLoader.loadOBJ("assets/models/sphere.obj", false, false);
             OBJLoader.OBJResult bRes = OBJLoader.loadOBJ("assets/models/ground.obj", false, false);
-            OBJLoader.OBJResult street = OBJLoader.loadOBJ("assets/models/ground.obj", false, false);
+            //OBJLoader.OBJResult street = OBJLoader.loadOBJ("assets/models/ground.obj", false, false);
 
             Texture2D diff = new Texture2D("assets/textures/ground_diff.png",true);
             Texture2D emit = new Texture2D("assets/textures/ground_emit.png",true);
@@ -102,13 +109,16 @@ public class Scene {
             //bodenRend.scaleLocal(new Vector3f(3,4,4));  // größe des Bodens kann hier angepasst werden
             bodenRend.meshes.add(bodenMesh);
 
+            // TODO SKYBOX:
+
+
 
             // TODO: BICYCLE / PLAYER
             bicycle = new Renderable();
             //bicycle = loader.loadModel("assets/Light Cycle/Light Cycle/HQ_Movie cycle.obj",(float) Math.toRadians(-90.0f),(float) Math.toRadians(90.0f),0);  //original
             bicycle = loader.loadModel("assets/Objects/Bicycle/bicycle/bicycle.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(180.0f),0);
             bicycle.scaleLocal(new Vector3f(0.85f));                    // --> size of the object
-            bicycle.translateGlobal((new Vector3f(3,0,23)));     // --> starting position for the bike
+            bicycle.translateGlobal((new Vector3f(3,0,23)));      // --> starting position for the bike
 
             // TODO: CITY
             city = new Renderable();
@@ -116,7 +126,7 @@ public class Scene {
             city.scaleLocal(new Vector3f(0.1f));
             city.translateGlobal((new Vector3f(-28.2f,0,-31)));
 
-            // TODO: OBSTACLES
+            // TODO: OBSTACLES -->
             pinkCar = new Renderable();
             pinkCar = loader.loadModel("assets/Objects/PinkCar/pinkCar/pinkCar.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-70.0f),0);
             pinkCar.scaleLocal(new Vector3f(1.3f));
@@ -142,19 +152,28 @@ public class Scene {
 
 
             // TODO: LIGHT -->
-            // TODO: COLORFUL LIGHT (Unterbodenbeleuchtung)
-            pointLight = new PointLight(bicycle.getPosition(), new Vector3f(1.0f,1.0f,1.0f),1.0f,0.5f,0.1f);
+            // TODO: POINTLIGHT
+            pointLight = new PointLight(bicycle.getPosition(), new Vector3f(1.0f,1.0f,1.0f),1.0f,0.5f,0.1f); // original
+            //pointLight = new PointLight(city.getPosition(), new Vector3f(1.0f,1.0f,1.0f),1.0f,0.5f,0.1f);
             pointLight.setParent(bicycle);
-            //pointLight.translateLocal(new Vector3f(0f,1f,0f));
+            pointLight.translateLocal(new Vector3f(0,1,-2));
+
+            //pointLight = new PointLight(new Vector3f(0,2,0), new Vector3f(1.0f,1.0f,1.0f),1.0f,0.5f,0.1f);
+
+            //pointLight = new PointLight(bicycle.getPosition(), new Vector3f(1.0f,0.0f,0.0f),1.0f,0.5f,0.1f);
+            //pointLight.setParent(bicycle);
+            //pointLight.translateGlobal((new Vector3f(3,0,23)));      // --> starting position for the bike
+
 
             // TODO: SPOTLIGHT (Scheinwerfer)
-            spotLight = new SpotLight(bicycle.getPosition(), new Vector3f(1f,1f,1.0f), 0.5f,0.05f, 0.01f, 50f, 70f);
+            spotLight = new SpotLight(bicycle.getPosition(), new Vector3f(1.0f,1.0f,1.0f), 0.5f,0.05f, 0.01f, 50f, 70f);
             spotLight.setParent(bicycle);
-            spotLight.translateLocal(new Vector3f(0f,1.0f,-2.0f));
+            spotLight.translateLocal(new Vector3f(0f,1.0f,-2.0f)); // original
+            //spotLight.translateGlobal((new Vector3f(3,0,23)));      // --> starting position for the bike
 
-            //sun = new SpotLight(new Vector3f(0,10,0), new Vector3f(1f,1f,1.0f), 0.5f,0.05f, 0.01f, 50f, 70f);
-            //sun.translateLocal(new Vector3f(0f,1.0f,-2.0f));
-
+            // TODO: SUNLIGHT:
+            Vector3f lightColor = new Vector3f(1.0f,1.0f,1.0f);
+            sunlight = new DirectionalLight(lightColor);
 
             // TODO: CAMERA (FIRST PERSON) --> DEFAULT
             cam = new TronCam();
@@ -162,14 +181,11 @@ public class Scene {
             cam.translateLocal(new Vector3f(0,1.8f,-0.1f)); // z ist die entfernung zum object --> test von mir
             cam.rotateLocal(-15, 0, 0);
 
-            // m4Boden.identity().rotateX((float) Math.toRadians(90)).scaleLocal(0.03f);
-            // m4Boden.identity().rotate((float) Math.toRadians(90), new Vector3f(1.0f, 0, 0)).scaleLocal(0.03f);
-
             // TODO: COLLISION DETECTION
             collisionDetection();
 
             // TODO: BACKGROUNDCOLOR -->  r, g, b
-            glClearColor(0.3f, 0.6f, 0.70f, 0.0f);  //--> original (schwarz)
+            glClearColor(0.3f, 0.7f, 0.75f, 0.0f);  //--> original (schwarz)
 
             glDisable(GL_CULL_FACE);
             glFrontFace(GL_CCW);
@@ -178,6 +194,10 @@ public class Scene {
             glDepthFunc(GL_LESS);
 
             return true;
+
+            // m4Boden.identity().rotateX((float) Math.toRadians(90)).scaleLocal(0.03f);
+            // m4Boden.identity().rotate((float) Math.toRadians(90), new Vector3f(1.0f, 0, 0)).scaleLocal(0.03f);
+
         } catch (Exception ex) {
             System.err.println("Scene initialization failed:\n" + ex.getMessage() + "\n");
             return false;
@@ -191,23 +211,27 @@ public class Scene {
         simpleShader.use();
         cam.bind(simpleShader);
 
-        //simpleShader.setUniform("model_matrix", m4Kugel, false);
-        //kugelRend.render(simpleShader);
-        //simpleShader.setUniform("model_matrix", m4Boden, false);
-
-        pointLight.setLightColor(new Vector3f((float)Math.sin(t), (float)Math.cos(t), 0.5f));
+        // TODO: LIGHTS -->
+        // POINTLIGHT:
+        pointLight.setLightColor(new Vector3f((float)Math.sin(t), (float)Math.cos(t), 0.5f));  // original
         pointLight.bind(simpleShader,"Eins");
-        spotLight.bind(simpleShader,"Zwei", cam.calculateViewMatrix());
-        //sun.bind(simpleShader,"Zwei", cam.calculateViewMatrix());
+        simpleShader.setUniform("Farbe", new Vector3f((float)Math.sin(t),(float)Math.cos(t),0.5f));
 
-        simpleShader.setUniform("Farbe", new Vector3f(0f,1f,0f));
+
+        // SPOTLIGHT:
+        spotLight.bind(simpleShader,"Zwei", cam.calculateViewMatrix());
+
+        // SUNLIGHT:
+        sunlight.bind(simpleShader,"Sun");
+
         //bodenRend.render(simpleShader);
 
-        simpleShader.setUniform("Farbe", new Vector3f((float)Math.sin(t), (float)Math.cos(t), 0.5f));
 
+        // TODO: OBJECTS -->
+        // player:
         bicycle.render(simpleShader);
+        // city:
         city.render(simpleShader);
-
         // obstacles:
         pinkCar.render(simpleShader);
         trashcans.render(simpleShader);
@@ -215,24 +239,44 @@ public class Scene {
 
         simpleShader.cleanup();
 
-        //  simpleMesh.render();
-        //  mesh.render();
-        //  rend.render();
+
+        // simpleShader.setUniform("model_matrix", m4Kugel, false);
+        // kugelRend.render(simpleShader);
+        // simpleShader.setUniform("model_matrix", m4Boden, false);
+
+        // simpleMesh.render();
+        // mesh.render();
+        // rend.render();
     }
 
     public void update(float dt, float t) {
         float rotationMultiplier = 90.0f;
         float translationMultiplier = 5.0f;
 
+        Vector3f triggerPoint = new Vector3f(bicycle.getWorldPosition().x, bicycle.getWorldPosition().y, 22.85833f);
 
-        if (bicycle.getWorldPosition().z == 22.883331){
-            System.out.println("ich sollte mich bewegen");
-            for (int i = 0; i <= 100; i++){
-                americanTrashcan.translateLocal(new Vector3f(0.0f,0.0f,(-translationMultiplier/3) * dt));
-            }
+        if (bicycle.getWorldPosition().z == triggerPoint.z) {
+            pinkCarMove();
         }
 
-        //System.out.println(bicycle.getWorldPosition().z);
+        /*Vector3f triggerPoint = new Vector3f(bicycle.getWorldPosition().x, bicycle.getWorldPosition().y, 22.85833f);
+        Vector3f endPoint = new Vector3f(pinkCar.getWorldPosition().x, bicycle.getWorldPosition().y, -18.048096f);
+
+
+
+        if (bicycle.getWorldPosition().z == triggerPoint.z) {
+            System.out.println("TRIGGER WARNUNG");
+
+            //while(pinkCar.getWorldPosition().z >= endPoint.z) {
+                pinkCar.translateGlobal(new Vector3f(0.0f,0.0f,(-translationMultiplier/10f) * dt));
+                System.out.println("ich bewege mich!!!!!!!!!!!!!!!!!!");
+            //}
+        }*/
+
+
+        //System.out.println(bicycle.getWorldPosition().x+", "+ bicycle.getWorldPosition().y+", "+bicycle.getWorldPosition().z);
+        System.out.println(bicycle.getWorldPosition().z);
+
 
         // TODO: BIKE ACCELERATION
         //bicycle.translateLocal(new Vector3f(0.0f,0.0f,(-translationMultiplier/3) * dt));
@@ -245,6 +289,7 @@ public class Scene {
         } else {
             bicycle.translateLocal(new Vector3f(0.0f,0.0f,(-translationMultiplier/1.0f) * dt));
         }
+
 
 
         // TODO: CAMERA CHANGE
@@ -274,6 +319,15 @@ public class Scene {
             // hin und her wackeln vom fahrradfahrer während er fährt
         }
 
+
+        public void pinkCarMove(){
+            float translationMultiplier = 5.0f;
+
+            if (triggerPoint = true) {
+                pinkCar.translateGlobal(new Vector3f(0.0f,0.0f,(-translationMultiplier/10f) * 9));
+            }
+        }
+
         public void characterMovement() {
 
         boolean keyA = true;
@@ -295,17 +349,16 @@ public class Scene {
             // if bicycle is on right border
             keyD = false;
             //bicycle.rotateLocal(0,45,0);
-
         }
 
         // TODO: CHARACTER MOVEMENT
         // CHARACTER MOVES LEFT AND RIGHT
         if (window.getKeyState(GLFW_KEY_A) && keyA == true) {
-            bicycle.translateGlobal(new Vector3f(-3, 0.0f,0.0f));
+            bicycle.translateGlobal(new Vector3f(-3f, 0.0f,0.0f));
             //bicycle.rotateLocal(0, 45.0f, 0);
         }
         if (window.getKeyState(GLFW_KEY_D) && keyD == true) {
-            bicycle.translateGlobal(new Vector3f(3, 0.0f,0.0f));
+            bicycle.translateGlobal(new Vector3f(3f, 0.0f,0.0f));
             //bicycle.rotateLocal(0, -45.0f, 0);
         }
 
@@ -342,9 +395,6 @@ public class Scene {
                 bicycle.rotateLocal(0,45,0);
                 System.out.println("ich rotiere!!!");
             }*/
-
-
-
     }
 
     public void changeCamera() {
@@ -361,7 +411,7 @@ public class Scene {
             // TODO: BirdeyeView
             cam = new TronCam();
             cam.setParent(bicycle);
-            cam.translateLocal(new Vector3f(0.0f, 10.0f, 0.0f));
+            cam.translateLocal(new Vector3f(0.0f, 5.0f, -2.0f));
             //cam.translateLocal(new Vector3f(2.0f,5.0f,10.0f));
             cam.rotateLocal(-90, 0, 0);
 
@@ -407,5 +457,6 @@ public class Scene {
         float translationMultiplier = 0.000005f;
         //lightcycle.rotateLocal(0.0f, (float) (rotationMultiplier*xpos), 0.0f);
     }
-    public void cleanup() {}
+    public void cleanup() {
+    }
 }

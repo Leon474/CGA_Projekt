@@ -17,7 +17,6 @@ in struct VertexData
 
 } vertexData;
 
-
 //fragment shader output
 out vec4 color;
 
@@ -44,7 +43,74 @@ uniform vec3 Farbe;
 
 const float levels = 3.0;
 
+
+
+// SUNLIGHT
+/*in vec2 fragTextCoord;
+in vec3 fragNormal;
+in vec3 fragPos;
+
+out fragColor;
+
+struct Material{
+    vec4 ambient;
+    vec4 diffuse;
+    vec4 specular;
+    int hasTexture;
+    float reflectance;
+};
+
+
+// SUNLIGHT
+struct DirectionalLight{
+    vec3 color;
+    vec4 direction;
+    float intensity;
+};
+
+uniform specularPower;
+uniform DirectionalLight directionalLight;
+vec4 diffuseC;
+vec4 specularC;
+
+vec4 calcLightColor(vec3 light_color, float light_intensity, vec3 position, vec3 to_light_dir, vec3 normal){
+    vec4 diffuseColor = vec4(0,0,0,0);
+    vec4 specColor = vec4(0,0,0,0);
+
+    // diffuse Light
+    float diffuseFactor = max(dot(normal, to_light_dir, 0.0));
+    diffuseColor = diffuseC * vec4(light_color, 1.0) * light_intensity * diffuseFactor;
+
+    // specular Light
+    vec3 camera_direction = nomalize(-position);
+    vec3 from_light_dir = -to_light_dir;
+    vec3 reflectedLight = normalize(reflect(from_light_dir, normal));
+    float specularFactor = max(dot(camera_direction, reflectedLight), 0.0);
+    specularFactor = pow(specularFactor, specularPower);
+    specColor = specularC * light_intensity *specularFactor * material.reflectance * vec4(light_color, 1.0);
+
+    // no material and no ambiant light
+
+    return (diffuseColor, specColor);
+
+}
+
+vec4 calcDiretionalLight(DirectionalLight light, vec3 position, vec3 normal){
+    return calcLightColor(light.color, light.intensity, position, normalize(light.direction), normal);
+}*/
+
 void main(){
+
+    /*setupColors(material, fragTexCoord);
+
+    // geht auch nicht fragPos und fragNormal geht nicht
+    vec4 diffuseSpecularComp = calcDiretionalLight(directionalLight, fragPos, fragNormal);
+
+    fragColor = ambientC * vec4(ambientLight, 1) + diffuseSpecularComp;
+    */
+
+
+
 
     float d = sqrt(pow(vertexData.LightDir.x,2)+pow(vertexData.LightDir.y,2)+pow(vertexData.LightDir.z,2));
     float fatt = (1/(EinsKc + (EinsKl * d) + (EinsKq * pow(d,2))));
@@ -121,3 +187,5 @@ void main(){
     color = vec4(texture(emit, vertexData.tc) * vec4(Farbe,1) + summePoint + summeSpot*I);
 
 }
+
+

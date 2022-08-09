@@ -30,7 +30,6 @@ public class TronCam extends Camera {
 
     @Override
     public Matrix4f calculateViewMatrix() {
-
         viewMat.identity();
         viewMat = new Matrix4f().lookAt(getWorldPosition(), getWorldPosition().sub(getWorldZAxis()), getWorldYAxis());
         return viewMat;
@@ -38,15 +37,21 @@ public class TronCam extends Camera {
 
     @Override
     public Matrix4f calculateProjectionMatrix() {
-
         projMat = new Matrix4f().perspective(fieldOfView, seitenverhaeltnis, nearPlane, farPlane);
         return projMat;
     }
 
     @Override
     public void bind(ShaderProgram shaderProgram) {
-
         shaderProgram.setUniform("viewMat", calculateViewMatrix(), false);
         shaderProgram.setUniform("projMat", calculateProjectionMatrix(), false);
     }
+
+    @Override
+    public void bind(ShaderProgram shaderProgram, String name) {
+        shaderProgram.setUniform(name + "cameraPosition", getWorldPosition());
+    }
 }
+
+
+

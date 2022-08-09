@@ -42,7 +42,7 @@ public class Material
         shaderProgram.setUniform("specular",2);
         specular.bind(2);
 
-        shaderProgram.setUniform("shininess",shininess);
-        shaderProgram.setUniform("tcMultiplier",tcMultiplier);
+        shaderProgram.setUniform("shininess", shininess);
+        shaderProgram.setUniform("tcMultiplier", tcMultiplier);
     }
 }

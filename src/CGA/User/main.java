@@ -12,6 +12,29 @@ public class main {
         //Window
         Game game = new Game(1289, 720, false, false, "Rush Hour", 3, 3);
         game.run();
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -221,9 +244,4 @@ public class main {
             erg=new Vector3f();
 
         }*/
-    }
 
-
-
-
-}

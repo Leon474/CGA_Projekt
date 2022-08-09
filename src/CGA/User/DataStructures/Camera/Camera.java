@@ -26,6 +26,6 @@ public abstract class Camera extends Transformable {
     public abstract Matrix4f calculateViewMatrix();
     public abstract Matrix4f calculateProjectionMatrix();
     public abstract void bind(ShaderProgram shaderProgram);
-
+    public abstract void bind(ShaderProgram shaderProgram, String name);
 
 }

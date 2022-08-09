@@ -13,13 +13,11 @@ public class Transformable implements ITransformable {
 
     @Override
     public Matrix4f getLocalModelMatrix() {
-
         return modelMatrix;
     }
 
     @Override
     public void rotateLocal(float pitch, float yaw, float roll) {
-
         modelMatrix.rotateX((float)Math.toRadians(pitch));
         modelMatrix.rotateY((float)Math.toRadians(yaw));
         modelMatrix.rotateZ((float)Math.toRadians(roll));

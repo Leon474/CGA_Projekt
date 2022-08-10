@@ -1,10 +1,15 @@
 #version 330 core
-out vec4 FragColor;
+in vec2 outTexCoord;
+in vec3 mvPos;
+out vec4 fragColor;
 
-in vec3 TexCoords;
+uniform sampler2D texture_sampler;
+uniform vec3 ambientLight;  //original
+//uniform float ambientLight;
 
-uniform samplerCube skybox;
 
-void main() {
-    FragColor = texture(skybox, TexCoords);
+void main()
+{
+    //ambientLight = 0.20f;
+    fragColor = vec4(ambientLight, 1) * texture(texture_sampler, outTexCoord);
 }

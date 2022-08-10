@@ -12,6 +12,7 @@ import CGA.User.DataStructures.Light.PointLight;
 import CGA.User.DataStructures.Light.SpotLight;
 import CGA.User.DataStructures.ShaderProgram;
 import CGA.Framework.OBJLoader;
+import CGA.User.DataStructures.Skybox.SkyBox;
 import CGA.User.DataStructures.Texture2D;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
@@ -60,6 +61,9 @@ public class Scene {
     private PointLight pointLight;
     private SpotLight spotLight;
     private DirectionalLight sunlight;
+
+    private SkyBox skybox;
+
 
     //
     private boolean triggerPoint = false;
@@ -165,6 +169,9 @@ public class Scene {
             //pointLight.translateGlobal((new Vector3f(3,0,23)));      // --> starting position for the bike
 
 
+            //skybox = loader.loadModel("assets/Light Cycle/tankstelleNEU/energy_station_street_assets_vol._03/tankstelle.obj", (float) Math.toRadians(0.0),(float) Math.toRadians(90.0f),0);   //test von mir mit einem stall
+
+
             // TODO: SPOTLIGHT (Scheinwerfer)
             spotLight = new SpotLight(bicycle.getPosition(), new Vector3f(1.0f,1.0f,1.0f), 0.5f,0.05f, 0.01f, 50f, 70f);
             spotLight.setParent(bicycle);
@@ -223,6 +230,36 @@ public class Scene {
 
         // SUNLIGHT:
         sunlight.bind(simpleShader,"Sun");
+
+        // TODO: SKYBOX
+        /*skyboxShader.use();
+        skyboxShader.setUniform("texture_sampler", 0);
+
+
+
+
+        // Update projection Matrix
+        Matrix4f projectionMatrix = transformation.getProjectionMatrix(FOV, window.getWidth(), window.getHeight(), Z_NEAR, Z_FAR);
+        skyboxShader.setUniform("projectionMatrix", projectionMatrix);
+        //skyBox = scene.getSkyBox();
+        Matrix4f viewMatrix = transformation.getViewMatrix(cam);
+        viewMatrix.m30(0);
+        viewMatrix.m31(0);
+        viewMatrix.m32(0);
+        Matrix4f modelViewMatrix = transformation.getModelViewMatrix(skyBox, viewMatrix);
+
+        skybox.setParent(cam);
+
+        //skyboxShader.setUniform("modelViewMatrix", modelViewMatrix);
+        //skyboxShader.setUniform("ambientLight", scene.getSceneLight().getAmbientLight());
+
+        skyboxShader.setUniform("ambientLight", new Vector3f(0.2f,0.2f,0.2f));  // ??????
+
+        scene.getSkyBox().getMesh().render();
+
+        skyboxShader.cleanup();*/
+
+
 
         //bodenRend.render(simpleShader);
 

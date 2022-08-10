@@ -163,6 +163,19 @@ public class ShaderProgram {
         return false;
     }
 
+    public boolean setUniform(String name, Matrix3f matrix, boolean transpose) {
+        if (programID == 0)
+            return false;
+        int loc = glGetUniformLocation(programID, name);
+        if (loc != -1) {
+            matrix.get(m3x3buf);
+            glUniformMatrix3fv(loc, transpose, m3x3buf);
+            return true;
+        }
+
+        return false;
+    }
+
     public boolean setUniform(String name, int value){
         if (programID == 0)
             return false;

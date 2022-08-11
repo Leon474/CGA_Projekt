@@ -19,6 +19,10 @@ import org.joml.Vector3f;
 //import org.apache.commons.io.FileUtils;
 
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
@@ -56,6 +60,8 @@ public class Scene {
     private PointLight pointLight;
     private SpotLight spotLight;
     private Sunlight sunLight;
+
+    private ArrayList<Renderable> hindernissliste;
 
     public Scene(GameWindow window) {
         this.window = window;
@@ -118,31 +124,39 @@ public class Scene {
             city.translateGlobal((new Vector3f(-28.2f,0,-31)));
 
             // TODO: OBSTACLES
+            hindernissliste = new ArrayList<Renderable>();
+
             pinkCar = new Renderable();
             pinkCar = loader.loadModel("assets/Objects/PinkCar/pinkCarr.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-70.0f),0);
             pinkCar.scaleLocal(new Vector3f(1.7f));
             pinkCar.translateGlobal(new Vector3f(-2.5f,0,2));
+            hindernissliste.add(pinkCar);
 
             trashcans = new Renderable();
             trashcans = loader.loadModel("assets/Objects/Trashcan/neustadt_an_der_aisch_mulltonnen/trashcan.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-45.0f),0);
             trashcans.scaleLocal(new Vector3f(1.28f));
             trashcans.translateGlobal(new Vector3f(3,0,13));
+            hindernissliste.add(trashcans);
 
             bigWallOBJ = loader.loadModel("assets/Light Cycle/grosseMauer/grosseMauer.obj", (float) Math.toRadians(0.0f),(float) Math.toRadians(90.0f),0);   //test von mir mit einem stall
             bigWallOBJ.scaleLocal(new Vector3f(0.3f));
             bigWallOBJ.translateGlobal(new Vector3f(-4,0,3));
+            hindernissliste.add(bigWallOBJ);
 
             cubeOBJ = loader.loadModel("assets/Light Cycle/mauerCube/mauerCube.obj", (float) Math.toRadians(0.0f),(float) Math.toRadians(90.0f),0);   //test von mir mit einer mauer
             cubeOBJ.scaleLocal(new Vector3f(3f));
             cubeOBJ.translateGlobal(new Vector3f(0,0,0));
+            hindernissliste.add(cubeOBJ);
 
             stallOBJ = loader.loadModel("assets/Light Cycle/stall2/stallNEU2.obj", (float) Math.toRadians(0.0),(float) Math.toRadians(90.0f),0);   //test von mir mit einem stall
             stallOBJ.scaleLocal(new Vector3f(0.5f));
             stallOBJ.translateGlobal(new Vector3f(4.5f,0,-12));
+            hindernissliste.add(stallOBJ);
 
             gasstation = loader.loadModel("assets/Light Cycle/tankstelleNEU/energy_station_street_assets_vol._03/tankstelle.obj", (float) Math.toRadians(0.0),(float) Math.toRadians(90.0f),0);   //test von mir mit einem stall
             gasstation.scaleLocal(new Vector3f(1.0f));
             gasstation.translateGlobal(new Vector3f(-4.5f,0,-12));
+            hindernissliste.add(gasstation);
 
 
             // TODO: LIGHT -->
@@ -171,9 +185,6 @@ public class Scene {
 
             // m4Boden.identity().rotateX((float) Math.toRadians(90)).scaleLocal(0.03f);
             // m4Boden.identity().rotate((float) Math.toRadians(90), new Vector3f(1.0f, 0, 0)).scaleLocal(0.03f);
-
-            // TODO: COLLISION DETECTION
-            collisionDetection();
 
             // TODO: BACKGROUNDCOLOR -->  r, g, b
             glClearColor(0.3f, 0.6f, 0.70f, 0.0f);  //--> original (schwarz)
@@ -216,10 +227,10 @@ public class Scene {
         city.render(simpleShader);
 
         // obstacles:
-        /*cubeOBJ.render(simpleShader);
+        cubeOBJ.render(simpleShader);
         bigWallOBJ.render(simpleShader);
         stallOBJ.render(simpleShader);
-        gasstation.render(simpleShader);*/
+        gasstation.render(simpleShader);
         pinkCar.render(simpleShader);
         trashcans.render(simpleShader);
 
@@ -236,14 +247,14 @@ public class Scene {
         // TODO: BIKE ACCELERATION
         //bicycle.translateLocal(new Vector3f(0.0f,0.0f,(-translationMultiplier/3) * dt));
 
-        Vector3f collisionObject = new Vector3f(0, 0, -10.311183f);
+        /*Vector3f collisionObject = new Vector3f(0, 0, -10.311183f);
 
         if (bicycle.getWorldPosition().z == collisionObject.z) {
             System.out.println("COLLISION!!!");
             bicycle.translateLocal(new Vector3f(0.0f,0.0f,0)); // Bike stops!
         } else {
             bicycle.translateLocal(new Vector3f(0.0f,0.0f,(-translationMultiplier/1.0f) * dt));
-        }
+        }*/
 
         //System.out.println("tankstelle: ("+gasstation.getXAxis().x +", "+ gasstation.getYAxis().y+", " + gasstation.getZAxis().z+")");
 
@@ -251,16 +262,25 @@ public class Scene {
         changeCamera();
 
         // TODO: COLLISION DETECTION
-        /*if (collisionDetection() == false) {
-            bicycle.translateLocal(new Vector3f(0.0f,0.0f,(-translationMultiplier/3) * dt));
-        }*/
-
-        //System.out.println("position: "+bicycle.getWorldPosition().x);
-        //System.out.println("position: "+bicycle.getWorldPosition().z);
-        //System.out.println("Collisionsobjekt: "+collisionObject.z);
+        // bei jedem Frame auf collision überprüfen
+        collisionObject(hindernissliste);
 
         // TODO: BIKE RESET
         //resetBike();
+    }
+
+    private void collisionObject(ArrayList<Renderable> hindernissliste) {
+
+        // von jedem Renderable die Z achse mit der Achse vom Fahhrad vergleichen.
+        for (Renderable hindernis : hindernissliste)
+        {
+            if(hindernis.getWorldPosition().z == bicycle.getWorldPosition().z)
+            {
+                // fancy machen vllt? mit shutdown in neuen init durchlauf oder resetBike oder quit
+                System.out.println("COLLISION!!!");
+                bicycle.translateLocal(new Vector3f(0.0f,0.0f,0));
+            }
+        }
     }
 
     /*public void resetBike() {
@@ -401,21 +421,6 @@ public class Scene {
         characterMovement();
     }
 
-    public boolean collisionDetection(){
-
-        /*Vector3f collisionObject = new Vector3f(0, 0, -10.311183f);
-
-        if (bicycle.getWorldPosition().z == collisionObject.z) {
-            System.out.println("COLLISION!!!");
-            bicycle.translateLocal(new Vector3f(0.0f,0.0f,0));
-            return true;
-        } else {
-            //bicycle.translateLocal(new Vector3f(0.0f,0.0f,(-translationMultiplier/3) * dt));
-            return false;
-        }*/
-
-        return false;
-    }
     public void onMouseMove(double xpos, double ypos) {
         float rotationMultiplier = 0.00005f;
         float translationMultiplier = 0.000005f;

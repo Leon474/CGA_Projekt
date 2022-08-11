@@ -278,7 +278,7 @@ public class Scene {
             {
                 // fancy machen vllt? mit shutdown in neuen init durchlauf oder resetBike oder quit
                 System.out.println("COLLISION!!!");
-                bicycle.translateLocal(new Vector3f(0.0f,0.0f,0));
+                bicycle.translateGlobal((new Vector3f(3,0,23)));
             }
         }
     }

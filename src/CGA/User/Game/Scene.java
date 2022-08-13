@@ -135,6 +135,8 @@ public class Scene {
             pinkCar = loader.loadModel("assets/Objects/PinkCar/pinkCar/pinkCar.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-70.0f),0);
             pinkCar.scaleLocal(new Vector3f(1.3f));
             pinkCar.translateGlobal(new Vector3f(-2.5f,0,2));
+            //pinkCar.translateGlobal(new Vector3f(2.5f,0,13));
+
 
             trashcans = new Renderable();
             trashcans = loader.loadModel("assets/Objects/Trashcan/neustadt_an_der_aisch_mulltonnen/trashcan.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-45.0f),0);
@@ -145,6 +147,8 @@ public class Scene {
             americanTrashcan = loader.loadModel("assets/Objects/Trashcan/american_trashcan/americanTrashcan.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-45.0f),0);
             americanTrashcan.scaleLocal(new Vector3f(1.28f));
             americanTrashcan.translateGlobal(new Vector3f(2.5f,0.69f,13));
+            //americanTrashcan.translateGlobal(new Vector3f(-2.5f,0.69f,2));
+
 
             stallOBJ = loader.loadModel("assets/Light Cycle/stall2/stallNEU2.obj", (float) Math.toRadians(0.0),(float) Math.toRadians(90.0f),0);   //test von mir mit einem stall
             stallOBJ.scaleLocal(new Vector3f(0.5f));

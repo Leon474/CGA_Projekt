@@ -53,6 +53,8 @@ uniform vec3 SunLightcolor;
 
 vec4 directionalLight(){
 
+    const float levels = 3.0;   // cel shading levels
+
     // ambient lighting
     float ambient = 0.20f;
 
@@ -61,6 +63,9 @@ vec4 directionalLight(){
     //vec3 lightDirection = normalize(DreiLightposition - vertexData.position);
     vec3 lightDirection = normalize(vec3(1.0f, 1.0f, 0.0f));
     float diffuse = max(dot(normal, lightDirection), 0.0f);
+
+    float level = floor(diffuse * levels);          // cel shading
+    diffuse = level / levels;                       // cel shading
 
     // specular lighting
     float specularLight = 0.50f;

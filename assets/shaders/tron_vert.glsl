@@ -27,6 +27,9 @@ out struct VertexData
     vec3 toLight;
     vec3 test;
 } vertexData;
+/*out vec4 fColor;
+uniform mat4 uViewMat;
+uniform mat4 uProjMat;*/
 
 void main(){
 
@@ -57,4 +60,6 @@ void main(){
     vertexData.normale = norm.xyz;
 
     vertexData.test = -lp2.xyz;
+
+    //fColor = uProjMat * uViewMat * vec4(position, 1.0);
 }

@@ -134,9 +134,9 @@ public class Scene {
             pinkCar = new Renderable();
             pinkCar = loader.loadModel("assets/Objects/PinkCar/pinkCar/pinkCar.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-70.0f),0);
             pinkCar.scaleLocal(new Vector3f(1.3f));
-            pinkCar.translateGlobal(new Vector3f(-2.5f,0,2));
+            //pinkCar.translateGlobal(new Vector3f(-2.5f,0,2));
+            pinkCar.translateGlobal(new Vector3f(-3f,0,2));
             //pinkCar.translateGlobal(new Vector3f(2.5f,0,13));
-
 
             trashcans = new Renderable();
             trashcans = loader.loadModel("assets/Objects/Trashcan/neustadt_an_der_aisch_mulltonnen/trashcan.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-45.0f),0);
@@ -148,7 +148,6 @@ public class Scene {
             americanTrashcan.scaleLocal(new Vector3f(1.28f));
             americanTrashcan.translateGlobal(new Vector3f(2.5f,0.69f,13));
             //americanTrashcan.translateGlobal(new Vector3f(-2.5f,0.69f,2));
-
 
             stallOBJ = loader.loadModel("assets/Light Cycle/stall2/stallNEU2.obj", (float) Math.toRadians(0.0),(float) Math.toRadians(90.0f),0);   //test von mir mit einem stall
             stallOBJ.scaleLocal(new Vector3f(0.5f));
@@ -240,8 +239,6 @@ public class Scene {
         skyboxShader.setUniform("texture_sampler", 0);
 
 
-
-
         // Update projection Matrix
         Matrix4f projectionMatrix = transformation.getProjectionMatrix(FOV, window.getWidth(), window.getHeight(), Z_NEAR, Z_FAR);
         skyboxShader.setUniform("projectionMatrix", projectionMatrix);
@@ -316,21 +313,22 @@ public class Scene {
 
 
         //System.out.println(bicycle.getWorldPosition().x+", "+ bicycle.getWorldPosition().y+", "+bicycle.getWorldPosition().z);
-        System.out.println(bicycle.getWorldPosition().z);
 
 
         // TODO: BIKE ACCELERATION
         //bicycle.translateLocal(new Vector3f(0.0f,0.0f,(-translationMultiplier/3) * dt));
 
-        Vector3f collisionObject = new Vector3f(0, 0, -10.311183f);
+        Vector3f collisionObject = new Vector3f(0, 0, 16.589422f);
 
-        if (bicycle.getWorldPosition().z == collisionObject.z) {
+        if (bicycle.getWorldPosition().z == pinkCar.getWorldPosition().z && bicycle.getWorldPosition().x == pinkCar.getWorldPosition().x) {
             System.out.println("COLLISION!!!");
             bicycle.translateLocal(new Vector3f(0.0f,0.0f,0)); // Bike stops!
         } else {
             bicycle.translateLocal(new Vector3f(0.0f,0.0f,(-translationMultiplier/1.0f) * dt));
         }
 
+        //System.out.println(bicycle.getWorldPosition().z);
+        System.out.println(pinkCar.getPosition().z);
 
 
         // TODO: CAMERA CHANGE
@@ -455,6 +453,7 @@ public class Scene {
             cam.translateLocal(new Vector3f(0.0f, 5.0f, -2.0f));
             //cam.translateLocal(new Vector3f(2.0f,5.0f,10.0f));
             cam.rotateLocal(-90, 0, 0);
+            cam.adjustProjection();
 
             //bigWallOBJ.scaleLocal(new Vector3f(0.1f));
         }else if (window.getKeyState(GLFW_KEY_Q)) {

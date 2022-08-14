@@ -14,7 +14,7 @@ in struct VertexData{
 
     vec3 test;
 } vertexData;
-
+in vec4 fColor;
 
 //fragment shader output
 out vec4 color;
@@ -65,7 +65,7 @@ vec4 directionalLight(){
     // Cel-shading:
     //QUELLE: https://www.youtube.com/watch?v=dzItGHyteng&t=236s
     const float levels = 3.0;
-    float levelD = floor(diffuse * levels);
+    float levelD = floor(diffuse * levels);  // floor = auf-/abrunden
     diffuse = levelD / levels;
 
     // specular lighting
@@ -75,7 +75,7 @@ vec4 directionalLight(){
     float specAmount = pow(max(dot(viewDirection, reflectionDirection), 0.0f), 16);
     float specular = specAmount * specularLight;
 
-    return (texture(emit,  vertexData.tc) * (diffuse + ambient + specular) * vec4(SunLightcolor , 1));
+    return (texture(emit,  vertexData.tc) * (diffuse + ambient + specular) * vec4(SunLightcolor , 1) /*+ fColor*/);
 }
 
 vec4 pointlight(){

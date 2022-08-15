@@ -18,12 +18,26 @@ import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.system.CallbackI;
 //import org.apache.commons.io.FileUtils;
 
 
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
+
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
+import static org.lwjgl.opengl.GL13.*;
+import static org.lwjgl.opengl.GL15.*;
+import static org.lwjgl.opengl.GL20.*;
+import static org.lwjgl.opengl.GL30.*;
+import static org.lwjgl.opengles.EXTSparseTexture.GL_TEXTURE_CUBE_MAP;
+//import static org.lwjgl.opengles.GLES20.*;
+import static org.lwjgl.opengles.GLES30.GL_TEXTURE_WRAP_R;
+import static org.lwjgl.stb.STBImage.*;
 
 /**
  * Created by Fabian on 16.09.2017.
@@ -114,6 +128,141 @@ public class Scene {
             bodenRend.meshes.add(bodenMesh);
 
             // TODO SKYBOX:
+            // TODO SKYBOX:
+
+            float skyboxVertices[] = {
+                    -1,-1,1,
+                    1,-1,1,
+                    1,-1,-1,
+                    -1,-1,-1,
+                    -1,1,1,
+                    1,1,1,
+                    1,1,-1,
+                    -1,1,-1
+            };
+
+            int skyboxIndices[] = {
+                    1,2,6,
+                    6,5,1,
+                    0,4,7,
+                    7,3,0,
+                    4,5,6,
+                    6,7,4,
+                    0,3,2,
+                    2,1,0,
+                    0,1,5,
+                    5,4,0,
+                    3,7,6,
+                    6,2,3
+            };
+
+            /*int skyboxVAO = 1;
+            int skyboxVBO = 1;
+            int skyboxEBO = 1;
+
+            // binding
+            skyboxVAO = glGenVertexArrays();
+            glBindVertexArray(skyboxVAO);
+
+            skyboxVBO = glGenBuffers();
+            glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
+            glBufferData(GL_ARRAY_BUFFER, skyboxVertices, GL_STATIC_DRAW);
+
+            skyboxEBO = glGenBuffers();
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, skyboxEBO);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, skyboxIndices, GL_STATIC_DRAW);
+
+            glVertexAttribPointer(0, 3, GL_FLOAT, false, 8*3, 0);*/
+
+            // unbinding
+            /*glEnableVertexAttribArray(0);
+            glBindBuffer(GL_ARRAY_BUFFER, 0);
+            glBindVertexArray(0);
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);*/
+
+
+            String facesCubemap [] = {
+                    "assets/textures/ground_diff.png",
+                    "assets/textures/ground_diff.png",
+                    "assets/textures/ground_diff.png",
+                    "assets/textures/ground_diff.png",
+                    "assets/textures/ground_diff.png",
+                    "assets/textures/ground_diff.png"
+            };
+
+            VertexAttribute[] vertexAttributesArray = new VertexAttribute[1];
+            vertexAttributesArray[0] = new VertexAttribute(3, GL_FLOAT, 24, 0);
+
+            Texture2D pic1 = new Texture2D("assets/textures/ground_diff.png",false);
+            Texture2D pic2 = new Texture2D("assets/textures/ground_emit.png",false);
+            Texture2D pic3 = new Texture2D("assets/textures/ground_spec.png",false);
+            Texture2D pic4 = new Texture2D("assets/textures/ground_diff.png",false);
+            Texture2D pic5 = new Texture2D("assets/textures/ground_emit.png",false);
+            Texture2D pic6 = new Texture2D("assets/textures/ground_spec.png",false);
+
+            pic1.setTexParamsSkybox();
+            pic2.setTexParamsSkybox();
+            pic3.setTexParamsSkybox();
+            pic4.setTexParamsSkybox();
+            pic5.setTexParamsSkybox();
+            pic6.setTexParamsSkybox();
+
+            skybox = new SkyBox(skyboxVertices, skyboxIndices, vertexAttributesArray);
+
+
+            /*int cubemapTexture = 0;
+            cubemapTexture = glGenTextures();
+            glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+            glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+            glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+            glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+            glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);*/
+
+
+           /* for (int i = 0; i < 6; i++) {
+                IntBuffer width = BufferUtils.createIntBuffer(1);
+                IntBuffer height = BufferUtils.createIntBuffer(1);
+                IntBuffer nrChannels = BufferUtils.createIntBuffer(1);
+
+                ByteBuffer imageData = stbi_load(facesCubemap[i], width, height, nrChannels, 0);
+
+                if (imageData != null) {
+                    stbi_set_flip_vertically_on_load(false);
+                    glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width.get(), height.get(), 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+                    stbi_image_free(imageData);
+                } else {
+                    System.out.println("Failed to load Texture: "+ facesCubemap[i]);
+                    stbi_image_free(imageData);
+                }
+            }*/
+
+
+            // drawing cube map
+            // TODO: vllt noch wichtig?!?!?! für die skybox
+            /*glDepthFunc(GL_EQUAL);
+            skyboxShader.use();
+            Matrix4f view = new Matrix4f(cam.getViewMatrix());
+
+
+
+            view = cam.calculateViewMatrix();
+            Matrix4f projection = new Matrix4f(1.0f);
+            view = new Matrix4f();
+            projection = cam.getProjectionMatrix();
+
+            skyboxShader.setUniform("view", cam.calculateViewMatrix());
+            glUniformMatrix4fv(glGetUniformLocation(skyboxShader.getProgramID(), "projection"), 1, GL_FALSE, projection);*/
+
+            /*glBindVertexArray(skyboxVAO);
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+            glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+            glBindVertexArray(0);*/
+            //glDepthFunc(GL_LESS);
+
+
 
 
 
@@ -191,6 +340,10 @@ public class Scene {
             cam.translateLocal(new Vector3f(0,1.8f,-0.1f)); // z ist die entfernung zum object --> test von mir
             cam.rotateLocal(-15, 0, 0);
 
+
+
+
+
             // TODO: COLLISION DETECTION
             collisionDetection();
 
@@ -235,6 +388,11 @@ public class Scene {
         sunlight.bind(simpleShader,"Sun");
 
         // TODO: SKYBOX
+        //skyboxShader.use();
+        skybox.render();
+        //glUniform3f(glGetUniformLocation(skyboxShader, "skybox"));
+        //glUniform1i(glGetUniformLocation(skyboxShader.getProgramID(), "skybox"), 0);
+
         /*skyboxShader.use();
         skyboxShader.setUniform("texture_sampler", 0);
 

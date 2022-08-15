@@ -10,6 +10,9 @@ import static CGA.Framework.GLError.*;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
+import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
+import static org.lwjgl.opengles.EXTSparseTexture.GL_TEXTURE_CUBE_MAP;
+import static org.lwjgl.opengles.GLES30.GL_TEXTURE_WRAP_R;
 import static org.lwjgl.stb.STBImage.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL13.*;
@@ -62,6 +65,42 @@ public class Texture2D implements ITexture {
         }
         unbind();
     }
+
+    //neu für skybox
+    public void skyBoxTexture(String facesCubemap[]){
+        for (int i = 0; i < 6; i++) {
+            IntBuffer width = BufferUtils.createIntBuffer(1);
+            IntBuffer height = BufferUtils.createIntBuffer(1);
+            IntBuffer nrChannels = BufferUtils.createIntBuffer(1);
+
+            ByteBuffer imageData = stbi_load(facesCubemap[i], width, height, nrChannels, 0);
+
+            if (imageData != null) {
+                stbi_set_flip_vertically_on_load(false);
+                glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width.get(), height.get(), 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+                stbi_image_free(imageData);
+            } else {
+                System.out.println("Failed to load Texture: "+ facesCubemap[i]);
+                stbi_image_free(imageData);
+            }
+        }
+    }
+
+    // texture parameter for the skybox
+    public void setTexParamsSkybox() throws Exception {
+        glBindTexture(GL_TEXTURE_CUBE_MAP, texID);
+
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+
+        unbind();
+    }
+
+
 
     public void setTexParams(int wrapS, int wrapT, int minFilter, int magFilter) throws Exception {
 

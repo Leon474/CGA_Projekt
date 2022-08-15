@@ -17,6 +17,8 @@ import static org.lwjgl.opengl.GL30.*;
  * Created by Fabian on 16.09.2017.
  */
 public class ShaderProgram {
+
+
     private int programID;
 
     //Matrix buffers for setting matrix uniforms. Prevents allocation for each uniform
@@ -24,7 +26,10 @@ public class ShaderProgram {
     private FloatBuffer m4x4buf;
     private int currentTextureUnit;
     private int tuSave;  //tu = texture unit
-    
+
+    public int getProgramID() {
+        return programID;
+    }
 
     /**
      * Creates a shader object from vertex and fragment shader paths

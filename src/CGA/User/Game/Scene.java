@@ -14,6 +14,7 @@ import CGA.User.DataStructures.ShaderProgram;
 import CGA.Framework.OBJLoader;
 import CGA.User.DataStructures.Skybox.SkyBox;
 import CGA.User.DataStructures.Texture2D;
+import CGA.User.DataStructures.TextureSkybox;
 import org.joml.Matrix4f;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
@@ -128,34 +129,6 @@ public class Scene {
             bodenRend.meshes.add(bodenMesh);
 
             // TODO SKYBOX:
-            // TODO SKYBOX:
-
-            float skyboxVertices[] = {
-                    -1,-1,1,
-                    1,-1,1,
-                    1,-1,-1,
-                    -1,-1,-1,
-                    -1,1,1,
-                    1,1,1,
-                    1,1,-1,
-                    -1,1,-1
-            };
-
-            int skyboxIndices[] = {
-                    1,2,6,
-                    6,5,1,
-                    0,4,7,
-                    7,3,0,
-                    4,5,6,
-                    6,7,4,
-                    0,3,2,
-                    2,1,0,
-                    0,1,5,
-                    5,4,0,
-                    3,7,6,
-                    6,2,3
-            };
-
             /*int skyboxVAO = 1;
             int skyboxVBO = 1;
             int skyboxEBO = 1;
@@ -181,31 +154,46 @@ public class Scene {
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);*/
 
 
+            float skyboxVertices[] = {
+                    -1.0f, -1.0f, 1.0f,
+                     1.0f, -1.0f, 1.0f,
+                     1.0f, -1.0f, -1.0f,
+                    -1.0f, -1.0f, -1.0f,
+                    -1.0f, 1.0f, 1.0f,
+                     1.0f, 1.0f, 1.0f,
+                     1.0f, 1.0f, -1.0f,
+                    -1.0f, 1.0f, -1.0f
+            };
+
+            int skyboxIndices[] = {
+                    1,2,6,
+                    6,5,1,
+                    0,4,7,
+                    7,3,0,
+                    4,5,6,
+                    6,7,4,
+                    0,3,2,
+                    2,1,0,
+                    0,1,5,
+                    5,4,0,
+                    3,7,6,
+                    6,2,3
+            };
+
             String facesCubemap [] = {
-                    "assets/textures/ground_diff.png",
-                    "assets/textures/ground_diff.png",
-                    "assets/textures/ground_diff.png",
-                    "assets/textures/ground_diff.png",
-                    "assets/textures/ground_diff.png",
-                    "assets/textures/ground_diff.png"
+                    "assets/textures/skybox/right.jpg",
+                    "assets/textures/skybox/left.png",
+                    "assets/textures/skybox/top.png",
+                    "assets/textures/skybox/bottom.png",
+                    "assets/textures/skybox/front.png",
+                    "assets/textures/skybox/back.png"
             };
 
             VertexAttribute[] vertexAttributesArray = new VertexAttribute[1];
             vertexAttributesArray[0] = new VertexAttribute(3, GL_FLOAT, 24, 0);
 
-            Texture2D pic1 = new Texture2D("assets/textures/ground_diff.png",false);
-            Texture2D pic2 = new Texture2D("assets/textures/ground_emit.png",false);
-            Texture2D pic3 = new Texture2D("assets/textures/ground_spec.png",false);
-            Texture2D pic4 = new Texture2D("assets/textures/ground_diff.png",false);
-            Texture2D pic5 = new Texture2D("assets/textures/ground_emit.png",false);
-            Texture2D pic6 = new Texture2D("assets/textures/ground_spec.png",false);
-
-            pic1.setTexParamsSkybox();
-            pic2.setTexParamsSkybox();
-            pic3.setTexParamsSkybox();
-            pic4.setTexParamsSkybox();
-            pic5.setTexParamsSkybox();
-            pic6.setTexParamsSkybox();
+            TextureSkybox skyboxTextures = new TextureSkybox(facesCubemap);
+            skyboxTextures.setTexParamsSkybox();
 
             skybox = new SkyBox(skyboxVertices, skyboxIndices, vertexAttributesArray);
 
@@ -389,7 +377,7 @@ public class Scene {
 
         // TODO: SKYBOX
         //skyboxShader.use();
-        skybox.render();
+        skybox.render(skyboxShader);
         //glUniform3f(glGetUniformLocation(skyboxShader, "skybox"));
         //glUniform1i(glGetUniformLocation(skyboxShader.getProgramID(), "skybox"), 0);
 

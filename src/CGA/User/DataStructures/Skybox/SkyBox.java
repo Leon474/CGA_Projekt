@@ -51,8 +51,7 @@ public class SkyBox extends Transformable {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, skyboxEBO);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexdata, GL_STATIC_DRAW);
 
-        glVertexAttribPointer(0, 3, GL_FLOAT, false, 8 * 3, 0);
-
+        //glVertexAttribPointer(0, 3, GL_FLOAT, false, 8 * 3, 0);
 
         // TODO: Generate IDs, bind objects and upload Mesh data
 
@@ -60,7 +59,6 @@ public class SkyBox extends Transformable {
             glVertexAttribPointer(i, attributes[i].n, attributes[i].type, false, attributes[i].stride, attributes[i].offset); //Position
             glEnableVertexAttribArray(i);
         }*/
-
 
         // unbinding
         glEnableVertexAttribArray(0);
@@ -114,8 +112,20 @@ public class SkyBox extends Transformable {
 
     public void bind(ShaderProgram shaderProgram, String name, Matrix4f viewMatrix) {
         shaderProgram.setUniform(name +"Richtung", getWorldZAxis().negate().mul(new Matrix3f(viewMatrix)));
+
         //shaderProgram.setUniform();
 
+    }
+
+    public void bind(ShaderProgram shaderProgram, String name) {
+        /*shaderProgram.setUniform(name + "view", getLocalModelMatrix());
+        shaderProgram.setUniform(name+ "projection", projectionMatrix);
+
+
+        view = glm::mat4(glm::mat3(glm::lookAt(camera.Position, camera.Position + camera.Orientation, camera.Up)));
+        projection = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 100.0f);
+        glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
+        glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));*/
     }
 
 
@@ -124,4 +134,5 @@ public class SkyBox extends Transformable {
 
 
 
-}
+
+    }

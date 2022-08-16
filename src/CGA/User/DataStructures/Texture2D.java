@@ -67,7 +67,7 @@ public class Texture2D implements ITexture {
     }
 
     //neu für skybox
-    public void skyBoxTexture(String facesCubemap[]){
+    /*public void skyBoxTexture(String facesCubemap[]){
         for (int i = 0; i < 6; i++) {
             IntBuffer width = BufferUtils.createIntBuffer(1);
             IntBuffer height = BufferUtils.createIntBuffer(1);
@@ -84,7 +84,7 @@ public class Texture2D implements ITexture {
                 stbi_image_free(imageData);
             }
         }
-    }
+    }*/
 
     // texture parameter for the skybox
     public void setTexParamsSkybox() throws Exception {

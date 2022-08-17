@@ -1,0 +1,11 @@
+Model Information:
+* title:	Ford Mondeo Police (Ver.1)
+* source:	https://sketchfab.com/3d-models/ford-mondeo-police-ver1-0f116808d3194ca79255a0563eccf939
+* author:	TSB3DMODELS (https://sketchfab.com/TSB3DMODELS)
+
+Model License:
+* license type:	CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)
+* requirements:	Author must be credited. No commercial use.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Ford Mondeo Police (Ver.1)" (https://sketchfab.com/3d-models/ford-mondeo-police-ver1-0f116808d3194ca79255a0563eccf939) by TSB3DMODELS (https://sketchfab.com/TSB3DMODELS) licensed under CC-BY-NC-4.0 (http://creativecommons.org/licenses/by-nc/4.0/)

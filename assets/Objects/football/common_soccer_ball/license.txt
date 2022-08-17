@@ -1,0 +1,11 @@
+Model Information:
+* title:	[Common] Soccer Ball
+* source:	https://sketchfab.com/3d-models/common-soccer-ball-1cefe2649fb546f29923ccaed833e0c1
+* author:	XAF Productions (https://sketchfab.com/xafproductions)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "[Common] Soccer Ball" (https://sketchfab.com/3d-models/common-soccer-ball-1cefe2649fb546f29923ccaed833e0c1) by XAF Productions (https://sketchfab.com/xafproductions) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

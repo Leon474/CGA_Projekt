@@ -1,0 +1,74 @@
+# Blender MTL File: 'None'
+# Material Count: 6
+
+newmtl Traffic_Cone_Dirt_Lights
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump Traffic_Cone_Dirt_Lights_normal.png
+map_Kd Traffic_Cone_Dirt_Lights_baseColor.png
+
+newmtl Traffic_Cone_Lights
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump Traffic_Cone_Lights_normal.png
+map_Kd Traffic_Cone_Lights_baseColor.png
+
+newmtl Traffic_Cone_Orange_Clean
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump Traffic_Cone_Orange_Clean_normal.png
+map_Kd Traffic_Cone_Orange_Clean_baseColor.jpeg
+
+newmtl Traffic_Cone_Orange_Dirt
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump Traffic_Cone_Red__Dirt_normal.png
+map_Kd Traffic_Cone_Orange_Dirt_baseColor.png
+
+newmtl Traffic_Cone_Red__Clean
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump Traffic_Cone_Orange_Clean_normal.png
+map_Kd Traffic_Cone_Red__Clean_baseColor.jpeg
+
+newmtl Traffic_Cone_Red__Dirt
+Ns 250.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Bump Traffic_Cone_Red__Dirt_normal.png
+map_Kd Traffic_Cone_Red__Dirt_baseColor.png

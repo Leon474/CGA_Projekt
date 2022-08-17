@@ -1,0 +1,11 @@
+Model Information:
+* title:	king's cup
+* source:	https://sketchfab.com/3d-models/kings-cup-4f5a5024e54a454089818a8a4c0be951
+* author:	emelyarules (https://sketchfab.com/emelyarules)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "king's cup" (https://sketchfab.com/3d-models/kings-cup-4f5a5024e54a454089818a8a4c0be951) by emelyarules (https://sketchfab.com/emelyarules) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

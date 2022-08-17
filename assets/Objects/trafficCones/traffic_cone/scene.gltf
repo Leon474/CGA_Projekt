@@ -1,0 +1,1246 @@
+{
+  "accessors": [
+    {
+      "bufferView": 2,
+      "componentType": 5126,
+      "count": 930,
+      "max": [
+        62.24518585205078,
+        51.2100830078125,
+        41.628387451171875
+      ],
+      "min": [
+        -140.926025390625,
+        -23.719715118408203,
+        -6.101310729980469
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 11160,
+      "componentType": 5126,
+      "count": 930,
+      "max": [
+        0.9996578693389893,
+        0.9999387264251709,
+        1.0
+      ],
+      "min": [
+        -0.9871431589126587,
+        -0.9999753832817078,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "componentType": 5126,
+      "count": 930,
+      "max": [
+        1.0,
+        0.9998729228973389,
+        0.9999520182609558,
+        1.0
+      ],
+      "min": [
+        -0.999988317489624,
+        -0.9999968409538269,
+        -0.9998461008071899,
+        1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "componentType": 5126,
+      "count": 930,
+      "max": [
+        0.9950340390205383,
+        0.9701400995254517
+      ],
+      "min": [
+        0.011567318812012672,
+        0.017435792833566666
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "componentType": 5125,
+      "count": 2964,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 22320,
+      "componentType": 5126,
+      "count": 1248,
+      "max": [
+        180.75555419921875,
+        118.61516571044922,
+        79.38021850585938
+      ],
+      "min": [
+        -23.72816276550293,
+        -23.72816276550293,
+        -1.510183334350586
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 37296,
+      "componentType": 5126,
+      "count": 1248,
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "byteOffset": 14880,
+      "componentType": 5126,
+      "count": 1248,
+      "max": [
+        1.0,
+        1.0,
+        0.9925258159637451,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -0.9916785955429077,
+        1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 7440,
+      "componentType": 5126,
+      "count": 1248,
+      "max": [
+        0.9950340390205383,
+        0.9701400995254517
+      ],
+      "min": [
+        0.011567318812012672,
+        0.017435792833566666
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 11856,
+      "componentType": 5125,
+      "count": 3582,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 52272,
+      "componentType": 5126,
+      "count": 832,
+      "max": [
+        52.45146179199219,
+        60.14945602416992,
+        79.38021850585938
+      ],
+      "min": [
+        -23.72816276550293,
+        -24.741436004638672,
+        -1.5101814270019531
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 62256,
+      "componentType": 5126,
+      "count": 832,
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "byteOffset": 34848,
+      "componentType": 5126,
+      "count": 832,
+      "max": [
+        1.0,
+        1.0,
+        0.9925258159637451,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -0.9916785955429077,
+        1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 17424,
+      "componentType": 5126,
+      "count": 832,
+      "max": [
+        0.9950340390205383,
+        0.9701400995254517
+      ],
+      "min": [
+        0.011567318812012672,
+        0.017435792833566666
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 26184,
+      "componentType": 5125,
+      "count": 2388,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 72240,
+      "componentType": 5126,
+      "count": 1240,
+      "max": [
+        34.68144226074219,
+        71.82511901855469,
+        79.38021850585938
+      ],
+      "min": [
+        -181.30712890625,
+        -23.72816276550293,
+        -1.510183334350586
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 87120,
+      "componentType": 5126,
+      "count": 1240,
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "byteOffset": 48160,
+      "componentType": 5126,
+      "count": 1240,
+      "max": [
+        1.0,
+        1.0,
+        0.9994788765907288,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -0.999800443649292,
+        1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 24080,
+      "componentType": 5126,
+      "count": 1240,
+      "max": [
+        0.9950340390205383,
+        0.9701400995254517
+      ],
+      "min": [
+        0.011567318812012672,
+        0.017435792833566666
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 35736,
+      "componentType": 5125,
+      "count": 3582,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 102000,
+      "componentType": 5126,
+      "count": 272,
+      "max": [
+        10.290081977844238,
+        6.3738508224487305,
+        94.91737365722656
+      ],
+      "min": [
+        -10.742423057556152,
+        -14.297719955444336,
+        54.994998931884766
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 105264,
+      "componentType": 5126,
+      "count": 272,
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "byteOffset": 68000,
+      "componentType": 5126,
+      "count": 272,
+      "max": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0,
+        1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 34000,
+      "componentType": 5126,
+      "count": 272,
+      "max": [
+        0.9869522452354431,
+        0.9723993539810181
+      ],
+      "min": [
+        0.014976002275943756,
+        0.014809347689151764
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 50064,
+      "componentType": 5125,
+      "count": 660,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 108528,
+      "componentType": 5126,
+      "count": 248,
+      "max": [
+        10.290081977844238,
+        6.3738508224487305,
+        94.91737365722656
+      ],
+      "min": [
+        -10.742423057556152,
+        -14.297719955444336,
+        54.994998931884766
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 111504,
+      "componentType": 5126,
+      "count": 248,
+      "max": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "byteOffset": 72352,
+      "componentType": 5126,
+      "count": 248,
+      "max": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "min": [
+        -1.0,
+        -1.0,
+        -1.0,
+        1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 36176,
+      "componentType": 5126,
+      "count": 248,
+      "max": [
+        0.9869522452354431,
+        0.9723993539810181
+      ],
+      "min": [
+        0.014976002275943756,
+        0.014809347689151764
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 52704,
+      "componentType": 5125,
+      "count": 612,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 114480,
+      "componentType": 5126,
+      "count": 192,
+      "max": [
+        164.42465209960938,
+        164.4246368408203,
+        0.0
+      ],
+      "min": [
+        -164.42462158203125,
+        -164.4246368408203,
+        -4.568089008331299
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 116784,
+      "componentType": 5126,
+      "count": 192,
+      "max": [
+        0.8398026823997498,
+        0.8398040533065796,
+        1.0
+      ],
+      "min": [
+        -0.8398052453994751,
+        -0.8398039937019348,
+        0.5428876876831055
+      ],
+      "type": "VEC3"
+    },
+    {
+      "bufferView": 3,
+      "byteOffset": 76320,
+      "componentType": 5126,
+      "count": 192,
+      "max": [
+        0.2684871554374695,
+        -0.5417959690093994,
+        0.8393415212631226,
+        1.0
+      ],
+      "min": [
+        -0.20182231068611145,
+        -0.9997249841690063,
+        -0.8393435478210449,
+        1.0
+      ],
+      "type": "VEC4"
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 38160,
+      "componentType": 5126,
+      "count": 192,
+      "max": [
+        0.9771302342414856,
+        0.9772496819496155
+      ],
+      "min": [
+        0.022944271564483643,
+        0.022813111543655396
+      ],
+      "type": "VEC2"
+    },
+    {
+      "bufferView": 0,
+      "byteOffset": 55152,
+      "componentType": 5125,
+      "count": 570,
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 4,
+      "componentType": 5126,
+      "count": 1,
+      "max": [
+        0.0
+      ],
+      "min": [
+        0.0
+      ],
+      "type": "SCALAR"
+    },
+    {
+      "bufferView": 5,
+      "componentType": 5126,
+      "count": 1,
+      "max": [
+        -0.6708208322525024,
+        -0.2236054241657257,
+        -0.2236054241657257,
+        0.6708208322525024
+      ],
+      "min": [
+        -0.6708208322525024,
+        -0.2236054241657257,
+        -0.2236054241657257,
+        0.6708208322525024
+      ],
+      "type": "VEC4"
+    }
+  ],
+  "animations": [
+    {
+      "channels": [
+        {
+          "sampler": 0,
+          "target": {
+            "node": 4,
+            "path": "rotation"
+          }
+        }
+      ],
+      "name": "Take 001",
+      "samplers": [
+        {
+          "input": 35,
+          "interpolation": "LINEAR",
+          "output": 36
+        }
+      ]
+    }
+  ],
+  "asset": {
+    "extras": {
+      "author": "sergei pavlov (https://sketchfab.com/sergei_pavlov)",
+      "license": "CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)",
+      "source": "https://sketchfab.com/3d-models/traffic-cone-841a28496aac4469a0ead69b36b32678",
+      "title": "Traffic Cone"
+    },
+    "generator": "Sketchfab-12.68.0",
+    "version": "2.0"
+  },
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 57432,
+      "name": "floatBufferViews",
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 39696,
+      "byteOffset": 57432,
+      "byteStride": 8,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 119088,
+      "byteOffset": 97128,
+      "byteStride": 12,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 79392,
+      "byteOffset": 216216,
+      "byteStride": 16,
+      "name": "floatBufferViews",
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 4,
+      "byteOffset": 295608,
+      "name": "floatBufferViews"
+    },
+    {
+      "buffer": 0,
+      "byteLength": 16,
+      "byteOffset": 295612,
+      "byteStride": 16,
+      "name": "floatBufferViews"
+    }
+  ],
+  "buffers": [
+    {
+      "byteLength": 295628,
+      "uri": "scene.bin"
+    }
+  ],
+  "images": [
+    {
+      "uri": "textures/Traffic_Cone_Red__Dirt_baseColor.png"
+    },
+    {
+      "uri": "textures/Traffic_Cone_Red__Dirt_metallicRoughness.png"
+    },
+    {
+      "uri": "textures/Traffic_Cone_Red__Dirt_normal.png"
+    },
+    {
+      "uri": "textures/Traffic_Cone_Orange_Clean_baseColor.jpeg"
+    },
+    {
+      "uri": "textures/Traffic_Cone_Orange_Clean_metallicRoughness.png"
+    },
+    {
+      "uri": "textures/Traffic_Cone_Orange_Clean_normal.png"
+    },
+    {
+      "uri": "textures/Traffic_Cone_Red__Clean_baseColor.jpeg"
+    },
+    {
+      "uri": "textures/Traffic_Cone_Red__Clean_metallicRoughness.png"
+    },
+    {
+      "uri": "textures/Traffic_Cone_Orange_Dirt_baseColor.png"
+    },
+    {
+      "uri": "textures/Traffic_Cone_Lights_baseColor.png"
+    },
+    {
+      "uri": "textures/Traffic_Cone_Lights_metallicRoughness.png"
+    },
+    {
+      "uri": "textures/Traffic_Cone_Lights_normal.png"
+    },
+    {
+      "uri": "textures/Traffic_Cone_Dirt_Lights_baseColor.png"
+    },
+    {
+      "uri": "textures/Traffic_Cone_Dirt_Lights_metallicRoughness.png"
+    },
+    {
+      "uri": "textures/Traffic_Cone_Dirt_Lights_normal.png"
+    },
+    {
+      "uri": "textures/Base_baseColor.png"
+    },
+    {
+      "uri": "textures/Base_normal.png"
+    }
+  ],
+  "materials": [
+    {
+      "doubleSided": true,
+      "name": "Traffic_Cone_Red__Dirt",
+      "normalTexture": {
+        "index": 2
+      },
+      "occlusionTexture": {
+        "index": 1
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 0
+        },
+        "metallicRoughnessTexture": {
+          "index": 1
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Traffic_Cone_Orange_Clean",
+      "normalTexture": {
+        "index": 5
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 3
+        },
+        "metallicRoughnessTexture": {
+          "index": 4
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Traffic_Cone_Red__Clean",
+      "normalTexture": {
+        "index": 5
+      },
+      "occlusionTexture": {
+        "index": 7
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 6
+        },
+        "metallicRoughnessTexture": {
+          "index": 7
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Traffic_Cone_Orange_Dirt",
+      "normalTexture": {
+        "index": 2
+      },
+      "occlusionTexture": {
+        "index": 1
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 8
+        },
+        "metallicRoughnessTexture": {
+          "index": 1
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Traffic_Cone_Lights",
+      "normalTexture": {
+        "index": 11
+      },
+      "occlusionTexture": {
+        "index": 10
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 9
+        },
+        "metallicRoughnessTexture": {
+          "index": 10
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Traffic_Cone_Dirt_Lights",
+      "normalTexture": {
+        "index": 14
+      },
+      "occlusionTexture": {
+        "index": 13
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 12
+        },
+        "metallicRoughnessTexture": {
+          "index": 13
+        }
+      }
+    },
+    {
+      "doubleSided": true,
+      "name": "Base",
+      "normalTexture": {
+        "index": 16
+      },
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 15
+        },
+        "metallicFactor": 0.0,
+        "roughnessFactor": 0.782202743902439
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "Traffic Cone Red  Dirt_Traffic Cone Red  Dirt_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 1,
+            "POSITION": 0,
+            "TANGENT": 2,
+            "TEXCOORD_0": 3
+          },
+          "indices": 4,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Traffic Cone Orange Clean_Traffic Cone Orange Clean_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 6,
+            "POSITION": 5,
+            "TANGENT": 7,
+            "TEXCOORD_0": 8
+          },
+          "indices": 9,
+          "material": 1,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Traffic Cone Red  Clean_Traffic Cone Red  Clean_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 11,
+            "POSITION": 10,
+            "TANGENT": 12,
+            "TEXCOORD_0": 13
+          },
+          "indices": 14,
+          "material": 2,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Traffic Cone Orange Dirt_Traffic Cone Orange Dirt_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 16,
+            "POSITION": 15,
+            "TANGENT": 17,
+            "TEXCOORD_0": 18
+          },
+          "indices": 19,
+          "material": 3,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Traffic Cone Lights_Traffic Cone Lights_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 21,
+            "POSITION": 20,
+            "TANGENT": 22,
+            "TEXCOORD_0": 23
+          },
+          "indices": 24,
+          "material": 4,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Traffic Cone Dirt Lights_Traffic Cone Dirt Lights_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 26,
+            "POSITION": 25,
+            "TANGENT": 27,
+            "TEXCOORD_0": 28
+          },
+          "indices": 29,
+          "material": 5,
+          "mode": 4
+        }
+      ]
+    },
+    {
+      "name": "Base_Base_0",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 31,
+            "POSITION": 30,
+            "TANGENT": 32,
+            "TEXCOORD_0": 33
+          },
+          "indices": 34,
+          "material": 6,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "children": [
+        1
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.220446049250313e-16,
+        -1.0,
+        0.0,
+        0.0,
+        1.0,
+        2.220446049250313e-16,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "Sketchfab_model"
+    },
+    {
+      "children": [
+        2
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        -1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "name": "e1a60e9f443f4c38b0e17db21a8fecac.fbx"
+    },
+    {
+      "children": [
+        3
+      ],
+      "name": "Object_2"
+    },
+    {
+      "children": [
+        4,
+        7,
+        9,
+        11,
+        13,
+        15,
+        17
+      ],
+      "name": "RootNode"
+    },
+    {
+      "children": [
+        5
+      ],
+      "name": "Traffic Cone Red  Dirt",
+      "rotation": [
+        -0.6708208918571472,
+        -0.2236054390668869,
+        -0.2236054390668869,
+        0.6708208918571472
+      ],
+      "translation": [
+        -0.40206336975097656,
+        0.0,
+        50.37991714477539
+      ]
+    },
+    {
+      "children": [
+        6
+      ],
+      "matrix": [
+        1.0,
+        0.0,
+        -0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        -0.00487653911113739,
+        -0.00844731368124485,
+        5.7434611320495605,
+        1.0
+      ],
+      "name": "Object_5"
+    },
+    {
+      "mesh": 0,
+      "name": "Traffic Cone Red  Dirt_Traffic Cone Red  Dirt_0"
+    },
+    {
+      "children": [
+        8
+      ],
+      "name": "Traffic Cone Orange Clean",
+      "rotation": [
+        -0.7071068286895752,
+        -0.0,
+        0.0,
+        0.7071068286895752
+      ],
+      "translation": [
+        -56.3301887512207,
+        0.0,
+        28.530269622802734
+      ]
+    },
+    {
+      "mesh": 1,
+      "name": "Traffic Cone Orange Clean_Traffic Cone Orange Clean_0"
+    },
+    {
+      "children": [
+        10
+      ],
+      "name": "Traffic Cone Red  Clean",
+      "rotation": [
+        -0.7071068286895752,
+        -0.0,
+        0.0,
+        0.7071068286895752
+      ],
+      "translation": [
+        -5.13018798828125,
+        0.0,
+        -9.444816589355469
+      ]
+    },
+    {
+      "mesh": 2,
+      "name": "Traffic Cone Red  Clean_Traffic Cone Red  Clean_0"
+    },
+    {
+      "children": [
+        12
+      ],
+      "name": "Traffic Cone Orange Dirt",
+      "rotation": [
+        -0.7071068286895752,
+        -0.0,
+        0.0,
+        0.7071068286895752
+      ],
+      "translation": [
+        56.88178253173828,
+        0.0,
+        28.10324478149414
+      ]
+    },
+    {
+      "mesh": 3,
+      "name": "Traffic Cone Orange Dirt_Traffic Cone Orange Dirt_0"
+    },
+    {
+      "children": [
+        14
+      ],
+      "name": "Traffic Cone Lights",
+      "rotation": [
+        -0.7071068286895752,
+        -0.0,
+        0.0,
+        0.7071068286895752
+      ],
+      "translation": [
+        -56.3301887512207,
+        0.0,
+        28.530269622802734
+      ]
+    },
+    {
+      "mesh": 4,
+      "name": "Traffic Cone Lights_Traffic Cone Lights_0"
+    },
+    {
+      "children": [
+        16
+      ],
+      "name": "Traffic Cone Dirt Lights",
+      "rotation": [
+        -0.7071068286895752,
+        -0.0,
+        0.0,
+        0.7071068286895752
+      ],
+      "translation": [
+        64.74181365966797,
+        0.0,
+        28.10324478149414
+      ]
+    },
+    {
+      "mesh": 5,
+      "name": "Traffic Cone Dirt Lights_Traffic Cone Dirt Lights_0"
+    },
+    {
+      "children": [
+        18
+      ],
+      "name": "Base",
+      "rotation": [
+        -0.7071068286895752,
+        -0.0,
+        0.0,
+        0.7071068286895752
+      ]
+    },
+    {
+      "mesh": 6,
+      "name": "Base_Base_0"
+    }
+  ],
+  "samplers": [
+    {
+      "magFilter": 9729,
+      "minFilter": 9987,
+      "wrapS": 10497,
+      "wrapT": 10497
+    }
+  ],
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "Sketchfab_Scene",
+      "nodes": [
+        0
+      ]
+    }
+  ],
+  "textures": [
+    {
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "sampler": 0,
+      "source": 3
+    },
+    {
+      "sampler": 0,
+      "source": 4
+    },
+    {
+      "sampler": 0,
+      "source": 5
+    },
+    {
+      "sampler": 0,
+      "source": 6
+    },
+    {
+      "sampler": 0,
+      "source": 7
+    },
+    {
+      "sampler": 0,
+      "source": 8
+    },
+    {
+      "sampler": 0,
+      "source": 9
+    },
+    {
+      "sampler": 0,
+      "source": 10
+    },
+    {
+      "sampler": 0,
+      "source": 11
+    },
+    {
+      "sampler": 0,
+      "source": 12
+    },
+    {
+      "sampler": 0,
+      "source": 13
+    },
+    {
+      "sampler": 0,
+      "source": 14
+    },
+    {
+      "sampler": 0,
+      "source": 15
+    },
+    {
+      "sampler": 0,
+      "source": 16
+    }
+  ]
+}

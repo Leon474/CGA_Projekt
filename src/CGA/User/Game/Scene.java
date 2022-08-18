@@ -77,15 +77,14 @@ public class Scene {
     private Renderable finish;
     private Renderable winnerCup;
 
-
     // light:
     private PointLight pointLight;
     private SpotLight spotLight;
     private DirectionalLight sunlight;
 
     private SkyBox skybox;
-    private int cubemapTexture;
-
+    //private int cubemapTexture;
+    private int cubeMapTexture;
 
     //
     private boolean triggerPoint = false;
@@ -185,17 +184,26 @@ public class Scene {
                     6,2,3
             };
 
-            String facesCubemap [] = {
+           /* String facesCubemap [] = {
                     "assets/textures/skybox/right.jpg",
                     "assets/textures/skybox/left.png",
                     "assets/textures/skybox/top.png",
                     "assets/textures/skybox/bottom.png",
                     "assets/textures/skybox/front.png",
                     "assets/textures/skybox/back.png"
+            };*/
+
+            String facesCubemap [] = {
+                    "assets/textures/skyBoxTest/tag_rechts.png",
+                    "assets/textures/skyBoxTest/tag_links.png",
+                    "assets/textures/skyBoxTest/tag_oben.png",
+                    "assets/textures/skyBoxTest/tag_unten.png",
+                    "assets/textures/skyBoxTest/tag_vorne.png",
+                    "assets/textures/skyBoxTest/tag_hinten.png"
             };
 
-            VertexAttribute[] vertexAttributesArray = new VertexAttribute[1];
-            vertexAttributesArray[0] = new VertexAttribute(3, GL_FLOAT, 24, 0);
+            //VertexAttribute[] vertexAttributesArray = new VertexAttribute[1];
+            //vertexAttributesArray[0] = new VertexAttribute(3, GL_FLOAT, 24, 0);
 
             //TextureSkybox skyboxTextures = new TextureSkybox(facesCubemap);
             //skyboxTextures.setTexParamsSkybox();
@@ -204,8 +212,14 @@ public class Scene {
 
             //System.out.println("reeee " +cubemapTexture);
 
-            skybox = new SkyBox(skyboxVertices, skyboxIndices, vertexAttributesArray);
-            cubemapTexture = skybox.loadCubemap(facesCubemap);
+            //skybox = new SkyBox(skyboxVertices, skyboxIndices, vertexAttributesArray);
+            //cubemapTexture = skybox.loadCubemap(facesCubemap);
+
+            //private var cubeMap = SkyBox(skyboxVertices, skyboxIndices);
+            skybox = new SkyBox(skyboxVertices, skyboxIndices);
+            cubeMapTexture = glGenTextures();
+
+            cubeMapTexture = skybox.loadCubemap(facesCubemap);
 
             //System.out.println("reeee " +cubemapTexture);
 
@@ -315,7 +329,9 @@ public class Scene {
             football = new Renderable();
             football = loader.loadModel("assets/Objects/football/common_soccer_ball/football.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(0.0f),0);
             football.scaleLocal(new Vector3f(1.0f));
-            football.translateGlobal(new Vector3f(-85.0f,0.0f,-55.0f));
+            //football.translateGlobal(new Vector3f(-85.0f,0.0f,-55.0f));
+            football.translateGlobal(new Vector3f(0.0f,0.0f,10.0f));
+
 
             finish = new Renderable();
             finish = loader.loadModel("assets/Objects/Finishline/finish/finish.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(0.0f),0);
@@ -396,6 +412,25 @@ public class Scene {
     public void render(float dt, float t) {
         //TODO: Place your code here. Call the rendering of the created mesh every frame. Specify the used shader first.
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+        // Skybox render
+        glDepthFunc(GL_LEQUAL);
+        skyboxShader.use();
+
+        skyboxShader.setUniform("view", cam.calculateViewMatrix(), false);
+        skyboxShader.setUniform("projection", cam.calculateProjectionMatrix(), false);
+
+        glBindVertexArray(skybox.skyboxVAO);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTexture);
+        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+        glBindVertexArray(0);
+        glDepthFunc(GL_LESS);
+
+
+
         simpleShader.use();
         cam.bind(simpleShader);
 
@@ -411,7 +446,7 @@ public class Scene {
         // SUNLIGHT:
         sunlight.bind(simpleShader,"Sun");
 
-        // TODO: OBJECTS -->
+        // TODO: OBJECTS
         /** player **/
         bicycle.render(simpleShader);
         /** city **/
@@ -432,7 +467,7 @@ public class Scene {
 
 
         // TODO: SKYBOX
-        Matrix4f view = new Matrix4f(cam.getViewMatrix());
+        /*Matrix4f view = new Matrix4f(cam.getViewMatrix());
         Matrix4f projection = cam.calculateProjectionMatrix();
 
         glDepthFunc(GL_LEQUAL);
@@ -445,11 +480,30 @@ public class Scene {
         skybox.bind(skyboxShader, "view", cam.calculateViewMatrix());
         skybox.bind(skyboxShader, "projection", projection);
 
-        skybox.render(skyboxShader, cubemapTexture);
+        skybox.render(skyboxShader, cubemapTexture);*/
 
 
-        simpleShader.cleanup();
-        skyboxShader.cleanup();
+
+        // Skybox render
+        /*glDepthFunc(GL_LEQUAL);
+        skyboxShader.use();
+
+        skyboxShader.setUniform("view", cam.calculateViewMatrix(), false);
+        skyboxShader.setUniform("projection", cam.calculateProjectionMatrix(), false);
+
+        glBindVertexArray(skybox.skyboxVAO);
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTexture);
+        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+
+        glBindVertexArray(0);
+        glDepthFunc(GL_LESS);*/
+
+
+
+
+        //simpleShader.cleanup();
+        //skyboxShader.cleanup();
 
 
 
@@ -504,21 +558,24 @@ public class Scene {
         float rotationMultiplier = 90.0f;
         float translationMultiplier = 5.0f;
 
-        if(window.getKeyState(GLFW_KEY_R)) {
-
-        }
-
-
         // TODO: BIKE MOVEMENT
         float finishPosition = -88.49058f;
         float cupFinishPosition = 0.08333333f;
 
-        if (bicycle.getWorldPosition().z == pinkCar.getWorldPosition().z && bicycle.getWorldPosition().x == pinkCar.getWorldPosition().x) {
+       /* if (bicycle.getWorldPosition().z == pinkCar.getWorldPosition().z && bicycle.getWorldPosition().x == pinkCar.getWorldPosition().x) {
             System.out.println("COLLISION!!!");
             bicycle.translateLocal(new Vector3f(0.0f,0.0f,0)); // Bike stops!
 
-        } else if (bicycle.getWorldPosition().z == finishPosition) {
-            // bike stops at finsishpoint
+
+*/
+        /*} else*/
+
+        if (bicycle.getWorldPosition().z < pinkCar.getWorldPosition().z + 3){
+            System.out.println("collision");
+            bicycle.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
+        }
+        else if (bicycle.getWorldPosition().z == finishPosition) {
+            /** bike stops at finsishpoint **/
             bicycle.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
             winnerCup.rotateLocal(0, (rotationMultiplier/1.0f) * dt,0);
             /** winner cup movement **/
@@ -530,6 +587,7 @@ public class Scene {
         } else {
             /** bike movement **/
             bicycle.translateLocal(new Vector3f(0.0f,0.0f,(-translationMultiplier/1.0f) * dt));
+            //bicycle.rotateLocal(0, 0,(rotationMultiplier/1.0f) * dt);
         }
 
 
@@ -551,29 +609,33 @@ public class Scene {
         }
 
         /** football **/
-        System.out.println("Football: "+football.getWorldPosition().x);
-        float footballSTOP = 0.3744994f;
-        //football.rotateLocal(0, (rotationMultiplier/1.0f) * dt,0);
+        //System.out.println("Football: "+football.getWorldPosition().x);
+        //float footballSTOP = 0.3744994f;
+        float footballSTOP = 0.0853083f;
+
+
+        /*if (football.getWorldPosition().x == footballSTOP) {
+            football.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
+        } else {
+            football.translateLocal(new Vector3f(0.0f,0.0f,(-translationMultiplier/1.0f) * dt));
+            football.rotateLocal(0, 0,(rotationMultiplier/1.0f) * dt);
+        }*/
+
+
 
 
         if (football.getWorldPosition().x == footballSTOP) {
-            football.translateLocal(new Vector3f(0.0f,0.0f, 0.0f));
-            //football.rotateLocal(0, (rotationMultiplier/0.1f) * dt,0);
-
-        } else if (football.getWorldPosition().x != footballSTOP){
-
-            football.rotateLocal(0, (rotationMultiplier/0.1f) * dt,0);
-            //football.translateLocal(new Vector3f((translationMultiplier/1.0f) * dt,0.0f, 0.0f));
-            //football.rotateLocal((rotationMultiplier/0.1f) * dt, 0,0);
-            //football.rotateLocal(0, (rotationMultiplier/0.1f) * dt,0);
-            football.translateLocal(new Vector3f((translationMultiplier/1.0f) * dt,0.0f, 0.0f));
-
-
-            //football.rotateLocal();
+            football.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
         } else {
-            //football.translateLocal(new Vector3f((translationMultiplier/1.0f) * dt,0.0f, 0.0f));
-            //System.out.println("ich bewege mich");
+            football.translateLocal(new Vector3f((-translationMultiplier/1.0f) * dt,0.0f,0.0f));
+            //football.rotateLocal((rotationMultiplier/1.0f) * dt, 0,0);
+            football.rotateAroundPoint(0.0f,(rotationMultiplier/1.0f) * dt,0, football.getWorldPosition());
         }
+
+
+
+
+
 
 
         // TODO: CAMERA CHANGE

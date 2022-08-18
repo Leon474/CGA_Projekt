@@ -6,7 +6,9 @@ import CGA.User.DataStructures.Texture2D;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.AMDSeamlessCubemapPerTexture;
 import org.lwjgl.openvr.Texture;
+import org.lwjgl.stb.STBImage;
 
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
@@ -24,8 +26,7 @@ import static org.lwjgl.opengles.EXTSparseTexture.GL_TEXTURE_CUBE_MAP;
 import static org.lwjgl.opengles.GLES30.GL_TEXTURE_WRAP_R;
 import static org.lwjgl.stb.STBImage.*;
 import static org.lwjgl.stb.STBImage.stbi_image_free;
-
-
+/*
 public class SkyBox extends Transformable {
 
     Matrix4f projectionMatrix;
@@ -59,18 +60,18 @@ public class SkyBox extends Transformable {
         //glVertexAttribPointer(0, 3, GL_FLOAT, false, 8 * 3, 0);
 
         // TODO: Generate IDs, bind objects and upload Mesh data
-
+*/
         /*for (int i = 0; i < attributes.length; i++) {
             glVertexAttribPointer(i, attributes[i].n, attributes[i].type, false, attributes[i].stride, attributes[i].offset); //Position
             glEnableVertexAttribArray(i);
         }*/
 
         // unbinding
-        glEnableVertexAttribArray(0);
+  /*      glEnableVertexAttribArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindVertexArray(0);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);
-
+*/
 
         /*int cubemapTexture = 0;
         cubemapTexture = glGenTextures();
@@ -82,9 +83,9 @@ public class SkyBox extends Transformable {
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);*/
 
-    }
+ //   }
 
-
+/*
     public int loadCubemap(String facesCubemap[]) {
 
         texID = glGenTextures();                        // von mir
@@ -120,12 +121,12 @@ public class SkyBox extends Transformable {
 
         return texID;
     }
-
+*/
 
     /**
      * renders the mesh
      */
-    public void render(ShaderProgram shaderProgram, int cubemapTexture) {
+/*    public void render(ShaderProgram shaderProgram, int cubemapTexture) {
         //TODO: Call the rendering method every frame
         //glDepthFunc(GL_LEQUAL);
         glBindVertexArray(skyboxVAO);
@@ -135,7 +136,7 @@ public class SkyBox extends Transformable {
         glDrawArrays(GL_TRIANGLES, 0, 36); // im anderen tutorial
         glBindVertexArray(0);
         glDepthFunc(GL_LESS); // im anderen tutorial
-    }
+    }*/
 
     /*public void render(ShaderProgram shaderProgram) {
         //material.bind(shaderProgram);
@@ -145,7 +146,7 @@ public class SkyBox extends Transformable {
     /**
      * Deletes the previously allocated OpenGL objects for this mesh
      */
-    public void cleanup() {
+ /*   public void cleanup() {
         if (skyboxEBO != 0)
             glDeleteBuffers(skyboxEBO);
         if (skyboxVBO != 0)
@@ -162,7 +163,7 @@ public class SkyBox extends Transformable {
 
     }
 
-    public void bind(ShaderProgram shaderProgram, String name) {
+    public void bind(ShaderProgram shaderProgram, String name) {*/
         /*shaderProgram.setUniform(name + "view", getLocalModelMatrix());
         shaderProgram.setUniform(name+ "projection", projectionMatrix);
 
@@ -171,6 +172,80 @@ public class SkyBox extends Transformable {
         projection = glm::perspective(glm::radians(45.0f), (float)width / height, 0.1f, 100.0f);
         glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID, "view"), 1, GL_FALSE, glm::value_ptr(view));
         glUniformMatrix4fv(glGetUniformLocation(skyboxShader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));*/
+/*    }
+
+
+}*/
+
+
+    public class SkyBox extends Transformable {
+
+
+        public int skyboxVAO = glGenVertexArrays();
+        int skyboxVBO = glGenBuffers();
+        int skyboxIBO = glGenBuffers();
+        int texID = glGenTextures();
+
+        float[] vertexdata;
+        int[] indexdata;
+
+
+        public SkyBox(float[] vertexdata, int[] indexdata) {
+            this.vertexdata = vertexdata;
+            this.indexdata = indexdata;
+        }
+
+        public int loadCubemap(String facesCubemap[]) {
+
+            // Binding VAO, VBO and IBO
+            glBindVertexArray(skyboxVAO);
+            glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, skyboxIBO);
+
+            glBufferData(GL_ARRAY_BUFFER, vertexdata, GL_STATIC_DRAW);
+            glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexdata, GL_STATIC_DRAW);
+
+            glEnableVertexAttribArray(0);
+            glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
+
+            glBindBuffer(GL_ARRAY_BUFFER, 0);
+            glBindVertexArray(0);
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+            glBindTexture(GL_TEXTURE_CUBE_MAP, texID);
+
+            glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+            glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+            glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+            glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
+            glEnable(AMDSeamlessCubemapPerTexture.GL_TEXTURE_CUBE_MAP_SEAMLESS);
+
+            // Load a Face for each side of the cubemap (6 sides) to create the textured skybox
+            for (int i = 0; i < facesCubemap.length; i++) {
+                //System.out.println("load map aufruf"+i);
+                IntBuffer width = BufferUtils.createIntBuffer(1);
+                IntBuffer height = BufferUtils.createIntBuffer(1);
+                IntBuffer nrChannels = BufferUtils.createIntBuffer(1);
+
+                ByteBuffer imageData = STBImage.stbi_load(facesCubemap[i], width, height, nrChannels, 4);
+
+                if (imageData != null) {
+
+                    stbi_set_flip_vertically_on_load(false); // vllt auch true
+                    glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width.get(), height.get(), 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
+                    stbi_image_free(imageData);
+
+                    //unbind(); // von mir hinzugefügt
+                } else {
+                    System.out.println("Failed to load Texture: "+ facesCubemap[i]);
+                    stbi_image_free(imageData);
+                }
+            }
+
+            return texID;
+
+        }
+
     }
 
 
@@ -180,4 +255,12 @@ public class SkyBox extends Transformable {
 
 
 
-    }
+
+
+
+
+
+
+
+
+

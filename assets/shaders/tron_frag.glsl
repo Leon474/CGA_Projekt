@@ -73,6 +73,7 @@ vec4 directionalLight(){
     vec3 viewDirection = normalize(cameraPosition - vertexData.position);
     vec3 reflectionDirection = reflect(-lightDirection, normal);
     float specAmount = pow(max(dot(viewDirection, reflectionDirection), 0.0f), 16);
+
     float specular = specAmount * specularLight;
 
     return (texture(emit,  vertexData.tc) * (diffuse + ambient + specular) * vec4(SunLightcolor , 1) /*+ fColor*/);

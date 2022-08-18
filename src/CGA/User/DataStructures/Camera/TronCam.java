@@ -26,8 +26,8 @@ public class TronCam extends Camera {
         this.seitenverhaeltnis = 16.0f / 9;
         //this.nearPlane = 0.01f;  // original
         this.nearPlane = 0.01f;
-        //this.farPlane = 100.0f; // original
-        this.farPlane = 100.0f;
+        this.farPlane = 100.0f; // original
+        //this.farPlane = 4000.0f;
     }
 
     public void adjustProjection(){

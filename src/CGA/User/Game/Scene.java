@@ -49,17 +49,15 @@ public class Scene {
     private Matrix4f m4Kugel = new Matrix4f().identity();*/
 
     private ShaderProgram simpleShader;
-    //private ShaderProgram sunShader;
     private ShaderProgram skyboxShader;
     private Mesh bodenMesh;
     private Renderable bodenRend;
     private GameWindow window;
     private TronCam cam;
-    //private TronCam newCam;
 
     private ModelLoader loader;
 
-    // objects:
+    // main objects:
     private Renderable city;
     private Renderable bicycle;
 
@@ -83,7 +81,6 @@ public class Scene {
     private DirectionalLight sunlight;
 
     private SkyBox skybox;
-    //private int cubemapTexture;
     private int cubeMapTexture;
 
     //
@@ -104,7 +101,7 @@ public class Scene {
             // TODO: GROUND
             // mit dem boden vllt die straße bauen???
             // ansonsten fehlt dieser teil komplett?!?!? --> ist das schlecht?
-            int stride = 8 * 4;
+           /* int stride = 8 * 4;
             VertexAttribute[] vertexAttributes = new VertexAttribute[3];
 
             vertexAttributes[0] = new VertexAttribute(3, GL_FLOAT, stride, 0);          //position attribute
@@ -130,43 +127,20 @@ public class Scene {
             bodenMesh = new Mesh(bObjMesh.getVertexData(), bObjMesh.getIndexData(), vertexAttributes, boden);
             bodenRend = new Renderable();
             //bodenRend.scaleLocal(new Vector3f(3,4,4));  // größe des Bodens kann hier angepasst werden
-            bodenRend.meshes.add(bodenMesh);
-
-            // TODO SKYBOX:
-            /*int skyboxVAO = 1;
-            int skyboxVBO = 1;
-            int skyboxEBO = 1;
-
-            // binding
-            skyboxVAO = glGenVertexArrays();
-            glBindVertexArray(skyboxVAO);
-
-            skyboxVBO = glGenBuffers();
-            glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
-            glBufferData(GL_ARRAY_BUFFER, skyboxVertices, GL_STATIC_DRAW);
-
-            skyboxEBO = glGenBuffers();
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, skyboxEBO);
-            glBufferData(GL_ELEMENT_ARRAY_BUFFER, skyboxIndices, GL_STATIC_DRAW);
-
-            glVertexAttribPointer(0, 3, GL_FLOAT, false, 8*3, 0);*/
-
-            // unbinding
-            /*glEnableVertexAttribArray(0);
-            glBindBuffer(GL_ARRAY_BUFFER, 0);
-            glBindVertexArray(0);
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,0);*/
+            bodenRend.meshes.add(bodenMesh);*/
 
 
+            // TODO: SKYBOX
+            float SIZE = 120.0f;
             float skyboxVertices[] = {
-                    -1.0f, -1.0f, 1.0f,
-                     1.0f, -1.0f, 1.0f,
-                     1.0f, -1.0f, -1.0f,
-                    -1.0f, -1.0f, -1.0f,
-                    -1.0f, 1.0f, 1.0f,
-                     1.0f, 1.0f, 1.0f,
-                     1.0f, 1.0f, -1.0f,
-                    -1.0f, 1.0f, -1.0f
+                    -SIZE, -SIZE, SIZE,
+                    SIZE, -SIZE, SIZE,
+                    SIZE, -SIZE, -SIZE,
+                    -SIZE, -SIZE, -SIZE,
+                    -SIZE, SIZE, SIZE,
+                    SIZE, SIZE, SIZE,
+                    SIZE, SIZE, -SIZE,
+                    -SIZE, SIZE, -SIZE
             };
 
             int skyboxIndices[] = {
@@ -184,7 +158,10 @@ public class Scene {
                     6,2,3
             };
 
-           /* String facesCubemap [] = {
+            skybox = new SkyBox(skyboxVertices, skyboxIndices);
+            cubeMapTexture = glGenTextures();
+
+            /*String facesCubemap [] = {
                     "assets/textures/skybox/right.jpg",
                     "assets/textures/skybox/left.png",
                     "assets/textures/skybox/top.png",
@@ -202,79 +179,16 @@ public class Scene {
                     "assets/textures/skyBoxTest/tag_hinten.png"
             };
 
-            //VertexAttribute[] vertexAttributesArray = new VertexAttribute[1];
-            //vertexAttributesArray[0] = new VertexAttribute(3, GL_FLOAT, 24, 0);
-
-            //TextureSkybox skyboxTextures = new TextureSkybox(facesCubemap);
-            //skyboxTextures.setTexParamsSkybox();
-            //skybox.loadCubemap(facesCubemap);
-            //cubemapTexture = skybox.loadCubemap(facesCubemap);
-
-            //System.out.println("reeee " +cubemapTexture);
-
-            //skybox = new SkyBox(skyboxVertices, skyboxIndices, vertexAttributesArray);
-            //cubemapTexture = skybox.loadCubemap(facesCubemap);
-
-            //private var cubeMap = SkyBox(skyboxVertices, skyboxIndices);
-            skybox = new SkyBox(skyboxVertices, skyboxIndices);
-            cubeMapTexture = glGenTextures();
+            /*String facesCubemap [] = {
+                    "assets/textures/skyboxEigen/sky.right.png",
+                    "assets/textures/skyboxEigen/sky.left.png",
+                    "assets/textures/skyboxEigen/sky.up.png",
+                    "assets/textures/skyboxEigen/sky.down.png",
+                    "assets/textures/skyboxEigen/sky.front.png",
+                    "assets/textures/skyboxEigen/sky.back.png"
+            };*/
 
             cubeMapTexture = skybox.loadCubemap(facesCubemap);
-
-            //System.out.println("reeee " +cubemapTexture);
-
-            /*int cubemapTexture = 0;
-            cubemapTexture = glGenTextures();
-            glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
-            glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-            glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-
-            glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-            glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-            glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);*/
-
-
-           /* for (int i = 0; i < 6; i++) {
-                IntBuffer width = BufferUtils.createIntBuffer(1);
-                IntBuffer height = BufferUtils.createIntBuffer(1);
-                IntBuffer nrChannels = BufferUtils.createIntBuffer(1);
-
-                ByteBuffer imageData = stbi_load(facesCubemap[i], width, height, nrChannels, 0);
-
-                if (imageData != null) {
-                    stbi_set_flip_vertically_on_load(false);
-                    glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width.get(), height.get(), 0, GL_RGB, GL_UNSIGNED_BYTE, imageData);
-                    stbi_image_free(imageData);
-                } else {
-                    System.out.println("Failed to load Texture: "+ facesCubemap[i]);
-                    stbi_image_free(imageData);
-                }
-            }*/
-
-
-            // drawing cube map
-            // TODO: vllt noch wichtig?!?!?! für die skybox
-            /*glDepthFunc(GL_EQUAL);
-            skyboxShader.use();
-            Matrix4f view = new Matrix4f(cam.getViewMatrix());*/
-
-/*
-
-            view = cam.calculateViewMatrix();
-            Matrix4f projection = new Matrix4f(1.0f);
-            view = new Matrix4f();
-            projection = cam.getProjectionMatrix();
-
-            skyboxShader.setUniform("view", cam.calculateViewMatrix());
-            glUniformMatrix4fv(glGetUniformLocation(skyboxShader.getProgramID(), "projection"), 1, GL_FALSE, projection);
-
-            glBindVertexArray(skyboxVAO);
-            glActiveTexture(GL_TEXTURE0);
-            glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
-            glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-            glBindVertexArray(0);*/
-            //glDepthFunc(GL_LESS);
-
 
             // TODO: CREATE OBJECTS
             /** BICYCLE / PLAYER **/
@@ -332,7 +246,6 @@ public class Scene {
             //football.translateGlobal(new Vector3f(-85.0f,0.0f,-55.0f));
             football.translateGlobal(new Vector3f(0.0f,0.0f,10.0f));
 
-
             finish = new Renderable();
             finish = loader.loadModel("assets/Objects/Finishline/finish/finish.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(0.0f),0);
             finish.scaleLocal(new Vector3f(2.1f));
@@ -365,9 +278,6 @@ public class Scene {
             //pointLight.setParent(bicycle);
             //pointLight.translateGlobal((new Vector3f(3,0,23)));      // --> starting position for the bike
 
-
-            //skybox = loader.loadModel("assets/Light Cycle/tankstelleNEU/energy_station_street_assets_vol._03/tankstelle.obj", (float) Math.toRadians(0.0),(float) Math.toRadians(90.0f),0);   //test von mir mit einem stall
-
             /** SPOTLIGHT (Scheinwerfer) **/
             spotLight = new SpotLight(bicycle.getPosition(), new Vector3f(1.0f,1.0f,1.0f), 0.5f,0.05f, 0.01f, 50f, 70f);
             spotLight.setParent(bicycle);
@@ -383,7 +293,6 @@ public class Scene {
             cam.setParent(bicycle);
             cam.translateLocal(new Vector3f(0,1.8f,-0.1f)); // z ist die entfernung zum object --> test von mir
             cam.rotateLocal(-15, 0, 0);
-
 
             // TODO: COLLISION DETECTION
             collisionDetection();
@@ -413,8 +322,7 @@ public class Scene {
         //TODO: Place your code here. Call the rendering of the created mesh every frame. Specify the used shader first.
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-
-        // Skybox render
+        // TODO: SKYBOX
         glDepthFunc(GL_LEQUAL);
         skyboxShader.use();
 
@@ -429,12 +337,10 @@ public class Scene {
         glBindVertexArray(0);
         glDepthFunc(GL_LESS);
 
-
-
         simpleShader.use();
         cam.bind(simpleShader);
 
-        // TODO: LIGHTS -->
+        // TODO: LIGHTS
         // POINTLIGHT:
         pointLight.setLightColor(new Vector3f((float)Math.sin(t), (float)Math.cos(t), 0.5f));  // original
         pointLight.bind(simpleShader,"Eins");
@@ -466,84 +372,13 @@ public class Scene {
         americanTrashcan.render(simpleShader);
 
 
-        // TODO: SKYBOX
-        /*Matrix4f view = new Matrix4f(cam.getViewMatrix());
-        Matrix4f projection = cam.calculateProjectionMatrix();
-
-        glDepthFunc(GL_LEQUAL);
-        //skyboxShader.use();
-        //skybox.bind(skyboxShader, "view", cam.getViewMatrix().transpose3x3());
-        //view = new Matrix4f(cam.getViewMatrix().transpose3x3());
-        //view = new Matrix4f(cam.calculateViewMatrix());
-        //skyboxShader.setUniform("view", view);
-
-        skybox.bind(skyboxShader, "view", cam.calculateViewMatrix());
-        skybox.bind(skyboxShader, "projection", projection);
-
-        skybox.render(skyboxShader, cubemapTexture);*/
-
-
-
-        // Skybox render
-        /*glDepthFunc(GL_LEQUAL);
-        skyboxShader.use();
-
-        skyboxShader.setUniform("view", cam.calculateViewMatrix(), false);
-        skyboxShader.setUniform("projection", cam.calculateProjectionMatrix(), false);
-
-        glBindVertexArray(skybox.skyboxVAO);
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_CUBE_MAP, cubeMapTexture);
-        glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-
-        glBindVertexArray(0);
-        glDepthFunc(GL_LESS);*/
-
-
-
-
         //simpleShader.cleanup();
         //skyboxShader.cleanup();
 
 
-
-        //glUniform3f(glGetUniformLocation(skyboxShader, "skybox"));
-        //glUniform1i(glGetUniformLocation(skyboxShader.getProgramID(), "skybox"), 0);
-
-        /*skyboxShader.use();
-        skyboxShader.setUniform("texture_sampler", 0);
-
-
-        // Update projection Matrix
-        Matrix4f projectionMatrix = transformation.getProjectionMatrix(FOV, window.getWidth(), window.getHeight(), Z_NEAR, Z_FAR);
-        skyboxShader.setUniform("projectionMatrix", projectionMatrix);
-        //skyBox = scene.getSkyBox();
-        Matrix4f viewMatrix = transformation.getViewMatrix(cam);
-        viewMatrix.m30(0);
-        viewMatrix.m31(0);
-        viewMatrix.m32(0);
-        Matrix4f modelViewMatrix = transformation.getModelViewMatrix(skyBox, viewMatrix);
-
-        skybox.setParent(cam);
-
-        //skyboxShader.setUniform("modelViewMatrix", modelViewMatrix);
-        //skyboxShader.setUniform("ambientLight", scene.getSceneLight().getAmbientLight());
-
-        skyboxShader.setUniform("ambientLight", new Vector3f(0.2f,0.2f,0.2f));  // ??????
-
-        scene.getSkyBox().getMesh().render();
-
-        skyboxShader.cleanup();*/
-
-
-
         //bodenRend.render(simpleShader);
 
-
-
-
         //simpleShader.cleanup();
-
 
         // simpleShader.setUniform("model_matrix", m4Kugel, false);
         // kugelRend.render(simpleShader);
@@ -570,11 +405,11 @@ public class Scene {
 */
         /*} else*/
 
-        if (bicycle.getWorldPosition().z < pinkCar.getWorldPosition().z + 3){
+        /*if (bicycle.getWorldPosition().z < pinkCar.getWorldPosition().z + 3){
             System.out.println("collision");
             bicycle.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
         }
-        else if (bicycle.getWorldPosition().z == finishPosition) {
+        else*/ if (bicycle.getWorldPosition().z == finishPosition) {
             /** bike stops at finsishpoint **/
             bicycle.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
             winnerCup.rotateLocal(0, (rotationMultiplier/1.0f) * dt,0);

@@ -1,4 +1,6 @@
-Hinweis: Das Projekt ist im Master-Branch zu finden. 
+``` bash
+** Hinweis: Das Projekt ist im Master-Branch zu finden. **
+```
 
 # Projektname 
 Rush Hour

@@ -1,4 +1,5 @@
-# IN BEARBEITUNG
+Hinweis: Das Projekt ist im Master-Branch zu finden. 
+
 # Projektname 
 Rush Hour
 

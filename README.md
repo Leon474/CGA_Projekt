@@ -21,7 +21,7 @@ Bspw.
 - Toon-Shading (Leon/Baris)
 - Kollisionserkennung (Leon/Lara)
 - festgelegte Strecke von 1km, festgelegte Gebäude (Baris/Leon/Lara)
-- Directional Light - Sonnenlicht (Leon/Lara)
+- Directional Light - Sonnenlicht (Leon)
 - statische bzw. sich bewegende Objekte (Lara/Leon/Baris)
 
 # Quellenverzeichnis

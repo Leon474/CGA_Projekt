@@ -14,7 +14,7 @@ Bei starker Ungleicheit der Features behalten wir uns eine individuelle Notenver
 Bspw.
 
 - Verschiedene Kameramodelle (Perspektivische Kamera von First to Third Person) (Leon/Baris)
-- Character Movemement (Steuerung mittels "AD" auf der Tastatur) (Lara/Leon)
+- Character Movement (Steuerung mittels "AD" auf der Tastatur) (Lara/Leon)
 - Verschiedene Shaderprogramme (Baris/Lara/Leon)
 - Skybox (Lara/Leon)
 - Toon-Shading (Leon/Baris)

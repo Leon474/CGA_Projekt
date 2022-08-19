@@ -13,17 +13,14 @@ Bei starker Ungleicheit der Features behalten wir uns eine individuelle Notenver
 
 Bspw.
 
-- Verschiedene Kameramodelle (Orthografisch / Perspektivische Kamera) (Leon)
-- Dynamische Kamera (Steuerung mittels "AD" auf der Tastatur) (Leon)
-- Verschiedene Shaderprogramme (Baris)
-- Skybox (Lara)
-- Toon-Shading
-- Für einen Comic/Blocks design
-- Kollisionserkennung
-- Orbitkamera
-- Wechsel zwischen 3rd person und 1st person view (Leon) 
-- Zeitstrahl mit Flagge dauerhaft in einer Ecke eingeblendet (Lara) 
-- festgelegte Strecke von 1km, festgelegte Gebäude & Licht (Leon)
+- Verschiedene Kameramodelle (Perspektivische Kamera von First to Third Person) (Leon/Baris)
+- Character Movemement (Steuerung mittels "AD" auf der Tastatur) (Lara/Leon)
+- Verschiedene Shaderprogramme (Baris/Lara/Leon)
+- Skybox (Lara/Leon)
+- Toon-Shading (Leon/Baris)
+- Kollisionserkennung (Leon/Lara/Baris)
+- festgelegte Strecke von 1km, festgelegte Gebäude & Licht (Leon/Lara/Baris)
+- statische bzw. sich bewegende Objekte (Lara/Leon/Baris)
 
 # Quellenverzeichnis
 Listen Sie hier ALLE Quellen der genutzten Ressourcen auf.

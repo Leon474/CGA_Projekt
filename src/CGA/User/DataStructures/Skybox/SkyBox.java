@@ -29,6 +29,9 @@ import static org.lwjgl.stb.STBImage.stbi_image_free;
 
 public class SkyBox extends Transformable {
 
+    // QUELLE: https://www.youtube.com/watch?v=8sVvxeKI9Pk
+    // QUELLE: https://www.youtube.com/watch?v=QYvi1akO_Po&t=600s
+
     public int skyboxVAO = glGenVertexArrays();
     int skyboxVBO = glGenBuffers();
     int skyboxIBO = glGenBuffers();

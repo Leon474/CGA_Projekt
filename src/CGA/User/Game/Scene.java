@@ -131,7 +131,7 @@ public class Scene {
 
 
             // TODO: SKYBOX
-            float SIZE = 120.0f;
+            float SIZE = 150.0f;
             float skyboxVertices[] = {
                     -SIZE, -SIZE, SIZE,
                     SIZE, -SIZE, SIZE,
@@ -197,6 +197,8 @@ public class Scene {
             bicycle = loader.loadModel("assets/Objects/Bicycle/bicycle/bicycle.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(180.0f),0);
             bicycle.scaleLocal(new Vector3f(0.85f));                    // --> size of the object
             bicycle.translateGlobal((new Vector3f(3,0,23)));      // --> starting position for the bike
+            //bicycle.setBoundingbox(2,1,1,2);
+            bicycle.setNearBoundingbox(0.0f);
 
             /** CITY **/
             city = new Renderable();
@@ -208,7 +210,8 @@ public class Scene {
             pinkCar = new Renderable();
             pinkCar = loader.loadModel("assets/Objects/PinkCar/pinkCar/pinkCar.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-90.0f),0);
             pinkCar.scaleLocal(new Vector3f(1.3f));
-            pinkCar.translateGlobal(new Vector3f(-2.3f,0,2));
+            pinkCar.translateGlobal(new Vector3f(-2.5f,0,2));
+            //pinkCar.setNearBoundingbox(2.0f);
 
             trashcans = new Renderable();
             trashcans = loader.loadModel("assets/Objects/Trashcan/neustadt_an_der_aisch_mulltonnen/trashcan.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(70.0f),0);
@@ -363,7 +366,7 @@ public class Scene {
         taxi.render(simpleShader);
         trafficCones.render(simpleShader);
         bus.render(simpleShader);
-        football.render(simpleShader);
+        //football.render(simpleShader);
         finish.render(simpleShader);
         winnerCup.render(simpleShader);
 
@@ -397,6 +400,15 @@ public class Scene {
         float finishPosition = -88.49058f;
         float cupFinishPosition = 0.08333333f;
 
+
+       /* if (bicycle.getNearBoundingPosition().z <= pinkCar.getNearBoundingPosition().z && bicycle.getWorldPosition().x == pinkCar.getWorldPosition().x)
+
+        {
+            System.out.println("koooolisoi");
+        }*/
+
+
+
        /* if (bicycle.getWorldPosition().z == pinkCar.getWorldPosition().z && bicycle.getWorldPosition().x == pinkCar.getWorldPosition().x) {
             System.out.println("COLLISION!!!");
             bicycle.translateLocal(new Vector3f(0.0f,0.0f,0)); // Bike stops!
@@ -409,7 +421,28 @@ public class Scene {
             System.out.println("collision");
             bicycle.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
         }
-        else*/ if (bicycle.getWorldPosition().z == finishPosition) {
+        else*/
+
+        //System.out.println(bicycle.setNearBoundingbox(-2.0f));
+
+        /*if (bicycle.setNearBoundingbox(-2.0f) <= pinkCar.setNearBoundingbox(1.0f) && bicycle.getWorldPosition().x == pinkCar.getWorldPosition().x
+        && bicycle.setFarBoundingbox(2.0f) >= pinkCar.setFarBoundingbox(1.0f)) {
+            System.out.println("ich kollidiere");
+            bicycle.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
+            //bicycle.rotateLocal(0.0f,0.0f,4.0f);
+        }*/
+
+        /*if (bicycle.getNearBoundingPosition().z <= pinkCar.getNearBoundingPosition().z && bicycle.getWorldPosition().x == pinkCar.getWorldPosition().x
+                && bicycle.setFarBoundingbox(2.0f) >= pinkCar.setFarBoundingbox(1.0f)) {
+            System.out.println("ich kollidiere");
+            bicycle.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
+            //bicycle.rotateLocal(0.0f,0.0f,4.0f);
+        }*/
+
+
+
+
+        /*else*/ if (bicycle.getWorldPosition().z == finishPosition) {
             /** bike stops at finsishpoint **/
             bicycle.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
             winnerCup.rotateLocal(0, (rotationMultiplier/1.0f) * dt,0);
@@ -459,13 +492,13 @@ public class Scene {
 
 
 
-        if (football.getWorldPosition().x == footballSTOP) {
+       /* if (football.getWorldPosition().x == footballSTOP) {
             football.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
         } else {
             football.translateLocal(new Vector3f((-translationMultiplier/1.0f) * dt,0.0f,0.0f));
             //football.rotateLocal((rotationMultiplier/1.0f) * dt, 0,0);
             football.rotateAroundPoint(0.0f,(rotationMultiplier/1.0f) * dt,0, football.getWorldPosition());
-        }
+        }+7
 
 
 
@@ -478,6 +511,14 @@ public class Scene {
 
         // TODO: COLLISION DETECTION
         Vector3f collisionObject = new Vector3f(0, 0, 16.589422f);
+
+        /*System.out.println(bicycle.setFrontBoundingbox(-2.0f));
+
+        if (bicycle.setFrontBoundingbox(-2.0f) < pinkCar.setFrontBoundingbox(2.0f)){
+            System.out.println("ich kollidiere");
+            bicycle.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
+        }*/
+
 
         /*if (collisionDetection() == false) {
             bicycle.translateLocal(new Vector3f(0.0f,0.0f,(-translationMultiplier/3) * dt));

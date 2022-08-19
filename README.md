@@ -14,13 +14,14 @@ Bei starker Ungleicheit der Features behalten wir uns eine individuelle Notenver
 
 Bspw.
 
-- Verschiedene Kameramodelle (Perspektivische Kamera von First to Third Person) (Leon/Baris)
+- Verschiedene Kameramodelle (Perspektivische Kamera von First to Third Person) (Leon/Lara/Baris)
 - Character Movement (Steuerung mittels "AD" auf der Tastatur) (Lara/Leon)
-- Verschiedene Shaderprogramme (Baris/Lara/Leon)
+- Verschiedene Shaderprogramme (Lara/Leon)
 - Skybox (Lara/Leon)
 - Toon-Shading (Leon/Baris)
-- Kollisionserkennung (Leon/Lara/Baris)
-- festgelegte Strecke von 1km, festgelegte Gebäude & Licht (Leon/Lara/Baris)
+- Kollisionserkennung (Leon/Lara)
+- festgelegte Strecke von 1km, festgelegte Gebäude (Baris/Leon/Lara)
+- Directional Light - Sonnenlicht (Leon/Lara)
 - statische bzw. sich bewegende Objekte (Lara/Leon/Baris)
 
 # Quellenverzeichnis

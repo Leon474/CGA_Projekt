@@ -4,8 +4,6 @@ import CGA.User.DataStructures.Geometry.Transformable;
 import CGA.User.DataStructures.ShaderProgram;
 import org.joml.Vector3f;
 
-// QUELLE: --> https://www.youtube.com/watch?v=9rV8lsaXF9c
-
 public class DirectionalLight extends Transformable {
 
     private Vector3f lightColor;

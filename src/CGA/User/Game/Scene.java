@@ -131,7 +131,9 @@ public class Scene {
 
 
             // TODO: SKYBOX
-            float SIZE = 150.0f;
+            //float SIZE = 150.0f;
+            float SIZE = 1.0f;
+
             float skyboxVertices[] = {
                     -SIZE, -SIZE, SIZE,
                     SIZE, -SIZE, SIZE,
@@ -198,7 +200,7 @@ public class Scene {
             bicycle.scaleLocal(new Vector3f(0.85f));                    // --> size of the object
             bicycle.translateGlobal((new Vector3f(3,0,23)));      // --> starting position for the bike
             //bicycle.setBoundingbox(2,1,1,2);
-            bicycle.setNearBoundingbox(0.0f);
+            //bicycle.setNearBoundingbox(0.0f);
 
             /** CITY **/
             city = new Renderable();
@@ -210,7 +212,7 @@ public class Scene {
             pinkCar = new Renderable();
             pinkCar = loader.loadModel("assets/Objects/PinkCar/pinkCar/pinkCar.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-90.0f),0);
             pinkCar.scaleLocal(new Vector3f(1.3f));
-            pinkCar.translateGlobal(new Vector3f(-2.5f,0,2));
+            pinkCar.translateGlobal(new Vector3f(-3.0f,0,2));
             //pinkCar.setNearBoundingbox(2.0f);
 
             trashcans = new Renderable();
@@ -329,7 +331,13 @@ public class Scene {
         glDepthFunc(GL_LEQUAL);
         skyboxShader.use();
 
-        skyboxShader.setUniform("view", cam.calculateViewMatrix(), false);
+        Matrix4f viewMatrix = cam.calculateViewMatrix();
+        viewMatrix.m30(0);          // skybox soll nicht mit der camera bewegt werden
+        viewMatrix.m31(0);          // also setzen wir die komponenten die für die translation zuständig sind auf 0
+        viewMatrix.m32(0);
+
+        //skyboxShader.setUniform("view", cam.calculateViewMatrix(), false);
+        skyboxShader.setUniform("view", viewMatrix, false);
         skyboxShader.setUniform("projection", cam.calculateProjectionMatrix(), false);
 
         glBindVertexArray(skybox.skyboxVAO);
@@ -401,10 +409,10 @@ public class Scene {
         float cupFinishPosition = 0.08333333f;
 
 
-       /* if (bicycle.getNearBoundingPosition().z <= pinkCar.getNearBoundingPosition().z && bicycle.getWorldPosition().x == pinkCar.getWorldPosition().x)
-
+        /*if (bicycle.getNearBoundingPosition().z <= pinkCar.getNearBoundingPosition().z && bicycle.getWorldPosition().x == pinkCar.getWorldPosition().x)
         {
             System.out.println("koooolisoi");
+            bicycle.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
         }*/
 
 
@@ -425,24 +433,19 @@ public class Scene {
 
         //System.out.println(bicycle.setNearBoundingbox(-2.0f));
 
-        /*if (bicycle.setNearBoundingbox(-2.0f) <= pinkCar.setNearBoundingbox(1.0f) && bicycle.getWorldPosition().x == pinkCar.getWorldPosition().x
+        if (bicycle.setNearBoundingbox(-2.0f) <= pinkCar.setNearBoundingbox(1.0f) && bicycle.getWorldPosition().x == pinkCar.getWorldPosition().x
         && bicycle.setFarBoundingbox(2.0f) >= pinkCar.setFarBoundingbox(1.0f)) {
             System.out.println("ich kollidiere");
             bicycle.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
             //bicycle.rotateLocal(0.0f,0.0f,4.0f);
-        }*/
-
-        /*if (bicycle.getNearBoundingPosition().z <= pinkCar.getNearBoundingPosition().z && bicycle.getWorldPosition().x == pinkCar.getWorldPosition().x
-                && bicycle.setFarBoundingbox(2.0f) >= pinkCar.setFarBoundingbox(1.0f)) {
-            System.out.println("ich kollidiere");
-            bicycle.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
-            //bicycle.rotateLocal(0.0f,0.0f,4.0f);
-        }*/
+        }
 
 
 
 
-        /*else*/ if (bicycle.getWorldPosition().z == finishPosition) {
+
+
+        else if (bicycle.getWorldPosition().z == finishPosition) {
             /** bike stops at finsishpoint **/
             bicycle.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
             winnerCup.rotateLocal(0, (rotationMultiplier/1.0f) * dt,0);
@@ -530,6 +533,7 @@ public class Scene {
 
         // TODO: BIKE RESET
         //resetBike();
+        changeCamera();
     }
 
     /*public void resetBike() {

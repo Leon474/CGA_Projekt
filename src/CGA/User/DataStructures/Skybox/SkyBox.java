@@ -47,16 +47,16 @@ public class SkyBox extends Transformable {
 
     public int loadCubemap(String facesCubemap[]) {
 
-        // Binding VAO, VBO and IBO
+        // VAO, VBO and IBO
         glBindVertexArray(skyboxVAO);
         glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, skyboxIBO);
 
-        glBufferData(GL_ARRAY_BUFFER, vertexdata, GL_STATIC_DRAW);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexdata, GL_STATIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, vertexdata, GL_STATIC_DRAW);              // upload data to GPU
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexdata, GL_STATIC_DRAW);       // upload data to GPU
 
         glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);
+        glVertexAttribPointer(0, 3, GL_FLOAT, false, 0, 0);     // tell OpengGL where to find what data
 
         glBindBuffer(GL_ARRAY_BUFFER, 0);
         glBindVertexArray(0);
@@ -70,9 +70,9 @@ public class SkyBox extends Transformable {
         glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
         glEnable(AMDSeamlessCubemapPerTexture.GL_TEXTURE_CUBE_MAP_SEAMLESS);
 
-        // Load a Face for each side of the cubemap (6 sides) to create the textured skybox
+        // Load a Face for each side of the cubemap
         for (int i = 0; i < facesCubemap.length; i++) {
-            //System.out.println("load map aufruf"+i);
+
             IntBuffer width = BufferUtils.createIntBuffer(1);
             IntBuffer height = BufferUtils.createIntBuffer(1);
             IntBuffer nrChannels = BufferUtils.createIntBuffer(1);
@@ -85,7 +85,6 @@ public class SkyBox extends Transformable {
                 glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGBA, width.get(), height.get(), 0, GL_RGBA, GL_UNSIGNED_BYTE, imageData);
                 STBImage.stbi_image_free(imageData);
 
-                //unbind(); // von mir hinzugefügt
             } else {
                 System.out.println("Failed to load Texture: "+ facesCubemap[i]);
                 stbi_image_free(imageData);

@@ -15,5 +15,4 @@ public class DirectionalLight extends Transformable {
     public void bind(ShaderProgram shaderProgram, String name) {
         shaderProgram.setUniform(name + "Lightcolor", lightColor);
     }
-
 }

@@ -11,12 +11,6 @@ public class Transformable implements ITransformable {
         modelMatrix = new Matrix4f();
     }
 
-
-
-
-
-
-
     @Override
     public Matrix4f getLocalModelMatrix() {
         return modelMatrix;

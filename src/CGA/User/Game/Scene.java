@@ -98,42 +98,9 @@ public class Scene {
             simpleShader = new ShaderProgram("assets/shaders/tron_vert.glsl", "assets/shaders/tron_frag.glsl");
             skyboxShader = new ShaderProgram("assets/shaders/skyboxShader/skybox_vert.glsl", "assets/shaders/skyboxShader/skybox_frag.glsl");
 
-            // TODO: GROUND
-            // mit dem boden vllt die straße bauen???
-            // ansonsten fehlt dieser teil komplett?!?!? --> ist das schlecht?
-           /* int stride = 8 * 4;
-            VertexAttribute[] vertexAttributes = new VertexAttribute[3];
-
-            vertexAttributes[0] = new VertexAttribute(3, GL_FLOAT, stride, 0);          //position attribute
-            vertexAttributes[1] = new VertexAttribute(2, GL_FLOAT, stride, 3 * 4);      //texture attribute
-            vertexAttributes[2] = new VertexAttribute(3, GL_FLOAT, stride, 5 * 4);      //normal attribute
-
-            //OBJLoader.OBJResult bRes = OBJLoader.loadOBJ("assets/models/sphere.obj", false, false);
-            OBJLoader.OBJResult bRes = OBJLoader.loadOBJ("assets/models/ground.obj", false, false);
-            //OBJLoader.OBJResult street = OBJLoader.loadOBJ("assets/models/ground.obj", false, false);
-
-            Texture2D diff = new Texture2D("assets/textures/ground_diff.png",true);
-            Texture2D emit = new Texture2D("assets/textures/ground_emit.png",true);
-            Texture2D spec = new Texture2D("assets/textures/ground_spec.png",true);
-            Vector2f tcMultiplier = new Vector2f(60.0f,60.0f);
-
-            diff.setTexParams(GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
-            emit.setTexParams(GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
-            spec.setTexParams(GL_REPEAT, GL_REPEAT, GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
-
-            Material boden = new Material(diff, emit, spec, 60.0f, tcMultiplier);
-
-            OBJLoader.OBJMesh bObjMesh = bRes.objects.get(0).meshes.get(0);
-            bodenMesh = new Mesh(bObjMesh.getVertexData(), bObjMesh.getIndexData(), vertexAttributes, boden);
-            bodenRend = new Renderable();
-            //bodenRend.scaleLocal(new Vector3f(3,4,4));  // größe des Bodens kann hier angepasst werden
-            bodenRend.meshes.add(bodenMesh);*/
-
-
             // TODO: SKYBOX
             //float SIZE = 150.0f;
-            float SIZE = 1.0f;
-
+            float  SIZE = 1.0f;
             float skyboxVertices[] = {
                     -SIZE, -SIZE, SIZE,
                     SIZE, -SIZE, SIZE,
@@ -163,15 +130,6 @@ public class Scene {
             skybox = new SkyBox(skyboxVertices, skyboxIndices);
             cubeMapTexture = glGenTextures();
 
-            /*String facesCubemap [] = {
-                    "assets/textures/skybox/right.jpg",
-                    "assets/textures/skybox/left.png",
-                    "assets/textures/skybox/top.png",
-                    "assets/textures/skybox/bottom.png",
-                    "assets/textures/skybox/front.png",
-                    "assets/textures/skybox/back.png"
-            };*/
-
             String facesCubemap [] = {
                     "assets/textures/skyBoxTest/tag_rechts.png",
                     "assets/textures/skyBoxTest/tag_links.png",
@@ -180,15 +138,6 @@ public class Scene {
                     "assets/textures/skyBoxTest/tag_vorne.png",
                     "assets/textures/skyBoxTest/tag_hinten.png"
             };
-
-            /*String facesCubemap [] = {
-                    "assets/textures/skyboxEigen/sky.right.png",
-                    "assets/textures/skyboxEigen/sky.left.png",
-                    "assets/textures/skyboxEigen/sky.up.png",
-                    "assets/textures/skyboxEigen/sky.down.png",
-                    "assets/textures/skyboxEigen/sky.front.png",
-                    "assets/textures/skyboxEigen/sky.back.png"
-            };*/
 
             cubeMapTexture = skybox.loadCubemap(facesCubemap);
 
@@ -207,6 +156,7 @@ public class Scene {
             city = loader.loadModel("assets/Objects/City/city/city.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-90.0f),0);
             city.scaleLocal(new Vector3f(0.1f));
             city.translateGlobal((new Vector3f(-28.2f,0,-31)));
+
 
             /** OBSTACLES **/
             pinkCar = new Renderable();
@@ -245,12 +195,6 @@ public class Scene {
             bus.scaleLocal(new Vector3f(1.0f));
             bus.translateGlobal(new Vector3f(-2.0f,0.0f,-30.0f));
 
-            football = new Renderable();
-            football = loader.loadModel("assets/Objects/football/common_soccer_ball/football.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(0.0f),0);
-            football.scaleLocal(new Vector3f(1.0f));
-            //football.translateGlobal(new Vector3f(-85.0f,0.0f,-55.0f));
-            football.translateGlobal(new Vector3f(0.0f,0.0f,10.0f));
-
             finish = new Renderable();
             finish = loader.loadModel("assets/Objects/Finishline/finish/finish.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(0.0f),0);
             finish.scaleLocal(new Vector3f(2.1f));
@@ -261,34 +205,7 @@ public class Scene {
             winnerCup.scaleLocal(new Vector3f(2.0f));
             winnerCup.translateGlobal(new Vector3f(0.0f,-5.0f,-92.0f));
 
-            stallOBJ = loader.loadModel("assets/Light Cycle/stall2/stallNEU2.obj", (float) Math.toRadians(0.0),(float) Math.toRadians(90.0f),0);   //test von mir mit einem stall
-            stallOBJ.scaleLocal(new Vector3f(0.5f));
-            stallOBJ.translateGlobal(new Vector3f(4.5f,0,-12));
-
-            gasstation = loader.loadModel("assets/Light Cycle/tankstelleNEU/energy_station_street_assets_vol._03/tankstelle.obj", (float) Math.toRadians(0.0),(float) Math.toRadians(90.0f),0);   //test von mir mit einem stall
-            gasstation.scaleLocal(new Vector3f(1.0f));
-            gasstation.translateGlobal(new Vector3f(-4.5f,0,-12));
-
-
             // TODO: LIGHT -->
-            /** POINTLIGHT **/
-            pointLight = new PointLight(bicycle.getPosition(), new Vector3f(1.0f,1.0f,1.0f),1.0f,0.5f,0.1f); // original
-            //pointLight = new PointLight(city.getPosition(), new Vector3f(1.0f,1.0f,1.0f),1.0f,0.5f,0.1f);
-            pointLight.setParent(bicycle);
-            pointLight.translateLocal(new Vector3f(0,1,-2));
-
-            //pointLight = new PointLight(new Vector3f(0,2,0), new Vector3f(1.0f,1.0f,1.0f),1.0f,0.5f,0.1f);
-
-            //pointLight = new PointLight(bicycle.getPosition(), new Vector3f(1.0f,0.0f,0.0f),1.0f,0.5f,0.1f);
-            //pointLight.setParent(bicycle);
-            //pointLight.translateGlobal((new Vector3f(3,0,23)));      // --> starting position for the bike
-
-            /** SPOTLIGHT (Scheinwerfer) **/
-            spotLight = new SpotLight(bicycle.getPosition(), new Vector3f(1.0f,1.0f,1.0f), 0.5f,0.05f, 0.01f, 50f, 70f);
-            spotLight.setParent(bicycle);
-            spotLight.translateLocal(new Vector3f(0f,1.0f,-2.0f)); // original
-            //spotLight.translateGlobal((new Vector3f(3,0,23)));      // --> starting position for the bike
-
             /** SUNLIGHT **/
             Vector3f lightColor = new Vector3f(1.0f,1.0f,1.0f);
             sunlight = new DirectionalLight(lightColor);
@@ -298,6 +215,20 @@ public class Scene {
             cam.setParent(bicycle);
             cam.translateLocal(new Vector3f(0,1.8f,-0.1f)); // z ist die entfernung zum object --> test von mir
             cam.rotateLocal(-15, 0, 0);
+
+
+
+
+
+
+            pointLight = new PointLight(bicycle.getPosition(), new Vector3f(1.0f,1.0f,1.0f),1.0f,0.5f,0.1f); // original
+            pointLight.setParent(bicycle);
+            pointLight.translateLocal(new Vector3f(0,1,-2));
+
+            spotLight = new SpotLight(bicycle.getPosition(), new Vector3f(1.0f,1.0f,1.0f), 0.5f,0.05f, 0.01f, 50f, 70f);
+            spotLight.setParent(bicycle);
+            spotLight.translateLocal(new Vector3f(0f,1.0f,-2.0f)); // original
+
 
             // TODO: COLLISION DETECTION
             collisionDetection();
@@ -332,11 +263,10 @@ public class Scene {
         skyboxShader.use();
 
         Matrix4f viewMatrix = cam.calculateViewMatrix();
-        viewMatrix.m30(0);          // skybox soll nicht mit der camera bewegt werden
+        viewMatrix.m30(0);          // skybox soll nicht mit der camera bewegt werden (soll im origin stehen)
         viewMatrix.m31(0);          // also setzen wir die komponenten die für die translation zuständig sind auf 0
-        viewMatrix.m32(0);
+        viewMatrix.m32(0);          // https://lwjglgamedev.gitbooks.io/3d-game-development-with-lwjgl/content/chapter13/chapter13.html
 
-        //skyboxShader.setUniform("view", cam.calculateViewMatrix(), false);
         skyboxShader.setUniform("view", viewMatrix, false);
         skyboxShader.setUniform("projection", cam.calculateProjectionMatrix(), false);
 
@@ -352,14 +282,6 @@ public class Scene {
         cam.bind(simpleShader);
 
         // TODO: LIGHTS
-        // POINTLIGHT:
-        pointLight.setLightColor(new Vector3f((float)Math.sin(t), (float)Math.cos(t), 0.5f));  // original
-        pointLight.bind(simpleShader,"Eins");
-        simpleShader.setUniform("Farbe", new Vector3f((float)Math.sin(t),(float)Math.cos(t),0.5f));
-
-        // SPOTLIGHT:
-        spotLight.bind(simpleShader,"Zwei", cam.calculateViewMatrix());
-
         // SUNLIGHT:
         sunlight.bind(simpleShader,"Sun");
 
@@ -369,35 +291,27 @@ public class Scene {
         /** city **/
         city.render(simpleShader);
         /** obstacles **/
+        americanTrashcan.render(simpleShader);
         pinkCar.render(simpleShader);
+        trafficCones.render(simpleShader);
+        trashcans.render(simpleShader);
         policeCar.render(simpleShader);
         taxi.render(simpleShader);
-        trafficCones.render(simpleShader);
         bus.render(simpleShader);
-        //football.render(simpleShader);
         finish.render(simpleShader);
         winnerCup.render(simpleShader);
 
 
-        trashcans.render(simpleShader);
-        americanTrashcan.render(simpleShader);
 
 
-        //simpleShader.cleanup();
-        //skyboxShader.cleanup();
 
+        // POINTLIGHT:
+        pointLight.setLightColor(new Vector3f((float)Math.sin(t), (float)Math.cos(t), 0.5f));  // original
+        pointLight.bind(simpleShader,"Eins");
+        simpleShader.setUniform("Farbe", new Vector3f((float)Math.sin(t),(float)Math.cos(t),0.5f));
 
-        //bodenRend.render(simpleShader);
-
-        //simpleShader.cleanup();
-
-        // simpleShader.setUniform("model_matrix", m4Kugel, false);
-        // kugelRend.render(simpleShader);
-        // simpleShader.setUniform("model_matrix", m4Boden, false);
-
-        // simpleMesh.render();
-        // mesh.render();
-        // rend.render();
+        // SPOTLIGHT:
+        spotLight.bind(simpleShader,"Zwei", cam.calculateViewMatrix());
     }
 
     public void update(float dt, float t) {
@@ -408,6 +322,8 @@ public class Scene {
         float finishPosition = -88.49058f;
         float cupFinishPosition = 0.08333333f;
 
+
+        System.out.println(bicycle.getWorldPosition());
 
         /*if (bicycle.getNearBoundingPosition().z <= pinkCar.getNearBoundingPosition().z && bicycle.getWorldPosition().x == pinkCar.getWorldPosition().x)
         {
@@ -439,7 +355,6 @@ public class Scene {
             bicycle.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
             //bicycle.rotateLocal(0.0f,0.0f,4.0f);
         }
-
 
 
 
@@ -501,7 +416,7 @@ public class Scene {
             football.translateLocal(new Vector3f((-translationMultiplier/1.0f) * dt,0.0f,0.0f));
             //football.rotateLocal((rotationMultiplier/1.0f) * dt, 0,0);
             football.rotateAroundPoint(0.0f,(rotationMultiplier/1.0f) * dt,0, football.getWorldPosition());
-        }+7
+        }
 
 
 
@@ -543,11 +458,6 @@ public class Scene {
         }
     }*/
 
-        public void cyclingMovement() {
-            // hin und her wackeln vom fahrradfahrer während er fährt
-        }
-
-
         public void characterMovement() {
 
         boolean keyA = true;
@@ -556,65 +466,36 @@ public class Scene {
         Vector3f leftBorder = new Vector3f(-3, bicycle.getWorldPosition().y, bicycle.getWorldPosition().z);
         Vector3f rightBorder = new Vector3f(3, bicycle.getWorldPosition().y, bicycle.getWorldPosition().z);
 
-
         // TODO: BORDER CHECK
         // LEFT BORDER:
         if (bicycle.getWorldPosition().x == leftBorder.x) {
             // if bicycle is on left border
             keyA = false;
-            //bicycle.rotateLocal(0,-45,0);
         }
         // RIGHT BORDER:
         if (bicycle.getWorldPosition().x == rightBorder.x) {
             // if bicycle is on right border
             keyD = false;
-            //bicycle.rotateLocal(0,45,0);
         }
 
         // TODO: CHARACTER MOVEMENT
         // CHARACTER MOVES LEFT AND RIGHT
         if (window.getKeyState(GLFW_KEY_A) && keyA == true) {
             bicycle.translateGlobal(new Vector3f(-3f, 0.0f,0.0f));
-            //bicycle.rotateLocal(0, 45.0f, 0);
         }
         if (window.getKeyState(GLFW_KEY_D) && keyD == true) {
             bicycle.translateGlobal(new Vector3f(3f, 0.0f,0.0f));
-            //bicycle.rotateLocal(0, -45.0f, 0);
         }
 
         // CHARACTER IS NOT ABLE TO MOVE OVER BORDER
         if (window.getKeyState(GLFW_KEY_A) && keyA == false) {
             bicycle.translateGlobal(new Vector3f(0.0f, 0.0f, 0.0f));
-            //bicycle.rotateLocal(0, 0.0f, 0);
             keyD = true;
         }
         if (window.getKeyState(GLFW_KEY_D) && keyD == false) {
             bicycle.translateGlobal(new Vector3f(0.0f, 0.0f,0.0f));
-            //bicycle.rotateLocal(0, 0.0f, 0);
             keyA = true;
         }
-
-            //System.out.println(leftBorder.x);
-            //System.out.println(bicycle.getWorldPosition().x);
-
-            // nur ein TEST
-            /*if (window.getKeyState(GLFW_KEY_A)) {
-                bicycle.rotateLocal(0,45,0);
-            }
-            if (window.getKeyState(GLFW_KEY_D)) {
-                bicycle.rotateLocal(0,-45,0);
-            }
-
-
-
-            if (bicycle.getWorldPosition().x == leftBorder.x){
-                System.out.println("ich rotiere!!!");
-                //bicycle.rotateLocal(0,-45,0);
-            }
-            if (bicycle.getWorldPosition().x == rightBorder.x){
-                bicycle.rotateLocal(0,45,0);
-                System.out.println("ich rotiere!!!");
-            }*/
     }
 
     public void changeCamera() {
@@ -631,33 +512,19 @@ public class Scene {
             cam = new TronCam();
             cam.setParent(bicycle);
             cam.translateLocal(new Vector3f(0.0f, 5.0f, -2.0f));
-            //cam.translateLocal(new Vector3f(2.0f,5.0f,10.0f));
             cam.rotateLocal(-90, 0, 0);
-            cam.adjustProjection();
-
-            //bigWallOBJ.scaleLocal(new Vector3f(0.1f));
-        } else if (window.getKeyState(GLFW_KEY_Q)) {
-            // NUR OPTIONAL
-            // TODO: LOOK LEFT
-            cam = new TronCam();
-            cam.setParent(bicycle);
-            cam.translateLocal(new Vector3f(-1.0f,2.0f,0.2f));
-            cam.rotateLocal(0, (float)Math.toRadians(10.0f), 0);
-        } else if (window.getKeyState(GLFW_KEY_E)) {
-            // TODO: LOOK RIGHT
-            cam = new TronCam();
-            cam.setParent(bicycle);
-            cam.translateLocal(new Vector3f(1.0f,2.0f,0.2f));
-            cam.rotateLocal(0, (float)Math.toRadians(10.0f), 0);
         }
 
     }
     public void onKey(int key, int scancode, int action, int mode) {
-        characterMovement();
+            characterMovement();
     }
 
+    public void cyclingMovement() {
+        // hin und her wackeln vom fahrradfahrer während er fährt
+    }
 
-    public boolean collisionDetection(){
+    public boolean collisionDetection() {
 
         /*Vector3f collisionObject = new Vector3f(0, 0, -10.311183f);
 
@@ -669,14 +536,15 @@ public class Scene {
             //bicycle.translateLocal(new Vector3f(0.0f,0.0f,(-translationMultiplier/3) * dt));
             return false;
         }*/
-
         return false;
     }
+
     public void onMouseMove(double xpos, double ypos) {
         float rotationMultiplier = 0.00005f;
         float translationMultiplier = 0.000005f;
         //lightcycle.rotateLocal(0.0f, (float) (rotationMultiplier*xpos), 0.0f);
     }
+
     public void cleanup() {
     }
 }

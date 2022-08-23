@@ -56,6 +56,7 @@ public class Renderable extends Transformable implements IRenderable {
         return front;
     }
 
+
     public Vector3f getNearBoundingPosition() {
         Matrix4f world = getWorldModelMatrix();
         Vector3f position = new Vector3f(world.m30()+setNearBoundingbox(front), world.m31(), world.m32());

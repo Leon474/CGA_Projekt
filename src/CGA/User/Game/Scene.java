@@ -25,6 +25,7 @@ import org.lwjgl.system.CallbackI;
 import java.lang.Math;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
+import java.util.ArrayList;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
@@ -82,6 +83,8 @@ public class Scene {
 
     private SkyBox skybox;
     private int cubeMapTexture;
+
+    ArrayList hindernissliste;
 
     //
     private boolean triggerPoint = false;
@@ -157,23 +160,28 @@ public class Scene {
             city.scaleLocal(new Vector3f(0.1f));
             city.translateGlobal((new Vector3f(-28.2f,0,-31)));
 
+            hindernissliste = new ArrayList<Renderable>();
+            //System.out.println(hindernissliste.get(0));
 
             /** OBSTACLES **/
             pinkCar = new Renderable();
             pinkCar = loader.loadModel("assets/Objects/PinkCar/pinkCar/pinkCar.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-90.0f),0);
             pinkCar.scaleLocal(new Vector3f(1.3f));
             pinkCar.translateGlobal(new Vector3f(-3.0f,0,2));
+            hindernissliste.add(pinkCar);
             //pinkCar.setNearBoundingbox(2.0f);
 
             trashcans = new Renderable();
             trashcans = loader.loadModel("assets/Objects/Trashcan/neustadt_an_der_aisch_mulltonnen/trashcan.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(70.0f),0);
             trashcans.scaleLocal(new Vector3f(1.28f));
             trashcans.translateGlobal(new Vector3f(-2,0,-13.5f));
+            hindernissliste.add(trashcans);
 
             americanTrashcan = new Renderable();
             americanTrashcan = loader.loadModel("assets/Objects/Trashcan/american_trashcan/americanTrashcan.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-45.0f),0);
             americanTrashcan.scaleLocal(new Vector3f(1.28f));
             americanTrashcan.translateGlobal(new Vector3f(2.5f,0.69f,13));
+            hindernissliste.add(americanTrashcan);
 
             policeCar = new Renderable();
             policeCar = loader.loadModel("assets/Objects/policeCar/ford_mondeo_police_ver.1(1)/policeCar.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-70.0f),0);
@@ -184,16 +192,19 @@ public class Scene {
             taxi = loader.loadModel("assets/Objects/Taxi/taxi/taxi.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(90.0f),0);
             taxi.scaleLocal(new Vector3f(0.75f));
             taxi.translateGlobal(new Vector3f(-35f,0.07f,-23));
+            hindernissliste.add(taxi);
 
             trafficCones = new Renderable();
             trafficCones = loader.loadModel("assets/Objects/trafficCones/traffic_cone/trafficCones.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(0.0f),0);
             trafficCones.scaleLocal(new Vector3f(0.60f));
             trafficCones.translateGlobal(new Vector3f(2.0f,0.0f,-7));
+            hindernissliste.add(trafficCones);
 
             bus = new Renderable();
             bus = loader.loadModel("assets/Objects/bus/hcr2_bus/buss.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(0.0f),0);
             bus.scaleLocal(new Vector3f(1.0f));
             bus.translateGlobal(new Vector3f(-2.0f,0.0f,-30.0f));
+            hindernissliste.add(bus);
 
             finish = new Renderable();
             finish = loader.loadModel("assets/Objects/Finishline/finish/finish.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(0.0f),0);
@@ -243,9 +254,6 @@ public class Scene {
             glDepthFunc(GL_LESS);
 
             return true;
-
-            // m4Boden.identity().rotateX((float) Math.toRadians(90)).scaleLocal(0.03f);
-            // m4Boden.identity().rotate((float) Math.toRadians(90), new Vector3f(1.0f, 0, 0)).scaleLocal(0.03f);
 
         } catch (Exception ex) {
             System.err.println("Scene initialization failed:\n" + ex.getMessage() + "\n");
@@ -323,7 +331,7 @@ public class Scene {
         float cupFinishPosition = 0.08333333f;
 
 
-        System.out.println(bicycle.getWorldPosition());
+        //System.out.println(bicycle.getWorldPosition());
 
         /*if (bicycle.getNearBoundingPosition().z <= pinkCar.getNearBoundingPosition().z && bicycle.getWorldPosition().x == pinkCar.getWorldPosition().x)
         {
@@ -349,14 +357,28 @@ public class Scene {
 
         //System.out.println(bicycle.setNearBoundingbox(-2.0f));
 
-        if (bicycle.setNearBoundingbox(-2.0f) <= pinkCar.setNearBoundingbox(1.0f) && bicycle.getWorldPosition().x == pinkCar.getWorldPosition().x
+        /*if (bicycle.setNearBoundingbox(-2.0f) <= pinkCar.setNearBoundingbox(1.0f) && bicycle.getWorldPosition().x == pinkCar.getWorldPosition().x
         && bicycle.setFarBoundingbox(2.0f) >= pinkCar.setFarBoundingbox(1.0f)) {
             System.out.println("ich kollidiere");
             bicycle.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
             //bicycle.rotateLocal(0.0f,0.0f,4.0f);
+        }*/
+
+        if (bicycle.getWorldPosition().x != 0) {
+
+
+            /*for (Renderable hindernis: hindernissliste) {
+
+            }*/
+
+
+
+
+
+
+
+
         }
-
-
 
 
 

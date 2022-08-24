@@ -20,7 +20,6 @@ public class Renderable extends Transformable implements IRenderable {
     public ArrayList<Mesh> meshes;
     public Renderable renderable;
 
-
     /**
      * creates an empty renderable object with an empty mesh list
      */
@@ -33,63 +32,31 @@ public class Renderable extends Transformable implements IRenderable {
         this.meshes = meshes;
     }
 
-//    public Renderable(ArrayList<Mesh> meshes)
-//    {
-//        super();
-//        this.meshes = new ArrayList<>();
-//        this.meshes.addAll(meshes);
-//    }
-
-    float front;
-    float leftSide;
-    float rightSide;
-    float back;
-    /*public void setBoundingbox(float front, float leftSide, float rightSide, float back) {
-        front = getWorldPosition().z += new Vector3f(0,0, front);
-        leftSide = getWorldPosition().x += leftSide;
-        rightSide = getWorldPosition().x -= rightSide;
-        back = getWorldPosition().z += back;
+    /*public Renderable(ArrayList<Mesh> meshes)
+    {
+        super();
+        this.meshes = new ArrayList<>();
+        this.meshes.addAll(meshes);
     }*/
 
-    public float setNearBoundingbox(float front) {
-        front = getWorldPosition().z += front;
-        return front;
+    Vector3f near = getWorldPosition();
+    Vector3f far = getWorldPosition();
+
+    public void setNearBoundingbox(float change) {
+        near.z += change;
     }
-
-
-    public Vector3f getNearBoundingPosition() {
+    public void setFarBoundingbox(float change) {
+        far.z -= change;
+    }
+    public Vector3f getNearPosition() {
         Matrix4f world = getWorldModelMatrix();
-        Vector3f position = new Vector3f(world.m30()+setNearBoundingbox(front), world.m31(), world.m32());
+        Vector3f position = new Vector3f(world.m30(), world.m31(), world.m32()+near.z);
         return position;
     }
-
-    /*public void setBoundingbox(float front, float leftSide, float rightSide, float back) {
-        front = getWorldPosition().z += front;
-        leftSide = getWorldPosition().x += leftSide;
-        rightSide = getWorldPosition().x -= rightSide;
-        back = getWorldPosition().z -= back;
-    }*/
-    /*public float setNearBoundingbox(float front) {
-        front = getWorldPosition().z += front;
-        return front;
-    }*/
-
-
-    public float setFarBoundingbox(float back) {
-        back = getWorldPosition().z -= back;
-        return back;
-    }
-
-    public float getLeftSideBoundingbox() {
-        return leftSide;
-    }
-
-    public float getRightSideBoundingbox() {
-        return rightSide;
-    }
-
-    public float getBackBoundingbox() {
-        return back;
+    public Vector3f getFarPosition() {
+        Matrix4f world = getWorldModelMatrix();
+        Vector3f position = new Vector3f(world.m30(), world.m31(), world.m32()-far.z);
+        return position;
     }
 
 

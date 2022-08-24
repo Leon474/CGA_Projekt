@@ -84,7 +84,7 @@ public class Scene {
     private SkyBox skybox;
     private int cubeMapTexture;
 
-    ArrayList hindernissliste;
+    private ArrayList<Renderable> hindernissliste;
 
     //
     private boolean triggerPoint = false;
@@ -161,26 +161,34 @@ public class Scene {
             city.translateGlobal((new Vector3f(-28.2f,0,-31)));
 
             hindernissliste = new ArrayList<Renderable>();
-            //System.out.println(hindernissliste.get(0));
 
             /** OBSTACLES **/
             pinkCar = new Renderable();
             pinkCar = loader.loadModel("assets/Objects/PinkCar/pinkCar/pinkCar.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-90.0f),0);
             pinkCar.scaleLocal(new Vector3f(1.3f));
             pinkCar.translateGlobal(new Vector3f(-3.0f,0,2));
+            pinkCar.setNearBoundingbox(1.5f);
+            pinkCar.setFarBoundingbox(-1.0f);
             hindernissliste.add(pinkCar);
+
             //pinkCar.setNearBoundingbox(2.0f);
 
             trashcans = new Renderable();
             trashcans = loader.loadModel("assets/Objects/Trashcan/neustadt_an_der_aisch_mulltonnen/trashcan.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(70.0f),0);
             trashcans.scaleLocal(new Vector3f(1.28f));
-            trashcans.translateGlobal(new Vector3f(-2,0,-13.5f));
+            //trashcans.translateGlobal(new Vector3f(-2,0,-13.5f));
+            trashcans.translateGlobal(new Vector3f(-3,0,-13.5f));
+            trashcans.setNearBoundingbox(1.5f);
+            trashcans.setFarBoundingbox(-1.0f);
             hindernissliste.add(trashcans);
 
             americanTrashcan = new Renderable();
             americanTrashcan = loader.loadModel("assets/Objects/Trashcan/american_trashcan/americanTrashcan.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-45.0f),0);
             americanTrashcan.scaleLocal(new Vector3f(1.28f));
-            americanTrashcan.translateGlobal(new Vector3f(2.5f,0.69f,13));
+            //americanTrashcan.translateGlobal(new Vector3f(2.5f,0.69f,13));
+            americanTrashcan.translateGlobal(new Vector3f(3.0f,0.69f,13));
+            americanTrashcan.setNearBoundingbox(1.5f);
+            americanTrashcan.setFarBoundingbox(-1.0f);
             hindernissliste.add(americanTrashcan);
 
             policeCar = new Renderable();
@@ -191,19 +199,27 @@ public class Scene {
             taxi = new Renderable();
             taxi = loader.loadModel("assets/Objects/Taxi/taxi/taxi.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(90.0f),0);
             taxi.scaleLocal(new Vector3f(0.75f));
-            taxi.translateGlobal(new Vector3f(-35f,0.07f,-23));
+            taxi.translateGlobal(new Vector3f(-13f,0.07f,-23));
+            taxi.setNearBoundingbox(1.5f);
+            taxi.setFarBoundingbox(-1.0f);
             hindernissliste.add(taxi);
 
             trafficCones = new Renderable();
             trafficCones = loader.loadModel("assets/Objects/trafficCones/traffic_cone/trafficCones.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(0.0f),0);
             trafficCones.scaleLocal(new Vector3f(0.60f));
-            trafficCones.translateGlobal(new Vector3f(2.0f,0.0f,-7));
+            //trafficCones.translateGlobal(new Vector3f(2.0f,0.0f,-7));
+            trafficCones.translateGlobal(new Vector3f(3.0f,0.0f,-7));
+            trafficCones.setNearBoundingbox(1.5f);
+            trafficCones.setFarBoundingbox(-1.0f);
             hindernissliste.add(trafficCones);
 
             bus = new Renderable();
             bus = loader.loadModel("assets/Objects/bus/hcr2_bus/buss.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(0.0f),0);
             bus.scaleLocal(new Vector3f(1.0f));
-            bus.translateGlobal(new Vector3f(-2.0f,0.0f,-30.0f));
+            //bus.translateGlobal(new Vector3f(-2.0f,0.0f,-30.0f));
+            bus.translateGlobal(new Vector3f(-3.0f,0.0f,-30.0f));
+            bus.setNearBoundingbox(3.0f);
+            bus.setFarBoundingbox(-3.0f);
             hindernissliste.add(bus);
 
             finish = new Renderable();
@@ -239,10 +255,6 @@ public class Scene {
             spotLight = new SpotLight(bicycle.getPosition(), new Vector3f(1.0f,1.0f,1.0f), 0.5f,0.05f, 0.01f, 50f, 70f);
             spotLight.setParent(bicycle);
             spotLight.translateLocal(new Vector3f(0f,1.0f,-2.0f)); // original
-
-
-            // TODO: COLLISION DETECTION
-            collisionDetection();
 
             // TODO: BACKGROUNDCOLOR -->  r, g, b
             glClearColor(0.3f, 0.7f, 0.78f, 0.0f);  //--> original (schwarz)
@@ -330,59 +342,9 @@ public class Scene {
         float finishPosition = -88.49058f;
         float cupFinishPosition = 0.08333333f;
 
+        boolean collision = false;
 
-        //System.out.println(bicycle.getWorldPosition());
-
-        /*if (bicycle.getNearBoundingPosition().z <= pinkCar.getNearBoundingPosition().z && bicycle.getWorldPosition().x == pinkCar.getWorldPosition().x)
-        {
-            System.out.println("koooolisoi");
-            bicycle.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
-        }*/
-
-
-
-       /* if (bicycle.getWorldPosition().z == pinkCar.getWorldPosition().z && bicycle.getWorldPosition().x == pinkCar.getWorldPosition().x) {
-            System.out.println("COLLISION!!!");
-            bicycle.translateLocal(new Vector3f(0.0f,0.0f,0)); // Bike stops!
-
-
-*/
-        /*} else*/
-
-        /*if (bicycle.getWorldPosition().z < pinkCar.getWorldPosition().z + 3){
-            System.out.println("collision");
-            bicycle.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
-        }
-        else*/
-
-        //System.out.println(bicycle.setNearBoundingbox(-2.0f));
-
-        /*if (bicycle.setNearBoundingbox(-2.0f) <= pinkCar.setNearBoundingbox(1.0f) && bicycle.getWorldPosition().x == pinkCar.getWorldPosition().x
-        && bicycle.setFarBoundingbox(2.0f) >= pinkCar.setFarBoundingbox(1.0f)) {
-            System.out.println("ich kollidiere");
-            bicycle.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
-            //bicycle.rotateLocal(0.0f,0.0f,4.0f);
-        }*/
-
-        if (bicycle.getWorldPosition().x != 0) {
-
-
-            /*for (Renderable hindernis: hindernissliste) {
-
-            }*/
-
-
-
-
-
-
-
-
-        }
-
-
-
-        else if (bicycle.getWorldPosition().z == finishPosition) {
+         if (bicycle.getWorldPosition().z == finishPosition) {
             /** bike stops at finsishpoint **/
             bicycle.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
             winnerCup.rotateLocal(0, (rotationMultiplier/1.0f) * dt,0);
@@ -393,11 +355,20 @@ public class Scene {
                 winnerCup.translateLocal(new Vector3f(0.0f,(translationMultiplier/1.0f) * dt,0.0f));
             }
         } else {
-            /** bike movement **/
-            bicycle.translateLocal(new Vector3f(0.0f,0.0f,(-translationMultiplier/1.0f) * dt));
-            //bicycle.rotateLocal(0, 0,(rotationMultiplier/1.0f) * dt);
-        }
+             // TODO: COLLISION DETECTION
+             for (Renderable hindernis: hindernissliste) {
 
+                if (bicycle.getWorldPosition().z <= hindernis.getNearPosition().z && bicycle.getWorldPosition().z >= hindernis.getFarPosition().z
+                        && bicycle.getWorldPosition().x == hindernis.getWorldPosition().x) {
+                    System.out.println("collision");
+                    collision = true;
+                    bicycle.translateLocal(new Vector3f(0.0f,0.0f,0));
+                }
+            }
+             if (collision == false) {
+                 bicycle.translateLocal(new Vector3f(0.0f,0.0f,(-translationMultiplier/1.0f) * dt));
+             }
+         }
 
         // TODO: OBSTACLE MOVEMENT
         /** policecar **/
@@ -410,11 +381,14 @@ public class Scene {
 
         /** taxi **/
         float taxiCarSTOP = 3.2209985f;
+        float taxiStart = 1;
         if (taxi.getWorldPosition().x == taxiCarSTOP) {
             taxi.translateLocal(new Vector3f(0.0f,0.0f, 0.0f));
-        } else {
+        } else if (bicycle.getWorldPosition().z <= taxiStart) {
             taxi.translateLocal(new Vector3f((translationMultiplier/1.0f) * dt,0.0f, 0.0f));
         }
+
+
 
         /** football **/
         //System.out.println("Football: "+football.getWorldPosition().x);
@@ -430,43 +404,20 @@ public class Scene {
         }*/
 
 
-
-
-       /* if (football.getWorldPosition().x == footballSTOP) {
+        /*if (football.getWorldPosition().x == footballSTOP) {
             football.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
         } else {
             football.translateLocal(new Vector3f((-translationMultiplier/1.0f) * dt,0.0f,0.0f));
             //football.rotateLocal((rotationMultiplier/1.0f) * dt, 0,0);
             football.rotateAroundPoint(0.0f,(rotationMultiplier/1.0f) * dt,0, football.getWorldPosition());
-        }
-
-
-
-
+        }*/
 
 
 
         // TODO: CAMERA CHANGE
         changeCamera();
 
-        // TODO: COLLISION DETECTION
-        Vector3f collisionObject = new Vector3f(0, 0, 16.589422f);
 
-        /*System.out.println(bicycle.setFrontBoundingbox(-2.0f));
-
-        if (bicycle.setFrontBoundingbox(-2.0f) < pinkCar.setFrontBoundingbox(2.0f)){
-            System.out.println("ich kollidiere");
-            bicycle.translateLocal(new Vector3f(0.0f,0.0f,0.0f));
-        }*/
-
-
-        /*if (collisionDetection() == false) {
-            bicycle.translateLocal(new Vector3f(0.0f,0.0f,(-translationMultiplier/3) * dt));
-        }*/
-
-        //System.out.println("position: "+bicycle.getWorldPosition().x);
-        //System.out.println("position: "+bicycle.getWorldPosition().z);
-        //System.out.println("Collisionsobjekt: "+collisionObject.z);
 
         // TODO: BIKE RESET
         //resetBike();
@@ -476,7 +427,6 @@ public class Scene {
     /*public void resetBike() {
         if (window.getKeyState(GLFW_KEY_R)){
             bicycle.translateGlobal((new Vector3f(0,0,23)));     // --> starting position for the bike
-
         }
     }*/
 
@@ -544,21 +494,6 @@ public class Scene {
 
     public void cyclingMovement() {
         // hin und her wackeln vom fahrradfahrer während er fährt
-    }
-
-    public boolean collisionDetection() {
-
-        /*Vector3f collisionObject = new Vector3f(0, 0, -10.311183f);
-
-        if (bicycle.getWorldPosition().z == collisionObject.z) {
-            System.out.println("COLLISION!!!");
-            bicycle.translateLocal(new Vector3f(0.0f,0.0f,0));
-            return true;
-        } else {
-            //bicycle.translateLocal(new Vector3f(0.0f,0.0f,(-translationMultiplier/3) * dt));
-            return false;
-        }*/
-        return false;
     }
 
     public void onMouseMove(double xpos, double ypos) {

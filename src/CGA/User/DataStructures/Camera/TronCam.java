@@ -4,6 +4,9 @@ import CGA.User.DataStructures.ShaderProgram;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_C;
+import static org.lwjgl.glfw.GLFW.GLFW_KEY_X;
+
 public class TronCam extends Camera {
     private float fieldOfView;
     private float seitenverhaeltnis;
@@ -29,6 +32,7 @@ public class TronCam extends Camera {
         this.farPlane = 100.0f; // original
         //this.farPlane = 4000.0f;
     }
+
 
     public void adjustProjection(){
         // QUELLE: https://www.youtube.com/watch?v=r857cbEtEY8

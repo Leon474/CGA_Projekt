@@ -27,6 +27,7 @@ import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 
+import static java.lang.Math.floor;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
@@ -167,8 +168,8 @@ public class Scene {
             pinkCar = loader.loadModel("assets/Objects/PinkCar/pinkCar/pinkCar.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-90.0f),0);
             pinkCar.scaleLocal(new Vector3f(1.3f));
             pinkCar.translateGlobal(new Vector3f(-3.0f,0,2));
-            pinkCar.setNearBoundingbox(1.5f);
-            pinkCar.setFarBoundingbox(-1.0f);
+            pinkCar.setNearBoundingbox(3.0f);
+            pinkCar.setFarBoundingbox(2.0f);
             hindernissliste.add(pinkCar);
 
             //pinkCar.setNearBoundingbox(2.0f);
@@ -179,7 +180,7 @@ public class Scene {
             //trashcans.translateGlobal(new Vector3f(-2,0,-13.5f));
             trashcans.translateGlobal(new Vector3f(-3,0,-13.5f));
             trashcans.setNearBoundingbox(1.5f);
-            trashcans.setFarBoundingbox(-1.0f);
+            trashcans.setFarBoundingbox(1.0f);
             hindernissliste.add(trashcans);
 
             americanTrashcan = new Renderable();
@@ -188,7 +189,7 @@ public class Scene {
             //americanTrashcan.translateGlobal(new Vector3f(2.5f,0.69f,13));
             americanTrashcan.translateGlobal(new Vector3f(3.0f,0.69f,13));
             americanTrashcan.setNearBoundingbox(1.5f);
-            americanTrashcan.setFarBoundingbox(-1.0f);
+            americanTrashcan.setFarBoundingbox(1.0f);
             hindernissliste.add(americanTrashcan);
 
             policeCar = new Renderable();
@@ -200,8 +201,8 @@ public class Scene {
             taxi = loader.loadModel("assets/Objects/Taxi/taxi/taxi.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(90.0f),0);
             taxi.scaleLocal(new Vector3f(0.75f));
             taxi.translateGlobal(new Vector3f(-13f,0.07f,-23));
-            taxi.setNearBoundingbox(1.5f);
-            taxi.setFarBoundingbox(-1.0f);
+            taxi.setNearBoundingbox(1.9f);
+            taxi.setFarBoundingbox(1.9f);
             hindernissliste.add(taxi);
 
             trafficCones = new Renderable();
@@ -210,7 +211,7 @@ public class Scene {
             //trafficCones.translateGlobal(new Vector3f(2.0f,0.0f,-7));
             trafficCones.translateGlobal(new Vector3f(3.0f,0.0f,-7));
             trafficCones.setNearBoundingbox(1.5f);
-            trafficCones.setFarBoundingbox(-1.0f);
+            trafficCones.setFarBoundingbox(1.0f);
             hindernissliste.add(trafficCones);
 
             bus = new Renderable();
@@ -219,7 +220,7 @@ public class Scene {
             //bus.translateGlobal(new Vector3f(-2.0f,0.0f,-30.0f));
             bus.translateGlobal(new Vector3f(-3.0f,0.0f,-30.0f));
             bus.setNearBoundingbox(3.0f);
-            bus.setFarBoundingbox(-3.0f);
+            bus.setFarBoundingbox(3.0f);
             hindernissliste.add(bus);
 
             finish = new Renderable();
@@ -341,6 +342,8 @@ public class Scene {
         // TODO: BIKE MOVEMENT
         float finishPosition = -88.49058f;
         float cupFinishPosition = 0.08333333f;
+        float taxiPosition = (float) floor(taxi.getWorldPosition().x) -2;
+
 
         boolean collision = false;
 
@@ -355,12 +358,13 @@ public class Scene {
                 winnerCup.translateLocal(new Vector3f(0.0f,(translationMultiplier/1.0f) * dt,0.0f));
             }
         } else {
-             // TODO: COLLISION DETECTION
+             /** COLLISION DETECTION **/
              for (Renderable hindernis: hindernissliste) {
 
                 if (bicycle.getWorldPosition().z <= hindernis.getNearPosition().z && bicycle.getWorldPosition().z >= hindernis.getFarPosition().z
-                        && bicycle.getWorldPosition().x == hindernis.getWorldPosition().x) {
-                    System.out.println("collision");
+                        && bicycle.getWorldPosition().x == hindernis.getWorldPosition().x
+                        || bicycle.getWorldPosition().z <= taxi.getNearPosition().z && bicycle.getWorldPosition().z >= taxi.getFarPosition().z
+                        && bicycle.getWorldPosition().x == taxiPosition) {
                     collision = true;
                     bicycle.translateLocal(new Vector3f(0.0f,0.0f,0));
                 }
@@ -372,23 +376,22 @@ public class Scene {
 
         // TODO: OBSTACLE MOVEMENT
         /** policecar **/
-        float policeCarSTOP = -20.29932f;
-        if (policeCar.getWorldPosition().x == policeCarSTOP) {
+        float policeCarSTOP = -20.0f;
+        if (policeCar.getWorldPosition().x <= policeCarSTOP) {
             policeCar.translateLocal(new Vector3f(0.0f,0.0f, 0.0f));
         } else {
             policeCar.translateLocal(new Vector3f((-translationMultiplier/0.8f) * dt,0.0f, 0.0f));
         }
 
         /** taxi **/
-        float taxiCarSTOP = 3.2209985f;
+        float taxiCarSTOP = 3.0f;
         float taxiStart = 1;
-        if (taxi.getWorldPosition().x == taxiCarSTOP) {
+
+        if (taxiPosition == taxiCarSTOP) {
             taxi.translateLocal(new Vector3f(0.0f,0.0f, 0.0f));
         } else if (bicycle.getWorldPosition().z <= taxiStart) {
             taxi.translateLocal(new Vector3f((translationMultiplier/1.0f) * dt,0.0f, 0.0f));
         }
-
-
 
         /** football **/
         //System.out.println("Football: "+football.getWorldPosition().x);
@@ -417,11 +420,8 @@ public class Scene {
         // TODO: CAMERA CHANGE
         changeCamera();
 
-
-
         // TODO: BIKE RESET
         //resetBike();
-        changeCamera();
     }
 
     /*public void resetBike() {
@@ -499,7 +499,7 @@ public class Scene {
     public void onMouseMove(double xpos, double ypos) {
         float rotationMultiplier = 0.00005f;
         float translationMultiplier = 0.000005f;
-        //lightcycle.rotateLocal(0.0f, (float) (rotationMultiplier*xpos), 0.0f);
+        //bicycle.rotateLocal(0.0f, (float) (rotationMultiplier*xpos), 0.0f);
     }
 
     public void cleanup() {

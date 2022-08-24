@@ -32,13 +32,8 @@ public class Renderable extends Transformable implements IRenderable {
         this.meshes = meshes;
     }
 
-    /*public Renderable(ArrayList<Mesh> meshes)
-    {
-        super();
-        this.meshes = new ArrayList<>();
-        this.meshes.addAll(meshes);
-    }*/
 
+    /** Collision detection **/
     Vector3f near = getWorldPosition();
     Vector3f far = getWorldPosition();
 
@@ -48,6 +43,7 @@ public class Renderable extends Transformable implements IRenderable {
     public void setFarBoundingbox(float change) {
         far.z -= change;
     }
+
     public Vector3f getNearPosition() {
         Matrix4f world = getWorldModelMatrix();
         Vector3f position = new Vector3f(world.m30(), world.m31(), world.m32()+near.z);
@@ -55,11 +51,15 @@ public class Renderable extends Transformable implements IRenderable {
     }
     public Vector3f getFarPosition() {
         Matrix4f world = getWorldModelMatrix();
-        Vector3f position = new Vector3f(world.m30(), world.m31(), world.m32()-far.z);
+        Vector3f position = new Vector3f(world.m30(), world.m31(), world.m32()+far.z);
         return position;
     }
 
-
+    public Vector3f getTaxiPosition() {
+        Matrix4f world = getWorldModelMatrix();
+        Vector3f position = new Vector3f(world.m30()-2, world.m31(), world.m32());
+        return position;
+    }
 
     /**
      * Renders all meshes attached to this Renderable, applying the transformation matrix to
@@ -78,5 +78,12 @@ public class Renderable extends Transformable implements IRenderable {
             m.render(shaderProgram);
         }
     }
+
+    /*public Renderable(ArrayList<Mesh> meshes)
+    {
+        super();
+        this.meshes = new ArrayList<>();
+        this.meshes.addAll(meshes);
+    }*/
 
 }

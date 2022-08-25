@@ -32,7 +32,6 @@ public class Renderable extends Transformable implements IRenderable {
         this.meshes = meshes;
     }
 
-
     /** Collision detection **/
     Vector3f near = getWorldPosition();
     Vector3f far = getWorldPosition();
@@ -40,9 +39,7 @@ public class Renderable extends Transformable implements IRenderable {
     public void setNearBoundingbox(float change) {
         near.z += change;
     }
-    public void setFarBoundingbox(float change) {
-        far.z -= change;
-    }
+    public void setFarBoundingbox(float change) { far.z -= change; }
 
     public Vector3f getNearPosition() {
         Matrix4f world = getWorldModelMatrix();
@@ -55,11 +52,6 @@ public class Renderable extends Transformable implements IRenderable {
         return position;
     }
 
-    public Vector3f getTaxiPosition() {
-        Matrix4f world = getWorldModelMatrix();
-        Vector3f position = new Vector3f(world.m30()-2, world.m31(), world.m32());
-        return position;
-    }
 
     /**
      * Renders all meshes attached to this Renderable, applying the transformation matrix to

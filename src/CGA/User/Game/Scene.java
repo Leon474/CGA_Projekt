@@ -103,7 +103,6 @@ public class Scene {
             skyboxShader = new ShaderProgram("assets/shaders/skyboxShader/skybox_vert.glsl", "assets/shaders/skyboxShader/skybox_frag.glsl");
 
             // TODO: SKYBOX
-            //float SIZE = 150.0f;
             float  SIZE = 1.0f;
             float skyboxVertices[] = {
                     -SIZE, -SIZE, SIZE,
@@ -152,8 +151,7 @@ public class Scene {
             bicycle = loader.loadModel("assets/Objects/Bicycle/bicycle/bicycle.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(180.0f),0);
             bicycle.scaleLocal(new Vector3f(0.85f));                    // --> size of the object
             bicycle.translateGlobal((new Vector3f(3,0,23)));      // --> starting position for the bike
-            //bicycle.setBoundingbox(2,1,1,2);
-            //bicycle.setNearBoundingbox(0.0f);
+
 
             /** CITY **/
             city = new Renderable();
@@ -172,12 +170,9 @@ public class Scene {
             pinkCar.setFarBoundingbox(2.0f);
             hindernissliste.add(pinkCar);
 
-            //pinkCar.setNearBoundingbox(2.0f);
-
             trashcans = new Renderable();
             trashcans = loader.loadModel("assets/Objects/Trashcan/neustadt_an_der_aisch_mulltonnen/trashcan.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(70.0f),0);
             trashcans.scaleLocal(new Vector3f(1.28f));
-            //trashcans.translateGlobal(new Vector3f(-2,0,-13.5f));
             trashcans.translateGlobal(new Vector3f(-3,0,-13.5f));
             trashcans.setNearBoundingbox(1.5f);
             trashcans.setFarBoundingbox(1.0f);
@@ -186,7 +181,6 @@ public class Scene {
             americanTrashcan = new Renderable();
             americanTrashcan = loader.loadModel("assets/Objects/Trashcan/american_trashcan/americanTrashcan.obj",(float) Math.toRadians(0.0f),(float) Math.toRadians(-45.0f),0);
             americanTrashcan.scaleLocal(new Vector3f(1.28f));
-            //americanTrashcan.translateGlobal(new Vector3f(2.5f,0.69f,13));
             americanTrashcan.translateGlobal(new Vector3f(3.0f,0.69f,13));
             americanTrashcan.setNearBoundingbox(1.5f);
             americanTrashcan.setFarBoundingbox(1.0f);
@@ -326,12 +320,9 @@ public class Scene {
 
 
 
-        // POINTLIGHT:
         pointLight.setLightColor(new Vector3f((float)Math.sin(t), (float)Math.cos(t), 0.5f));  // original
         pointLight.bind(simpleShader,"Eins");
         simpleShader.setUniform("Farbe", new Vector3f((float)Math.sin(t),(float)Math.cos(t),0.5f));
-
-        // SPOTLIGHT:
         spotLight.bind(simpleShader,"Zwei", cam.calculateViewMatrix());
     }
 
@@ -342,8 +333,7 @@ public class Scene {
         // TODO: BIKE MOVEMENT
         float finishPosition = -88.49058f;
         float cupFinishPosition = 0.08333333f;
-        float taxiPosition = (float) floor(taxi.getWorldPosition().x) -2;
-
+        float taxiPosition = (float) floor(taxi.getWorldPosition().x) - 2;
 
         boolean collision = false;
 
@@ -385,13 +375,19 @@ public class Scene {
 
         /** taxi **/
         float taxiCarSTOP = 3.0f;
-        float taxiStart = 1;
+        float taxiStart = 1.0f;
 
         if (taxiPosition == taxiCarSTOP) {
             taxi.translateLocal(new Vector3f(0.0f,0.0f, 0.0f));
         } else if (bicycle.getWorldPosition().z <= taxiStart) {
             taxi.translateLocal(new Vector3f((translationMultiplier/1.0f) * dt,0.0f, 0.0f));
         }
+
+
+
+
+
+
 
         /** football **/
         //System.out.println("Football: "+football.getWorldPosition().x);
@@ -414,8 +410,6 @@ public class Scene {
             //football.rotateLocal((rotationMultiplier/1.0f) * dt, 0,0);
             football.rotateAroundPoint(0.0f,(rotationMultiplier/1.0f) * dt,0, football.getWorldPosition());
         }*/
-
-
 
         // TODO: CAMERA CHANGE
         changeCamera();

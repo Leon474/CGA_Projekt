@@ -9,7 +9,7 @@ uniform mat4 view;
 
 void main()
 {
-    vec4 pos = projection * view * vec4(aPos, 1.0f);    // transform coordinates --> coordinates in screenspace = final transform coordinates
+    vec4 pos = projection * view * vec4(aPos, 1.0f);    // final transform coordinates --> coordinates in screenspace
     gl_Position = vec4(pos.x, pos.y, pos.w, pos.w);     // always a depht value (z) of 1 --> furthes value possible = behind all objects
-    texCoords = vec3(aPos.x, aPos.y, -aPos.z);
+    texCoords = vec3(aPos.x, aPos.y, -aPos.z);          // skybox is right handed system --> ansonsten falschherum dargestellt
 }
